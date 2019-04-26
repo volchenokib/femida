@@ -3,7 +3,7 @@
     <el-container style="height: 100%;">
       <el-aside class="asside">
         <el-header class="asside__header">
-          <h4>Фемида</h4>
+          <h1 class="h1">Фемида</h1>
         </el-header>
         <el-tabs type="card" @tab-click="handleClick">
           <el-tab-pane label="Компания">
@@ -17,7 +17,7 @@
 
       <el-container>
         <el-header class="appHeader">
-          <span>{{this.$store.state.headerTitle}}</span>
+          <span class="h2">{{this.$store.state.headerTitle}}</span>
           <el-dropdown>
             <i class="el-icon-setting" style="margin-right: 15px"></i>
             <el-dropdown-menu slot="dropdown">
@@ -37,25 +37,32 @@
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
 import formRegion from "./components/formRegion.vue";
 import formCompany from "./components/formCompany.vue";
 
 export default {
   name: "app",
   components: {
-    HelloWorld,
     formRegion,
     formCompany
   },
   data() {
-    return {
-      activeName: "first"
-    };
+    return {};
   },
+  created() {
+    this.$router.replace("/");
+  },
+
   methods: {
     handleClick(tab, event) {
       console.log(tab, event);
+      if (tab.label == "Компания") {
+        this.$router.replace("/");
+        this.$store.state.headerTitle = "Анализ по компании";
+      } else if (tab.label == "Регион") {
+        this.$router.replace("region");
+        this.$store.state.headerTitle = "Анализ по территориальному признаку";
+      }
     }
   }
 };
@@ -75,6 +82,22 @@ body {
   text-align: center;
   color: #2c3e50;
 }
+
+// typo
+.h1 {
+  color: #2c3e50;
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.h2 {
+  color: #2c3e50;
+  font-size: 16px;
+  font-weight: bold;
+}
+
 .el-header {
   background-color: #b3c0d1;
   color: #333;
@@ -87,7 +110,7 @@ body {
 
 .asside {
   background-color: rgb(203, 219, 247);
-  // width: 200px !important;
+  width: 360px !important;
   &__header {
     background-color: rgb(203, 219, 247) !important;
     margin-top: -21px;

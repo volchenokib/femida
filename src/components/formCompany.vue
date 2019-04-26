@@ -1,24 +1,23 @@
 <template>
   <el-form class="custom-form" ref="form" :model="form" label-position="top">
-    <!-- <el-form-item label="Компания">
-      <el-autocomplete
-        class="custom-form__item"
-        popper-class="popper"
-        v-model="form.company"
-        :fetch-suggestions="querySearchAsync"
-        @select="handleSelect"
-      ></el-autocomplete>
-    </el-form-item>-->
-
     <el-form-item label="Компания">
       <el-select
         class="custom-form__item"
         v-model="form.company"
-        no-match-text="не найдено"
-        default-first-option
         filterable
+        remote
+        reserve-keyword
+        placeholder="введите название компании"
+        :remote-method="remoteMethod"
+        :loading="loading"
       >
-        <el-option v-for="item in companies" :key="item.value" :label="item.label" :value="item"/>
+        <el-option
+          v-for="item in options"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
+        ></el-option>
+        <i slot="prefix" class="el-input__icon el-icon-search"></i>
       </el-select>
     </el-form-item>
 
@@ -55,70 +54,16 @@ export default {
         resource: "По заказчику",
         region: ""
       },
+      options: [],
+      value: [],
+      list: [],
+      loading: false,
       companies: [
-        {
-          value: "Option11",
-          label: "AO 'Р-Фарм'"
-        },
-        {
-          value: "Option21",
-          label:
-            "ФГБНУ 'ТОМСКИЙ НАЦИОНАЛЬНЫЙ ИССЛЕДОВАТЕЛЬСКИЙ МЕДИЦИНСКИЙ ЦЕНТР РОССИЙСКОЙ АКАДЕМИИ НАУК'"
-        },
-        {
-          value: "Option31",
-          label: "ООО 'Инвестиционное агенство'"
-        },
-        {
-          value: "Option41",
-          label: "ПОА 'Совкомбанк'"
-        },
-        {
-          value: "Option51",
-          label: "OOO 'БТЕ'"
-        },
-        {
-          value: "Option1110",
-          label: "AO 'Р-Фарм'"
-        },
-        {
-          value: "Option211",
-          label:
-            "ФГБНУ 'ТОМСКИЙ НАЦИОНАЛЬНЫЙ ИССЛЕДОВАТЕЛЬСКИЙ МЕДИЦИНСКИЙ ЦЕНТР РОССИЙСКОЙ АКАДЕМИИ НАУК'"
-        },
-        {
-          value: "Option311",
-          label: "ООО 'Инвестиционное агенство'"
-        },
-        {
-          value: "Option411",
-          label: "ПОА 'Совкомбанк'"
-        },
-        {
-          value: "Option511",
-          label: "OOO 'БТЕ'"
-        },
-        {
-          value: "Option111",
-          label: "AO 'Р-Фарм'"
-        },
-        {
-          value: "Option2111",
-          label:
-            "ФГБНУ 'ТОМСКИЙ НАЦИОНАЛЬНЫЙ ИССЛЕДОВАТЕЛЬСКИЙ МЕДИЦИНСКИЙ ЦЕНТР РОССИЙСКОЙ АКАДЕМИИ НАУК'"
-        },
-        {
-          value: "Option3111",
-          label: "ООО 'Инвестиционное агенство'"
-        },
-        {
-          value: "Option4111",
-          label: "ПОА 'Совкомбанк'"
-        },
-        {
-          value: "Option5111",
-          label: "OOO 'БТЕ'"
-        }
+        "AO 'Р-Фарм'",
+        "ФГБНУ 'ТОМСКИЙ НАЦИОНАЛЬНЫЙ ИССЛЕДОВАТЕЛЬСКИЙ МЕДИЦИНСКИЙ ЦЕНТР РОССИЙСКОЙ АКАДЕМИИ НАУК'",
+        "ООО 'Инвестиционное агенство'",
+        "ПОА 'Совкомбанк'",
+        "OOO 'БТЕ'"
       ],
       regions: [
         {
@@ -170,83 +115,32 @@ export default {
   },
 
   mounted() {
-    this.links = this.loadAll();
+    // company input default value
+    this.form.company = this.companies[0];
+
+    // region input default value
     this.form.region = this.regions[0];
-    this.form.company = this.companies[0].label;
-    this.$store.state.headerTitle = this.form.company;
+
+    this.list = this.companies.map(item => {
+      return { value: item, label: item };
+    });
   },
 
   methods: {
-    loadAll() {
-      return [
-        { value: "AO 'Р-Фарм'" },
-        {
-          value:
-            "ФГБНУ 'ТОМСКИЙ НАЦИОНАЛЬНЫЙ ИССЛЕДОВАТЕЛЬСКИЙ МЕДИЦИНСКИЙ ЦЕНТР РОССИЙСКОЙ АКАДЕМИИ НАУК'"
-        },
-        { value: "ООО 'Инвестиционное агенство'" },
-        { value: "ПОА 'Совкомбанк'" },
-        { value: "OOO 'БТЕ'" },
-        { value: "AO 'Р-Фарм'" },
-        {
-          value:
-            "ФГБНУ 'ТОМСКИЙ НАЦИОНАЛЬНЫЙ ИССЛЕДОВАТЕЛЬСКИЙ МЕДИЦИНСКИЙ ЦЕНТР РОССИЙСКОЙ АКАДЕМИИ НАУК'"
-        },
-        { value: "ООО 'Инвестиционное агенство'" },
-        { value: "ПОА 'Совкомбанк'" },
-        { value: "OOO 'БТЕ'" },
-        { value: "AO 'Р-Фарм'" },
-        {
-          value:
-            "ФГБНУ 'ТОМСКИЙ НАЦИОНАЛЬНЫЙ ИССЛЕДОВАТЕЛЬСКИЙ МЕДИЦИНСКИЙ ЦЕНТР РОССИЙСКОЙ АКАДЕМИИ НАУК'"
-        },
-        { value: "ООО 'Инвестиционное агенство'" },
-        { value: "ПОА 'Совкомбанк'" },
-        { value: "OOO 'БТЕ'" },
-        { value: "AO 'Р-Фарм'" },
-        {
-          value:
-            "ФГБНУ 'ТОМСКИЙ НАЦИОНАЛЬНЫЙ ИССЛЕДОВАТЕЛЬСКИЙ МЕДИЦИНСКИЙ ЦЕНТР РОССИЙСКОЙ АКАДЕМИИ НАУК'"
-        },
-        { value: "ООО 'Инвестиционное агенство'" },
-        { value: "ПОА 'Совкомбанк'" },
-        { value: "OOO 'БТЕ'" },
-        { value: "AO 'Р-Фарм'" },
-        {
-          value:
-            "ФГБНУ 'ТОМСКИЙ НАЦИОНАЛЬНЫЙ ИССЛЕДОВАТЕЛЬСКИЙ МЕДИЦИНСКИЙ ЦЕНТР РОССИЙСКОЙ АКАДЕМИИ НАУК'"
-        },
-        { value: "ООО 'Инвестиционное агенство'" },
-        { value: "ПОА 'Совкомбанк'" },
-        { value: "OOO 'БТЕ'" },
-        { value: "AO 'Р-Фарм'" },
-        {
-          value:
-            "ФГБНУ 'ТОМСКИЙ НАЦИОНАЛЬНЫЙ ИССЛЕДОВАТЕЛЬСКИЙ МЕДИЦИНСКИЙ ЦЕНТР РОССИЙСКОЙ АКАДЕМИИ НАУК'"
-        },
-        { value: "ООО 'Инвестиционное агенство'" },
-        { value: "ПОА 'Совкомбанк'" },
-        { value: "OOO 'БТЕ'" }
-      ];
+    remoteMethod(query) {
+      if (query !== "") {
+        this.loading = true;
+        setTimeout(() => {
+          this.loading = false;
+          this.options = this.list.filter(item => {
+            return item.label.toLowerCase().indexOf(query.toLowerCase()) > -1;
+          });
+        }, 200);
+      } else {
+        this.options = [];
+      }
     },
-    querySearchAsync(queryString, cb) {
-      var links = this.links;
-      var results = queryString
-        ? links.filter(this.createFilter(queryString))
-        : links;
 
-      clearTimeout(this.timeout);
-      this.timeout = setTimeout(() => {
-        cb(results);
-      }, 3000 * Math.random());
-    },
-    createFilter(queryString) {
-      return link => {
-        return (
-          link.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0
-        );
-      };
-    },
     handleSelect(item) {
       console.log(item);
     }

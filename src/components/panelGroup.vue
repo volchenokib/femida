@@ -1,0 +1,199 @@
+<template>
+  <el-row :gutter="40" class="panel-group">
+    <!-- contracts -->
+    <el-col
+      :xs="12"
+      :sm="12"
+      :lg="4"
+      class="card-panel-col"
+      v-loading="dataLoading"
+      element-loading-spinner="el-icon-loading"
+    >
+      <div class="card-panel">
+        <div class="card-panel-description" v-if="!dataLoading">
+          <count-to
+            :start-val="0"
+            :end-val="this.panelData.contracts"
+            :duration="2600"
+            :separator="' '"
+            class="card-panel-num"
+          />
+          <div class="card-panel-text">контрактов</div>
+        </div>
+      </div>
+    </el-col>
+
+    <!-- money -->
+    <el-col
+      :xs="12"
+      :sm="12"
+      :lg="4"
+      class="card-panel-col"
+      v-loading="dataLoading"
+      element-loading-spinner="el-icon-loading"
+    >
+      <div class="card-panel">
+        <div class="card-panel-description" v-if="!dataLoading">
+          <count-to
+            :start-val="0"
+            :end-val="this.panelData.money"
+            :decimal="','"
+            :decimals="2"
+            :duration="2600"
+            class="card-panel-num"
+          />
+          <div class="card-panel-text">млрд. руб.</div>
+        </div>
+      </div>
+    </el-col>
+
+    <!-- customers -->
+    <el-col
+      :xs="12"
+      :sm="12"
+      :lg="4"
+      class="card-panel-col"
+      v-loading="dataLoading"
+      element-loading-spinner="el-icon-loading"
+    >
+      <div class="card-panel">
+        <div class="card-panel-description" v-if="!dataLoading">
+          <count-to
+            :start-val="0"
+            :end-val="this.panelData.customers"
+            :separator="' '"
+            :duration="2600"
+            class="card-panel-num"
+          />
+          <div class="card-panel-text">уникальных заказчиков</div>
+        </div>
+      </div>
+    </el-col>
+
+    <!-- CRI -->
+    <el-col
+      :xs="12"
+      :sm="12"
+      :lg="4"
+      class="card-panel-col"
+      v-loading="dataLoading"
+      element-loading-spinner="el-icon-loading"
+    >
+      <div class="card-panel">
+        <div class="card-panel-description" v-if="!dataLoading">
+          <count-to
+            :prefix="'CRI '"
+            :start-val="0"
+            :end-val="this.panelData.cri"
+            :suffix="'%'"
+            :duration="2600"
+            class="card-panel-num"
+          />
+          <div class="card-panel-text">в среднем</div>
+        </div>
+      </div>
+    </el-col>
+
+    <!-- risk -->
+    <el-col
+      :xs="12"
+      :sm="12"
+      :lg="5"
+      class="card-panel-col"
+      v-loading="dataLoading"
+      element-loading-spinner="el-icon-loading"
+    >
+      <div class="card-panel chart">
+        <simplePie v-if="!dataLoading"/>
+        <div
+          class="card-panel-description"
+          v-if="!dataLoading"
+          element-loading-spinner="el-icon-loading"
+        >
+          <count-to
+            :start-val="0"
+            :end-val="this.panelData.risk"
+            :decimal="','"
+            :decimals="1"
+            :duration="2600"
+            class="card-panel-num risk"
+          />
+          <div class="card-panel-text">низкий уровень риска</div>
+        </div>
+        <!-- <div v-else>Загрузка</div> -->
+      </div>
+    </el-col>
+  </el-row>
+</template>
+
+<script>
+import CountTo from "vue-count-to";
+import simplePie from "@/components/simplePie";
+export default {
+  name: "panelGroup",
+  components: {
+    simplePie,
+    CountTo
+  },
+  data() {
+    return {};
+  },
+  created() {},
+  computed: {
+    dataLoading() {
+      return this.$store.getters.getDataState;
+    },
+    panelData() {
+      return this.$store.getters.panelData;
+    }
+  }
+};
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped lang="scss">
+.panel-group {
+  display: flex;
+  justify-content: center;
+  margin-top: 18px;
+  .card-panel-col {
+    margin-bottom: 32px;
+  }
+  .card-panel {
+    height: 108px;
+    background: #e6e6e6;
+    border-color: rgba(0, 0, 0, 0.05);
+    box-shadow: 4px 4px 40px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    display: flex;
+    font-size: 12px;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    color: #666;
+  }
+  .card-panel-num {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  .card-panel-text {
+    font-size: 16px;
+    margin-top: 5px;
+  }
+
+  .chart {
+    justify-content: space-between;
+    padding: 0 10px;
+  }
+
+  .risk {
+    color: #2ec7c9;
+    font-size: 22px;
+    font-weight: bold;
+    &:hover {
+      color: #32dadd;
+    }
+  }
+}
+</style>

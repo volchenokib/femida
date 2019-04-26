@@ -1,14 +1,14 @@
 <template>
-  <div class="home">
+  <div class="region">
     <panelGroup/>
   </div>
 </template>
 
+
 <script>
 import panelGroup from "@/components/panelGroup.vue";
-
 export default {
-  name: "home",
+  name: "region",
   components: {
     panelGroup
   }

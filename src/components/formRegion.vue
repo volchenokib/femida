@@ -5,6 +5,7 @@
         class="custom-form__item"
         v-model="form.region"
         no-match-text="не найдено"
+        @change="getNewData"
         default-first-option
         filterable
       >
@@ -20,7 +21,6 @@
 
 export default {
   name: "KeyboardChart",
-  //   components: { Chart },
   data() {
     return {
       form: {
@@ -71,22 +71,28 @@ export default {
     };
   },
 
-  mounted() {
+  created() {
+    // set default value
     this.form.region = this.options[0];
-    this.$store.state.headerTitle = this.form.region.label;
+    this.$store.dispatch("getDashboardData", this.form.region);
   },
 
   methods: {
-    onSubmit(formName) {
-      this.$refs[formName].validate(valid => {
-        if (valid) {
-          alert("submit!");
-        } else {
-          console.log("error submit!!");
-          return false;
-        }
-      });
+    getNewData(region) {
+      console.log(region);
+      this.form.region = region;
+      this.$store.dispatch("getDashboardData", this.form.region);
     }
+    // onSubmit(formName) {
+    //   this.$refs[formName].validate(valid => {
+    //     if (valid) {
+    //       alert("submit!");
+    //     } else {
+    //       console.log("error submit!!");
+    //       return false;
+    //     }
+    //   });
+    // }
   }
 };
 </script>
