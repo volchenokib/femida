@@ -28,7 +28,7 @@
           </el-dropdown>
         </el-header>
 
-        <el-main>
+        <el-main class="page-wrapper">
           <router-view/>
         </el-main>
       </el-container>
@@ -116,6 +116,10 @@ body {
     margin-top: -21px;
     text-align: center;
   }
+}
+
+.page-wrapper {
+  background-color: #f3f7ff;
 }
 
 .appHeader {

@@ -5,6 +5,7 @@
         class="custom-form__item"
         v-model="form.region"
         no-match-text="не найдено"
+        :disabled="isDisable"
         @change="getNewData"
         default-first-option
         filterable
@@ -77,22 +78,18 @@ export default {
     this.$store.dispatch("getDashboardData", this.form.region);
   },
 
+  computed: {
+    isDisable() {
+      return this.$store.getters.getInputState;
+    }
+  },
+
   methods: {
     getNewData(region) {
       console.log(region);
       this.form.region = region;
       this.$store.dispatch("getDashboardData", this.form.region);
     }
-    // onSubmit(formName) {
-    //   this.$refs[formName].validate(valid => {
-    //     if (valid) {
-    //       alert("submit!");
-    //     } else {
-    //       console.log("error submit!!");
-    //       return false;
-    //     }
-    //   });
-    // }
   }
 };
 </script>

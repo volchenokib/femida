@@ -4,7 +4,7 @@
     <el-col
       :xs="12"
       :sm="12"
-      :lg="4"
+      :lg="12"
       class="card-panel-col"
       v-loading="dataLoading"
       element-loading-spinner="el-icon-loading"
@@ -27,7 +27,7 @@
     <el-col
       :xs="12"
       :sm="12"
-      :lg="4"
+      :lg="12"
       class="card-panel-col"
       v-loading="dataLoading"
       element-loading-spinner="el-icon-loading"
@@ -51,7 +51,7 @@
     <el-col
       :xs="12"
       :sm="12"
-      :lg="4"
+      :lg="12"
       class="card-panel-col"
       v-loading="dataLoading"
       element-loading-spinner="el-icon-loading"
@@ -74,7 +74,7 @@
     <el-col
       :xs="12"
       :sm="12"
-      :lg="4"
+      :lg="12"
       class="card-panel-col"
       v-loading="dataLoading"
       element-loading-spinner="el-icon-loading"
@@ -98,7 +98,7 @@
     <el-col
       :xs="12"
       :sm="12"
-      :lg="5"
+      :lg="12"
       class="card-panel-col"
       v-loading="dataLoading"
       element-loading-spinner="el-icon-loading"
@@ -126,6 +126,7 @@
   </el-row>
 </template>
 
+
 <script>
 import CountTo from "vue-count-to";
 import simplePie from "@/components/simplePie";
@@ -150,14 +151,14 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+
 <style scoped lang="scss">
 .panel-group {
   display: flex;
-  justify-content: center;
-  margin-top: 18px;
+  justify-content: space-between;
+  // margin-top: 18px;
   .card-panel-col {
-    margin-bottom: 32px;
+    margin-bottom: 20px;
   }
   .card-panel {
     height: 108px;
