@@ -118,7 +118,7 @@
             :duration="2600"
             class="card-panel-num risk"
           />
-          <div class="card-panel-text">низкий уровень риска</div>
+          <div class="card-panel-text risk-text">низкий уровень риска</div>
         </div>
         <!-- <div v-else>Загрузка</div> -->
       </div>
@@ -161,13 +161,12 @@ export default {
     margin-bottom: 20px;
   }
   .card-panel {
-    height: 108px;
+    height: 90px;
     background: #e6e6e6;
     border-color: rgba(0, 0, 0, 0.05);
     box-shadow: 4px 4px 40px rgba(0, 0, 0, 0.05);
     cursor: pointer;
     display: flex;
-    font-size: 12px;
     justify-content: center;
     align-items: center;
     position: relative;
@@ -175,11 +174,11 @@ export default {
     color: #666;
   }
   .card-panel-num {
-    font-size: 20px;
+    font-size: 16px;
     font-weight: bold;
   }
   .card-panel-text {
-    font-size: 16px;
+    font-size: 14px;
     margin-top: 5px;
   }
 
@@ -190,10 +189,14 @@ export default {
 
   .risk {
     color: #2ec7c9;
-    font-size: 22px;
+    font-size: 16px;
     font-weight: bold;
     &:hover {
       color: #32dadd;
+    }
+    &-text {
+      font-size: 16px;
+      font-weight: bold;
     }
   }
 }

@@ -1,6 +1,6 @@
-import Vue from "vue";
-import Vuex from "vuex";
-import axios from "axios";
+import Vue from 'vue';
+import Vuex from 'vuex';
+import axios from 'axios';
 
 Vue.use(Vuex);
 
@@ -15,7 +15,10 @@ export default new Vuex.Store({
 		panelData: {},
 		lineChartData: {},
 		lineChartIndexData: {},
-		headerTitle: "Анализ по компании"
+		// pie charts at region page
+		customerAmount: {},
+		vendorAmount: {},
+		headerTitle: 'Анализ по компании'
 	},
 	getters: {
 		getDataState(state) {
@@ -31,8 +34,13 @@ export default new Vuex.Store({
 			return state.lineChartData;
 		},
 		lineChartIndexData(state) {
-			console.log("getters", state.lineChartIndexData);
 			return state.lineChartIndexData;
+		},
+		customerAmountData(state) {
+			return state.customerAmount;
+		},
+		vendorAmountData(state) {
+			return state.vendorAmount;
 		}
 	},
 	mutations: {
@@ -44,13 +52,15 @@ export default new Vuex.Store({
 			state.panelData = payload.panelData;
 			state.lineChartData = payload.lineChartData;
 			state.lineChartIndexData = payload.lineChartIndexData;
+			state.customerAmount = payload.customerAmount;
+			state.vendorAmount = payload.vendorAmount;
 			state.data.isLoding = false;
 			state.input.isDisable = false;
 		}
 	},
 	actions: {
 		getDashboardData(store, payload) {
-			store.commit("API_DATA_PENDING");
+			store.commit('API_DATA_PENDING');
 
 			// return axios
 			// 	.get(
@@ -63,7 +73,7 @@ export default new Vuex.Store({
 
 			let promise = new Promise((resolve, reject) => {
 				setTimeout(() => {
-					resolve("response");
+					resolve('response');
 				}, 3000);
 			});
 
@@ -82,14 +92,113 @@ export default new Vuex.Store({
 							expectedData: [55, 37, 50, 43, 40, 100, 35, 50, 41, 48, 42, 47]
 						},
 						lineChartIndexData: {
-							expectedData: [[0, 0], [15, 0.06], [20, 0.1], [30, 0.2], [40, 0.15], [55, 0]],
-							markPoint: [30, 0.2]
+							expectedData: [
+								[0, 0],
+								[15, 0.06],
+								[20, 0.1],
+								[30, 0.13],
+								[40, 0.15],
+								[50, 0.11],
+								[55, 0]
+							],
+							markPoint: [20, 0.1],
+							titleValue: '75'
+						},
+						customerAmount: {
+							actualData: [
+								{
+									value: 60,
+									name: 'ДРУГИЕ',
+									cri: '46',
+									contracts: 415,
+									sum: '1,4',
+									sumUnit: 'млн. руб'
+								},
+								{
+									value: 240,
+									name: 'ДЕПАРТАМЕНТ ФИНАНСОВ ТОМСКОЙ ОБЛАСТИ',
+									cri: '46',
+									contracts: 415,
+									sum: '1,4',
+									sumUnit: 'тыс. руб'
+								},
+								{
+									value: 149,
+									name:
+										"ФГБНУ 'ТОМСКИЙ НАЦИОНАЛЬНЫЙ ИССЛЕДОВАТЕЛЬСКИЙ МЕДИЦИНСКИЙ ЦЕНТР РОССИЙСКОЙ АКАДЕМИИ НАУК'",
+									cri: '46',
+									contracts: 415,
+									sum: '1,4',
+									sumUnit: 'тыс. руб'
+								},
+								{
+									value: 100,
+									name: "УМП 'СПЕЦАВТОХОЗЯЙСТВО Г.ТОМСКА'",
+									cri: '46',
+									contracts: 415,
+									sum: '1,4',
+									sumUnit: 'млн. руб'
+								},
+								{
+									value: 59,
+									name: "ПАО 'СОВКОМБАНК'",
+									cri: '15',
+									contracts: '2',
+									sum: '0,8',
+									sumUnit: 'млн. руб'
+								}
+							]
+						},
+						vendorAmount: {
+							actualData: [
+								{
+									value: 350,
+									name: 'ДРУГИЕ',
+									cri: '46',
+									contracts: 415,
+									sum: '1,4',
+									sumUnit: 'тыс. руб'
+								},
+								{
+									value: 205,
+									name: 'ДЕПАРТАМЕНТ ФИНАНСОВ ТОМСКОЙ ОБЛАСТИ',
+									cri: '46',
+									contracts: 415,
+									sum: '1,4',
+									sumUnit: 'млн. руб'
+								},
+								{
+									value: 138,
+									name:
+										"ФГБНУ 'ТОМСКИЙ НАЦИОНАЛЬНЫЙ ИССЛЕДОВАТЕЛЬСКИЙ МЕДИЦИНСКИЙ ЦЕНТР РОССИЙСКОЙ АКАДЕМИИ НАУК'",
+									cri: '46',
+									contracts: 415,
+									sum: 1.4,
+									sumUnit: 'млн. руб'
+								},
+								{
+									value: 89,
+									name: "УМП 'СПЕЦАВТОХОЗЯЙСТВО Г.ТОМСКА'",
+									cri: '46',
+									contracts: 415,
+									sum: '1,4',
+									sumUnit: 'тыс. руб'
+								},
+								{
+									value: 98,
+									name: "ПАО 'СОВКОМБАНК'",
+									cri: '46',
+									contracts: '415',
+									sum: '1,4',
+									sumUnit: 'млрд. руб'
+								}
+							]
 						}
 					};
-					store.commit("API_DATA_SUCCES", payload);
+					store.commit('API_DATA_SUCCES', payload);
 				})
 				.catch(error => {
-					store.commit("API_DATA_FAILURE", error);
+					store.commit('API_DATA_FAILURE', error);
 				});
 		}
 	}

@@ -4,12 +4,14 @@
     <div class="region__charts-layout">
       <div class="region__pieCharts">
         <pieChart
-          :title="'Распределение сумммы по заказчикам'"
+          :chartData="vendorAmountData"
+          :title="'Распределение суммы по заказчикам'"
           :style="{height: '350px', width:'95%'}"
         />
         <br>
         <pieChart
-          :title="'Распределение сумммы по поставщикам'"
+          :chartData="customerAmountData"
+          :title="'Распределение суммы по поставщикам'"
           :style="{height: '350px', width:'95%'}"
         />
       </div>
@@ -45,8 +47,13 @@ export default {
       return this.$store.getters.lineChartData;
     },
     lineChartIndexData() {
-      console.log("computed", this.$store.getters.lineChartIndexData);
       return this.$store.getters.lineChartIndexData;
+    },
+    customerAmountData() {
+      return this.$store.getters.customerAmountData;
+    },
+    vendorAmountData() {
+      return this.$store.getters.vendorAmountData;
     }
   }
 };

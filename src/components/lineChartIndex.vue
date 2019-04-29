@@ -98,10 +98,10 @@ export default {
         this.__resizeHandler();
       }
     },
-    setOptions({ expectedData, markPoint } = {}) {
+    setOptions({ expectedData, markPoint, titleValue } = {}) {
       this.chart.setOption({
         title: {
-          text: "Ваш CRI меньше чем у 70% регионов",
+          text: `Ваш CRI меньше чем у ${titleValue}% регионов`,
           x: "center",
           align: "center"
         },

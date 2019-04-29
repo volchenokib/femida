@@ -1,14 +1,24 @@
 <template>
-  <div :class="className" :style="{height:height,width:width}"/>
+  <div
+    :class="className"
+    :style="{height:height,width:width}"
+    v-loading="dataLoading"
+    element-loading-spinner="el-icon-loading"
+  />
 </template>
 
 <script>
 import echarts from "echarts";
 require("echarts/theme/macarons"); // echarts theme
 import { debounce } from "@/utils";
+import { defaultCoreCipherList } from "constants";
 
 export default {
   props: {
+    chartData: {
+      type: Object,
+      required: true
+    },
     className: {
       type: String,
       default: "chart"
@@ -31,6 +41,22 @@ export default {
       chart: null
     };
   },
+
+  watch: {
+    chartData: {
+      deep: true,
+      handler(val) {
+        this.setOptions(val);
+      }
+    }
+  },
+
+  computed: {
+    dataLoading() {
+      return this.$store.getters.getDataState;
+    }
+  },
+
   mounted() {
     this.initChart();
     this.__resizeHandler = debounce(() => {
@@ -40,6 +66,7 @@ export default {
     }, 100);
     window.addEventListener("resize", this.__resizeHandler);
   },
+
   beforeDestroy() {
     if (!this.chart) {
       return;
@@ -48,59 +75,95 @@ export default {
     this.chart.dispose();
     this.chart = null;
   },
+
   methods: {
-    initChart() {
-      (this.chart = echarts.init(this.$el, "macarons")),
-        this.chart.setOption({
-          title: {
-            text: "Распределение сумммы по заказчикам",
-            left: "center",
-            // top: 20,
-            textStyle: {
-              //   color: "#ccc"
-            }
+    setOptions({ actualData } = {}) {
+      this.chart.setOption({
+        title: {
+          text: this.title,
+          left: "center",
+          // top: 20,
+          textStyle: {
+            //   color: "#ccc"
+          }
+        },
+
+        calculable: true,
+
+        tooltip: {
+          backgroundColor: "rgba(50, 50, 50, 0.9)",
+          color: "#ff7f50",
+          padding: [15, 20],
+          trigger: "item",
+
+          textStyle: {
+            fontFamily:
+              "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif",
+            fontSize: 14,
+            fontWeight: "lighter"
           },
 
-          tooltip: {
-            trigger: "item",
-            formatter: "{a} <br/>{b} : {c} ({d}%)"
-          },
+          extraCssText: "text-align: left;",
 
-          legend: {
-            left: "center",
-            bottom: "10",
-            data: ["Industries", "Technology", "Forex", "Gold", "Forecasts"]
-          },
+          formatter: function(actualData) {
+            let percent = Math.round(actualData.percent);
+            let cri = actualData.data.cri;
+            let contracts = actualData.data.contracts;
+            let sum = actualData.data.sum;
+            let sumUnit = actualData.data.sumUnit;
+            // console.log("formatter", actualData);
+            return `доля: ${percent}% </br> CRI: ${cri}% в среднем </br> контрактов: ${contracts} </br> сумма: ${sum} ${sumUnit}`;
+          }
+        },
 
-          calculable: true,
+        legend: {
+          left: "center",
+          bottom: "10",
+          data: actualData,
+          formatter: function(item) {
+            return (item = "");
+          }
+        },
 
-          series: [
-            {
-              name: "",
-              type: "pie",
-              roseType: "radius",
-              radius: [15, 95],
-              center: ["50%", "50%"],
-              data: [
-                { value: 60, name: "ДРУГИЕ" },
-                { value: 240, name: "ДЕПАРТАМЕНТ ФИНАНСОВ ТОМСКОЙ ОБЛАСТИ" },
-                {
-                  value: 149,
-                  name:
-                    "ФГБНУ 'ТОМСКИЙ НАЦИОНАЛЬНЫЙ ИССЛЕДОВАТЕЛЬСКИЙ МЕДИЦИНСКИЙ ЦЕНТР РОССИЙСКОЙ АКАДЕМИИ НАУК'"
+        series: [
+          {
+            name: "",
+            type: "pie",
+            roseType: "radius",
+            radius: [15, 95],
+            center: ["50%", "50%"],
+            data: actualData,
+
+            label: {
+              normal: {
+                formatter: function(b) {
+                  if (b.name.length > 30) {
+                    var find = " ";
+                    var re = new RegExp(find, "g");
+                    var str = b.name.replace(re, "\n");
+                    return str;
+                  }
                 },
-                { value: 100, name: "УМП 'СПЕЦАВТОХОЗЯЙСТВО Г.ТОМСКА'" },
-                { value: 59, name: "ПАО 'СОВКОМБАНК'" }
-              ],
+                fontSize: 11,
+                rich: {
+                  b: {
+                    // align: "center",
+                    // verticalAlign: "middle"
+                  }
+                }
+              }
+            },
 
-              label: {
-                width: 50
-              },
-              animationEasing: "cubicInOut",
-              animationDuration: 2600
-            }
-          ]
-        });
+            animationEasing: "cubicInOut",
+            animationDuration: 2600
+          }
+        ]
+      });
+    },
+
+    initChart() {
+      this.chart = echarts.init(this.$el, "macarons");
+      this.setOptions(this.chartData);
     }
   }
 };

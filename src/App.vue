@@ -12,6 +12,7 @@
           <el-tab-pane label="Регион" lazy>
             <formRegion/>
           </el-tab-pane>
+          <el-tab-pane label="Связи" lazy></el-tab-pane>
         </el-tabs>
       </el-aside>
 
@@ -55,13 +56,17 @@ export default {
 
   methods: {
     handleClick(tab, event) {
-      console.log(tab, event);
+      // console.log(tab, event);
       if (tab.label == "Компания") {
         this.$router.replace("/");
         this.$store.state.headerTitle = "Анализ по компании";
       } else if (tab.label == "Регион") {
         this.$router.replace("region");
         this.$store.state.headerTitle = "Анализ по территориальному признаку";
+      } else if (tab.label == "Связи") {
+        this.$router.replace("relation");
+        this.$store.state.headerTitle =
+          "Отслеживание связей между поставщиками";
       }
     }
   }
@@ -71,6 +76,8 @@ export default {
 <style <style lang="scss">
 html,
 body {
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   height: 100%;
   margin: 0;
 }
