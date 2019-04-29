@@ -36,6 +36,7 @@ export default {
       default: "Chart Title"
     }
   },
+
   data() {
     return {
       chart: null

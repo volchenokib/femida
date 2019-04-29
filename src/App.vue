@@ -7,17 +7,21 @@
         </el-header>
         <el-tabs type="card" @tab-click="handleClick">
           <el-tab-pane label="Компания">
+            <span>Анализ по компании</span>
             <formCompany/>
           </el-tab-pane>
           <el-tab-pane label="Регион" lazy>
+            <span>Анализ по территориальному признаку</span>
             <formRegion/>
           </el-tab-pane>
-          <el-tab-pane label="Связи" lazy></el-tab-pane>
+          <el-tab-pane label="Связи" lazy>
+            <span>Отслеживание связей между поставщиками</span>
+          </el-tab-pane>
         </el-tabs>
       </el-aside>
 
       <el-container>
-        <el-header class="appHeader">
+        <!-- <el-header class="appHeader">
           <span class="h2">{{this.$store.state.headerTitle}}</span>
           <el-dropdown>
             <i class="el-icon-setting" style="margin-right: 15px"></i>
@@ -27,7 +31,7 @@
               <el-dropdown-item>Delete</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
-        </el-header>
+        </el-header>-->
 
         <el-main class="page-wrapper">
           <router-view/>
@@ -60,11 +64,13 @@ export default {
       if (tab.label == "Компания") {
         this.$router.replace("/");
         this.$store.state.headerTitle = "Анализ по компании";
-      } else if (tab.label == "Регион") {
+      }
+      if (tab.label == "Регион") {
         this.$router.replace("region");
         this.$store.state.headerTitle = "Анализ по территориальному признаку";
-      } else if (tab.label == "Связи") {
-        this.$router.replace("relation");
+      }
+      if (tab.label == "Связи") {
+        this.$router.replace("relations");
         this.$store.state.headerTitle =
           "Отслеживание связей между поставщиками";
       }
@@ -82,7 +88,7 @@ body {
   margin: 0;
 }
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  // font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100%;
@@ -120,7 +126,7 @@ body {
   width: 360px !important;
   &__header {
     background-color: rgb(203, 219, 247) !important;
-    margin-top: -21px;
+    margin-top: -12px;
     text-align: center;
   }
 }

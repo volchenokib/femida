@@ -156,13 +156,14 @@ export default {
 .panel-group {
   display: flex;
   justify-content: space-between;
-  // margin-top: 18px;
+  padding: 0 20px;
   .card-panel-col {
     margin-bottom: 20px;
   }
   .card-panel {
     height: 90px;
-    background: #e6e6e6;
+    background-color: #f6f9fe;
+    // background-color: #eeeeee;
     border-color: rgba(0, 0, 0, 0.05);
     box-shadow: 4px 4px 40px rgba(0, 0, 0, 0.05);
     cursor: pointer;
