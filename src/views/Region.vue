@@ -17,7 +17,7 @@
       </div>
 
       <div class="region__pieCharts">
-        <lineChart :chartData="lineChartData" :style="{height: '350px', width:'95%'}"/>
+        <lineChart :chartData="lineChartData" :style="{height: '350px', width:'95%'}" :title="'Динамика CRI по ТО за 2017 год'" />
         <br>
         <lineChartIndex :chartData="lineChartIndexData" :style="{height: '350px', width:'95%'}"/>
       </div>

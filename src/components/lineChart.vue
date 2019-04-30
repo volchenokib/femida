@@ -33,6 +33,10 @@ export default {
     chartData: {
       type: Object,
       required: true
+    },
+    title: {
+      type: String,
+      default: "Chart Title"
     }
   },
   data() {
@@ -101,7 +105,7 @@ export default {
     setOptions({ expectedData, actualData } = {}) {
       this.chart.setOption({
         title: {
-          text: "Динамика CRI по ТО за 2017 год",
+          text: this.title,
           x: "center",
           align: "center"
         },

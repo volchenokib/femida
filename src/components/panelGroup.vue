@@ -116,9 +116,10 @@
             :decimal="','"
             :decimals="1"
             :duration="2600"
-            class="card-panel-num risk"
+            class="card-panel-num"
+            :style="{color:riskColor}"
           />
-          <div class="card-panel-text risk-text">низкий уровень риска</div>
+          <div class="card-panel-text risk-text">{{riskLevel}} уровень риска</div>
         </div>
         <!-- <div v-else>Загрузка</div> -->
       </div>
@@ -146,6 +147,30 @@ export default {
     },
     panelData() {
       return this.$store.getters.panelData;
+    },
+    riskColor() {
+      if (this.$store.getters.panelData.risk <= 0.4) {
+        return "#2ec7c9";
+      } else if (
+        this.$store.getters.panelData.risk >= 0.4 &&
+        this.$store.getters.panelData.risk <= 0.6
+      ) {
+        return "#f5994e";
+      } else {
+        return "#d87a80";
+      }
+    },
+    riskLevel() {
+      if (this.$store.getters.panelData.risk <= 0.4) {
+        return "низкий";
+      } else if (
+        this.$store.getters.panelData.risk >= 0.4 &&
+        this.$store.getters.panelData.risk <= 0.6
+      ) {
+        return "средний";
+      } else {
+        return "высокий";
+      }
     }
   }
 };
@@ -192,9 +217,7 @@ export default {
     color: #2ec7c9;
     font-size: 16px;
     font-weight: bold;
-    &:hover {
-      color: #32dadd;
-    }
+
     &-text {
       font-size: 16px;
       font-weight: bold;

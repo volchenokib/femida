@@ -23,8 +23,8 @@
 
     <el-form-item>
       <el-radio-group v-model="form.resource">
-        <el-radio label="По заказчику"/>
-        <el-radio label="По поставщику"/>
+        <el-radio v-model="form.resource" label="customer">По заказчику</el-radio>
+        <el-radio v-model="form.resource" label="vendor">По поставщику</el-radio>
       </el-radio-group>
     </el-form-item>
 
@@ -51,8 +51,8 @@ export default {
     return {
       form: {
         company: "",
-        resource: "По заказчику",
-        region: ""
+        region: "",
+        resource: "customer"
       },
       options: [],
       value: [],
@@ -114,12 +114,12 @@ export default {
     };
   },
 
-  mounted() {
-    // company input default value
+  created() {
+    // set default value
     this.form.company = this.companies[0];
-
-    // region input default value
     this.form.region = this.regions[0];
+
+    this.$store.dispatch("getDashboardData", this.form);
 
     this.list = this.companies.map(item => {
       return { value: item, label: item };

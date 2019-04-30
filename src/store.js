@@ -15,6 +15,7 @@ export default new Vuex.Store({
 		panelData: {},
 		lineChartData: {},
 		lineChartIndexData: {},
+		topContractsData: {},
 		// pie charts at region page
 		customerAmount: {},
 		vendorAmount: {},
@@ -41,6 +42,9 @@ export default new Vuex.Store({
 		},
 		vendorAmountData(state) {
 			return state.vendorAmount;
+		},
+		topContractsData(state) {
+			return state.topContractsData;
 		}
 	},
 	mutations: {
@@ -54,6 +58,7 @@ export default new Vuex.Store({
 			state.lineChartIndexData = payload.lineChartIndexData;
 			state.customerAmount = payload.customerAmount;
 			state.vendorAmount = payload.vendorAmount;
+			state.topContractsData = payload.topContractsData;
 			state.data.isLoding = false;
 			state.input.isDisable = false;
 		}
@@ -85,7 +90,7 @@ export default new Vuex.Store({
 							money: 12.8,
 							customers: 1964,
 							cri: 43,
-							risk: 0.39
+							risk: 0.2
 						},
 						lineChartData: {
 							actualData: [43, 43, 43, 43, 43, 43, 43, 43, 43, 43, 43, 43],
@@ -193,7 +198,30 @@ export default new Vuex.Store({
 									sumUnit: 'млрд. руб'
 								}
 							]
-						}
+						},
+						// topContractsData: [
+						// 	{ contract: '1701901197917000846', cri: '66.7' },
+						// 	{ contract: '1701901197917000846', cri: '15' },
+						// 	{ contract: '1701901197917000846', cri: '2' }
+						// ],
+						topContractsData: [
+							{
+								date: '2016-05-03',
+								name: 'Tom'
+							},
+							{
+								date: '2016-05-02',
+								name: 'Tom'
+							},
+							{
+								date: '2016-05-04',
+								name: 'Tom'
+							},
+							{
+								date: '2016-05-01',
+								name: 'Tom'
+							}
+						]
 					};
 					store.commit('API_DATA_SUCCES', payload);
 				})

@@ -111,6 +111,11 @@ body {
   font-weight: bold;
 }
 
+.chartTitle {
+  color: #0e90d0;
+  font-size: 20px;
+}
+
 .el-header {
   background-color: #b3c0d1;
   color: #333;
