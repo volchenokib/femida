@@ -103,7 +103,13 @@ export default {
         title: {
           text: `Ваш CRI меньше чем у ${titleValue}% регионов`,
           x: "center",
-          align: "center"
+          align: "center",
+          textStyle: {
+            color: "#666",
+            fontFamily:
+              "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif",
+            fontWeight: "bold"
+          }
         },
 
         grid: {
@@ -112,14 +118,6 @@ export default {
           bottom: 10,
           // top: 80,
           containLabel: true
-        },
-
-        tooltip: {
-          trigger: "axis",
-          axisPointer: {
-            type: "cross"
-          },
-          padding: [5, 10]
         },
 
         xAxis: {
@@ -140,16 +138,31 @@ export default {
           axisTick: {
             show: false
           }
-          // axisLabel: {
-          //   formatter: function(val) {
-          //     return val + "%";
-          //   }
-          // }
+        },
+
+        tooltip: {
+          trigger: "axis",
+          axisPointer: {
+            type: "cross"
+          },
+          backgroundColor: "rgba(50, 50, 50, 0.9)",
+          color: "#ff7f50",
+          padding: [15, 20],
+
+          textStyle: {
+            fontFamily:
+              "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif",
+            fontSize: 14,
+            fontWeight: "lighter"
+          },
+
+          extraCssText: "text-align: left;"
         },
 
         legend: {
-          data: ["CRI за 2017", "CRI"],
-          x: "right"
+          data: ["CRI"],
+          right: "32",
+          top: "5"
         },
 
         series: [
@@ -157,11 +170,11 @@ export default {
             name: "CRI",
             itemStyle: {
               normal: {
-                color: "#FF005A",
-                lineStyle: {
-                  color: "#FF005A",
-                  width: 2
-                }
+                // color: "#FF005A"
+                // lineStyle: {
+                //   color: "#d87a80",
+                //   width: 2
+                // }
               }
             },
             smooth: true,

@@ -187,7 +187,8 @@ export default {
   }
   .card-panel {
     height: 90px;
-    background-color: #f6f9fe;
+    background-color: #fff;
+    // background-color: #f6f9fe;
     // background-color: #eeeeee;
     border-color: rgba(0, 0, 0, 0.05);
     box-shadow: 4px 4px 40px rgba(0, 0, 0, 0.05);

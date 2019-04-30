@@ -130,6 +130,7 @@ a {
 }
 
 .asside {
+  // background-color: #9abde9;
   background-color: rgb(203, 219, 247);
   width: 360px !important;
   &__header {
@@ -140,7 +141,8 @@ a {
 }
 
 .page-wrapper {
-  background-color: #f3f7ff;
+  // background-color: #f3f7ff;
+  background-color: #f5f5f5;
 }
 
 .appHeader {

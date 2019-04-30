@@ -107,7 +107,22 @@ export default {
         title: {
           text: this.title,
           x: "center",
-          align: "center"
+          align: "center",
+          textStyle: {
+            color: "#666",
+            fontFamily:
+              "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif",
+            fontSize: 16,
+            fontWeight: "bold"
+          }
+        },
+
+        grid: {
+          left: 15,
+          right: 35,
+          bottom: 10,
+          top: 30,
+          containLabel: true
         },
 
         xAxis: {
@@ -130,20 +145,7 @@ export default {
             show: false
           }
         },
-        grid: {
-          left: 15,
-          right: 35,
-          bottom: 10,
-          top: 30,
-          containLabel: true
-        },
-        tooltip: {
-          trigger: "axis",
-          axisPointer: {
-            type: "cross"
-          },
-          padding: [5, 10]
-        },
+
         yAxis: {
           type: "value",
           axisTick: {
@@ -155,22 +157,43 @@ export default {
             }
           }
         },
+
+        tooltip: {
+          trigger: "axis",
+          axisPointer: {
+            type: "cross"
+          },
+          backgroundColor: "rgba(50, 50, 50, 0.9)",
+          color: "#ff7f50",
+          padding: [15, 20],
+
+          textStyle: {
+            fontFamily:
+              "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif",
+            fontSize: 14,
+            fontWeight: "lighter"
+          },
+
+          extraCssText: "text-align: left;"
+        },
+
         legend: {
-          data: ["CRI за 2017", "CRI"],
-          x: "right"
+          data: ["CRI 2017", "CRI"],
+          right: "32",
+          top: "5"
         },
 
         series: [
           {
             name: "CRI",
             itemStyle: {
-              normal: {
-                color: "#FF005A",
-                lineStyle: {
-                  color: "#FF005A",
-                  width: 2
-                }
-              }
+              // normal: {
+              //   color: "#FF005A",
+              //   lineStyle: {
+              //     color: "#FF005A",
+              //     width: 2
+              //   }
+              // }
             },
             smooth: true,
             type: "line",
@@ -179,20 +202,20 @@ export default {
             animationEasing: "cubicInOut"
           },
           {
-            name: "CRI за 2017",
+            name: "CRI 2017",
             smooth: true,
             type: "line",
             itemStyle: {
-              normal: {
-                color: "#3888fa",
-                lineStyle: {
-                  color: "#3888fa",
-                  width: 2
-                },
-                areaStyle: {
-                  color: "#f3f8ff"
-                }
-              }
+              // normal: {
+              //   color: "#3888fa",
+              //   lineStyle: {
+              //     color: "#3888fa",
+              //     width: 2
+              //   },
+              //   areaStyle: {
+              //     color: "#f3f8ff"
+              //   }
+              // }
             },
             data: actualData,
             animationDuration: 2800,
