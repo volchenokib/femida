@@ -98,7 +98,7 @@ body {
 
 // typo
 .h1 {
-  color: #2c3e50;
+  // color: #2c3e50;
   font-size: 20px;
   font-weight: bold;
   letter-spacing: 1.5px;
@@ -106,9 +106,12 @@ body {
 }
 
 .h2 {
-  color: #2c3e50;
+  // color: #2c3e50;
   font-size: 16px;
   font-weight: bold;
+}
+a {
+  color: #2c3e50;
 }
 
 .chartTitle {

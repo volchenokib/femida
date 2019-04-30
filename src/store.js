@@ -19,6 +19,7 @@ export default new Vuex.Store({
 		// pie charts at region page
 		customerAmount: {},
 		vendorAmount: {},
+		criCompositionData: {},
 		headerTitle: 'Анализ по компании'
 	},
 	getters: {
@@ -45,6 +46,9 @@ export default new Vuex.Store({
 		},
 		topContractsData(state) {
 			return state.topContractsData;
+		},
+		criCompositionData(state) {
+			return state.criCompositionData;
 		}
 	},
 	mutations: {
@@ -59,6 +63,7 @@ export default new Vuex.Store({
 			state.customerAmount = payload.customerAmount;
 			state.vendorAmount = payload.vendorAmount;
 			state.topContractsData = payload.topContractsData;
+			state.criCompositionData = payload.criCompositionData;
 			state.data.isLoding = false;
 			state.input.isDisable = false;
 		}
@@ -199,29 +204,29 @@ export default new Vuex.Store({
 								}
 							]
 						},
-						// topContractsData: [
-						// 	{ contract: '1701901197917000846', cri: '66.7' },
-						// 	{ contract: '1701901197917000846', cri: '15' },
-						// 	{ contract: '1701901197917000846', cri: '2' }
-						// ],
 						topContractsData: [
-							{
-								date: '2016-05-03',
-								name: 'Tom'
-							},
-							{
-								date: '2016-05-02',
-								name: 'Tom'
-							},
-							{
-								date: '2016-05-04',
-								name: 'Tom'
-							},
-							{
-								date: '2016-05-01',
-								name: 'Tom'
-							}
-						]
+							{ contract: '0816300017019000088', cri: '66.7' },
+							{ contract: '0816300017019000160', cri: '15' },
+							{ contract: '0345200017019000018', cri: '2' }
+						],
+						criCompositionData: {
+							actualData: [
+								{
+									value: '30',
+									name: 'ИЗМЕНЕНА СТОИМОСТЬ КОНТРАКТА\nПОСЛЕ ЗАКЛЮЧЕНИЯ'
+								},
+
+								{
+									value: '30',
+									name: 'ПЕРИОД ПОДАЧИ ЗАЯВОК\n15 ДНЕЙ'
+								},
+
+								{
+									value: '40',
+									name: 'НА КОНКУРС ПОДАНА\n1 ЗАЯВКА'
+								}
+							]
+						}
 					};
 					store.commit('API_DATA_SUCCES', payload);
 				})

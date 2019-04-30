@@ -7,6 +7,7 @@
       :title="'Динамика CRI для данного заказчика'"
     />
     <topContractsTable/>
+    <criComposition :title="'Составляющие CRI'" :chartData="criCompositionData"/>
   </div>
 </template>
 
@@ -14,23 +15,25 @@
 import panelGroup from "@/components/panelGroup.vue";
 import lineChart from "@/components/lineChart";
 import topContractsTable from "@/components/topContractsTable";
+import criComposition from "@/components/criComposition";
 
 export default {
   name: "home",
   components: {
     panelGroup,
     lineChart,
-    topContractsTable
+    topContractsTable,
+    criComposition
   },
 
   computed: {
     lineChartData() {
       return this.$store.getters.lineChartData;
+    },
+    criCompositionData() {
+      // console.log("computed", this.$store.getters.topContractsData);
+      return this.$store.getters.criCompositionData;
     }
-    // topContractsData() {
-    //   console.log("computed", this.$store.getters.topContractsData);
-    //   return this.$store.getters.topContractsData;
-    // }
   }
 };
 </script>
