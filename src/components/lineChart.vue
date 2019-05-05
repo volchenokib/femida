@@ -19,8 +19,8 @@ export default {
       default: "chart"
     },
     width: {
-      type: String,
-      default: "68%"
+      type: String
+      // default: "100%"
     },
     height: {
       type: String,
@@ -143,6 +143,11 @@ export default {
           boundaryGap: false,
           axisTick: {
             show: false
+          },
+          axisLine: {
+            // lineStyle: {
+            //   color: "#8d98b3"
+            // }
           }
         },
 
@@ -206,16 +211,16 @@ export default {
             smooth: true,
             type: "line",
             itemStyle: {
-              // normal: {
-              //   color: "#3888fa",
-              //   lineStyle: {
-              //     color: "#3888fa",
-              //     width: 2
-              //   },
-              //   areaStyle: {
-              //     color: "#f3f8ff"
-              //   }
-              // }
+              normal: {
+                //   color: "#3888fa",
+                //   lineStyle: {
+                //     color: "#3888fa",
+                //     width: 2
+                //   },
+                areaStyle: {
+                  color: "rgba(182, 162, 222, 0.4)"
+                }
+              }
             },
             data: actualData,
             animationDuration: 2800,

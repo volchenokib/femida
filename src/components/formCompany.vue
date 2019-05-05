@@ -1,24 +1,44 @@
 <template>
-  <el-form class="custom-form" ref="form" :model="form" label-position="top">
-    <el-form-item label="Компания">
+  <el-form class="custom-form" ref="form" :model="form">
+    <el-form-item label="Выбор компании">
       <el-select
         class="custom-form__item"
         v-model="form.company"
+        placeholder="AO 'Р-Фарм'"
+        :remote-method="remoteMethod"
+        :loading="this.$store.state.searchLoading"
+        @focus="hideValue"
         filterable
         remote
         reserve-keyword
-        placeholder="введите название компании"
-        :remote-method="remoteMethod"
-        :loading="loading"
       >
         <el-option
-          v-for="item in options"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"
+          v-for="item in this.$store.state.options"
+          :key="item"
+          :label="item"
+          :value="item"
         ></el-option>
         <i slot="prefix" class="el-input__icon el-icon-search"></i>
       </el-select>
+      <!-- 
+      <br>
+      <br>-->
+
+      <!-- ---------------------------------------------------------------------------------- -->
+
+      <!-- <div class="sub-title">list suggestions on input</div>
+      <div class="autocomplete-container">
+        <el-autocomplete
+          class="custom-form__item"
+          v-model="state2"
+          :fetch-suggestions="querySearch"
+          placeholder="Please Input"
+          :trigger-on-focus="false"
+          @select="handleSelect"
+        ></el-autocomplete>
+      </div>-->
+
+      <!-- ---------------------------------------------------------------------------------- -->
     </el-form-item>
 
     <el-form-item>
@@ -32,7 +52,7 @@
       <el-select
         class="custom-form__item"
         v-model="form.region"
-        no-match-text="не найдено"
+        no-match-text="Нет данных"
         default-first-option
         filterable
       >
@@ -49,22 +69,16 @@ export default {
   components: {},
   data() {
     return {
+      links: [],
+      state1: "",
+      state2: "",
+
       form: {
         company: "",
         region: "",
         resource: "customer"
       },
-      options: [],
       value: [],
-      list: [],
-      loading: false,
-      companies: [
-        "AO 'Р-Фарм'",
-        "ФГБНУ 'ТОМСКИЙ НАЦИОНАЛЬНЫЙ ИССЛЕДОВАТЕЛЬСКИЙ МЕДИЦИНСКИЙ ЦЕНТР РОССИЙСКОЙ АКАДЕМИИ НАУК'",
-        "ООО 'Инвестиционное агенство'",
-        "ПОА 'Совкомбанк'",
-        "OOO 'БТЕ'"
-      ],
       regions: [
         {
           value: "Option101",
@@ -116,29 +130,81 @@ export default {
 
   created() {
     // set default value
-    this.form.company = this.companies[0];
+    this.form.company = this.$store.state.companies[0];
+    this.form.company2 = this.$store.state.companies[0];
     this.form.region = this.regions[0];
 
     this.$store.dispatch("getDashboardData", this.form);
 
-    this.list = this.companies.map(item => {
-      return { value: item, label: item };
-    });
+    // this.list = this.companies.map(item => {
+    //   return { value: item, label: item };
+    // });
+  },
+
+  mounted() {
+    this.links = this.loadAll();
+  },
+
+  computed: {
+    searchLoading() {
+      return this.$store.getters.searchLoading;
+    }
   },
 
   methods: {
+    hideValue() {},
     remoteMethod(query) {
+      // this.$store.dispatch("getCompanyList", query);
+
       if (query !== "") {
-        this.loading = true;
+        this.$store.state.searchLoading = true;
         setTimeout(() => {
-          this.loading = false;
-          this.options = this.list.filter(item => {
-            return item.label.toLowerCase().indexOf(query.toLowerCase()) > -1;
-          });
+          this.$store.state.searchLoading = false;
+          this.$store.state.options = this.$store.state.companies.filter(
+            item => {
+              return item.toLowerCase().indexOf(query.toLowerCase()) > -1;
+            }
+          );
         }, 200);
       } else {
-        this.options = [];
+        this.$store.state.options = [];
       }
+    },
+
+    // ----------------------------------------------------------------------------------------
+
+    querySearch(queryString, cb) {
+      var links = this.links;
+      var results = queryString
+        ? links.filter(this.createFilter(queryString))
+        : links;
+      // call callback function to return suggestions
+      cb(results);
+    },
+    createFilter(queryString) {
+      return link => {
+        return (
+          link.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0
+        );
+      };
+    },
+    loadAll() {
+      return [
+        { value: "AO 'Р-Фарм'", link: "https://github.com/vuejs/vue" },
+        {
+          value:
+            "ФГБНУ 'ТОМСКИЙ НАЦИОНАЛЬНЫЙ ИССЛЕДОВАТЕЛЬСКИЙ МЕДИЦИНСКИЙ ЦЕНТР РОССИЙСКОЙ АКАДЕМИИ НАУК'",
+          link: "https://github.com/ElemeFE/element"
+        },
+        {
+          value: "ООО 'Инвестиционное агенство'",
+          link: "https://github.com/ElemeFE/cooking"
+        },
+        { value: "mint-ui", link: "https://github.com/ElemeFE/mint-ui" },
+        { value: "vuex", link: "https://github.com/vuejs/vuex" },
+        { value: "vue-router", link: "https://github.com/vuejs/vue-router" },
+        { value: "babel", link: "https://github.com/babel/babel" }
+      ];
     },
 
     handleSelect(item) {
@@ -156,5 +222,13 @@ export default {
   &__item {
     width: 100%;
   }
+}
+
+.custom-popper {
+  background-color: coral;
+}
+
+.autocomplete-container {
+  min-width: 340px;
 }
 </style>

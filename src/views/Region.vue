@@ -4,6 +4,7 @@
     <div class="region__charts-layout">
       <div class="region__pieCharts">
         <pieChart
+          :class="'chart'"
           :chartData="vendorAmountData"
           :title="'Распределение суммы по заказчикам'"
           :style="{height: '350px', width:'95%'}"
@@ -17,7 +18,11 @@
       </div>
 
       <div class="region__pieCharts">
-        <lineChart :chartData="lineChartData" :style="{height: '350px', width:'95%'}" :title="'Динамика CRI по ТО за 2017 год'" />
+        <lineChart
+          :chartData="lineChartData"
+          :style="{height: '350px', width:'95%'}"
+          :title="'Динамика CRI по ТО за 2017 год'"
+        />
         <br>
         <lineChartIndex :chartData="lineChartIndexData" :style="{height: '350px', width:'95%'}"/>
       </div>
@@ -61,21 +66,23 @@ export default {
 
 
 <style lang="scss" scoped>
+@import "../variables.scss";
 .region {
   &__charts-layout {
     display: flex;
-    // justify-content: space-between;
   }
   &__pieCharts {
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
-    // justify-content: center;
     width: 100%;
   }
 }
 .chart {
   background-color: #fff;
+  border: $border;
+  border-radius: $border-radius;
+  box-shadow: box-shadow;
   margin: 0 auto;
   padding: 15px 0;
 }

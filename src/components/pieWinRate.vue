@@ -78,7 +78,7 @@ export default {
   },
 
   methods: {
-    setOptions({ actualData } = {}) {
+    setOptions({ actualData }) {
       this.chart.setOption({
         title: {
           text: this.title,
@@ -87,79 +87,44 @@ export default {
             color: "#666",
             fontFamily:
               "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif",
+            fontSize: 16,
             fontWeight: "bold"
           }
         },
 
-        tooltip: {
-          backgroundColor: "rgba(50, 50, 50, 0.9)",
-          color: "#ff7f50",
-          padding: [15, 20],
-          trigger: "item",
-
-          textStyle: {
-            fontFamily:
-              "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif",
-            fontSize: 14,
-            fontWeight: "lighter"
-          },
-
-          extraCssText: "text-align: left;",
-
-          formatter: function(actualData) {
-            let percent = Math.round(actualData.percent);
-            let cri = actualData.data.cri;
-            let contracts = actualData.data.contracts;
-            let sum = actualData.data.sum;
-            let sumUnit = actualData.data.sumUnit;
-            // console.log("formatter", actualData);
-            return `доля: ${percent}% </br> CRI: ${cri}% в среднем </br> контрактов: ${contracts} </br> сумма: ${sum} ${sumUnit}`;
-          }
-        },
-
         legend: {
-          left: "center",
-          bottom: "10",
           data: actualData,
-          formatter: function(item) {
-            return (item = "");
-          }
+          type: "scroll",
+          bottom: "10",
+          left: "center",
+          pageIconColor: "#666"
         },
 
         series: [
           {
-            name: "",
+            name: "легенда",
             type: "pie",
             roseType: "radius",
-            radius: [15, 95],
+            radius: [20, 120],
             center: ["50%", "50%"],
             data: actualData,
 
             label: {
               normal: {
-                fontSize: 11,
-                formatter: function(b) {
-                  function replacer(str, offset, s) {
-                    if (offset >= 25) {
-                      return "\n";
-                    } else {
-                      return " ";
-                    }
+                formatter: ["{d|{d}%}", "{c|{c} контрактов}"].join("\n"),
+
+                rich: {
+                  d: {
+                    align: "center",
+                    fontSize: 14
+                  },
+                  c: {
+                    align: "center",
+                    fontSize: 12
                   }
-                  return b.name.replace(/\s/g, replacer);
-
-                  // if (b.name.length > 30) {
-                  // var find = " ";
-                  // var re = new RegExp(/\s/, "g");
-                  // var str = b.name.replace(re, "\n");
-                  // var str = b.name.replace(/\s/g, "\n");
-                  // return str;
-
-                  //}
                 }
               }
             },
-
             animationEasing: "cubicInOut",
             animationDuration: 2600
           }

@@ -83,13 +83,13 @@ export default {
         title: {
           text: this.title,
           left: "center",
-          // top: 20,
           textStyle: {
-            //   color: "#ccc"
+            color: "#666",
+            fontFamily:
+              "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif",
+            fontWeight: "bold"
           }
         },
-
-        calculable: true,
 
         // tooltip: {
         //   backgroundColor: "rgba(50, 50, 50, 0.9)",
@@ -204,7 +204,9 @@ export default {
             animationEasing: "cubicInOut",
             animationDuration: 2600
           }
-        ]
+        ],
+
+        calculable: true
       });
     },
 

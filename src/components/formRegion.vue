@@ -1,10 +1,10 @@
 <template>
-  <el-form class="custom-form" ref="form" :model="form" value-key="value" size="medium">
+  <el-form class="custom-form" ref="form" :model="form" value-key="value">
     <el-form-item label="Выбор региона">
       <el-select
         class="custom-form__item"
         v-model="form.region"
-        no-match-text="не найдено"
+        no-match-text="Нет данных"
         :disabled="isDisable"
         @change="getNewData"
         default-first-option

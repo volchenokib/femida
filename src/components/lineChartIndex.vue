@@ -183,7 +183,8 @@ export default {
             animationDuration: 2800,
             animationEasing: "cubicInOut",
             markPoint: {
-              data: [{ coord: markPoint }]
+              data: [{ coord: markPoint }],
+              symbol: "pin"
             }
           }
           // {

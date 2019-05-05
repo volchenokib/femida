@@ -98,9 +98,4 @@ export default {
 
 
 <style lang="scss" scoped>
-.makaron-theme {
-  color: #dc69aa #c14089 #6f5553 #7eb00a #c9ab00 #c05050 #f5994e, #588dd5,
-    #9a7fd1 #07a2a4, #dc69aa, #95706d, #97b552, #e5cf0d, #8d98b3, #d87a80,
-    #ffb980, #5ab1ef, #b6a2de, #2ec7c9, #59678c;
-}
 </style>

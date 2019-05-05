@@ -1,15 +1,8 @@
 <template>
   <el-row :gutter="40" class="panel-group">
     <!-- contracts -->
-    <el-col
-      :xs="12"
-      :sm="12"
-      :lg="12"
-      class="card-panel-col"
-      v-loading="dataLoading"
-      element-loading-spinner="el-icon-loading"
-    >
-      <div class="card-panel">
+    <el-col :xs="12" :sm="12" :lg="12" class="card-panel-col">
+      <div class="card-panel" v-loading="dataLoading" element-loading-spinner="el-icon-loading">
         <div class="card-panel-description" v-if="!dataLoading">
           <count-to
             :start-val="0"
@@ -24,15 +17,8 @@
     </el-col>
 
     <!-- money -->
-    <el-col
-      :xs="12"
-      :sm="12"
-      :lg="12"
-      class="card-panel-col"
-      v-loading="dataLoading"
-      element-loading-spinner="el-icon-loading"
-    >
-      <div class="card-panel">
+    <el-col :xs="12" :sm="12" :lg="12" class="card-panel-col">
+      <div class="card-panel" v-loading="dataLoading" element-loading-spinner="el-icon-loading">
         <div class="card-panel-description" v-if="!dataLoading">
           <count-to
             :start-val="0"
@@ -48,15 +34,8 @@
     </el-col>
 
     <!-- customers -->
-    <el-col
-      :xs="12"
-      :sm="12"
-      :lg="12"
-      class="card-panel-col"
-      v-loading="dataLoading"
-      element-loading-spinner="el-icon-loading"
-    >
-      <div class="card-panel">
+    <el-col :xs="12" :sm="12" :lg="12" class="card-panel-col">
+      <div class="card-panel" v-loading="dataLoading" element-loading-spinner="el-icon-loading">
         <div class="card-panel-description" v-if="!dataLoading">
           <count-to
             :start-val="0"
@@ -71,15 +50,8 @@
     </el-col>
 
     <!-- CRI -->
-    <el-col
-      :xs="12"
-      :sm="12"
-      :lg="12"
-      class="card-panel-col"
-      v-loading="dataLoading"
-      element-loading-spinner="el-icon-loading"
-    >
-      <div class="card-panel">
+    <el-col :xs="12" :sm="12" :lg="12" class="card-panel-col">
+      <div class="card-panel" v-loading="dataLoading" element-loading-spinner="el-icon-loading">
         <div class="card-panel-description" v-if="!dataLoading">
           <count-to
             :prefix="'CRI '"
@@ -95,15 +67,12 @@
     </el-col>
 
     <!-- risk -->
-    <el-col
-      :xs="12"
-      :sm="12"
-      :lg="12"
-      class="card-panel-col"
-      v-loading="dataLoading"
-      element-loading-spinner="el-icon-loading"
-    >
-      <div class="card-panel chart">
+    <el-col :xs="12" :sm="12" :lg="12" class="card-panel-col">
+      <div
+        class="card-panel chart"
+        v-loading="dataLoading"
+        element-loading-spinner="el-icon-loading"
+      >
         <simplePie v-if="!dataLoading"/>
         <div
           class="card-panel-description"
@@ -178,27 +147,26 @@ export default {
 
 
 <style scoped lang="scss">
+@import "../variables.scss";
+
 .panel-group {
   display: flex;
   justify-content: space-between;
-  padding: 0 20px;
+  // padding: 0 20px;
   .card-panel-col {
     margin-bottom: 20px;
   }
   .card-panel {
-    height: 90px;
-    background-color: #fff;
-    // background-color: #f6f9fe;
-    // background-color: #eeeeee;
-    border-color: rgba(0, 0, 0, 0.05);
-    box-shadow: 4px 4px 40px rgba(0, 0, 0, 0.05);
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
     align-items: center;
-    position: relative;
+    background-color: #fff;
+    border: $border;
+    border-radius: $border-radius;
+    box-shadow: $box-shadow;
+    display: flex;
+    height: 90px;
+    justify-content: center;
     overflow: hidden;
-    color: #666;
+    position: relative;
   }
   .card-panel-num {
     font-size: 16px;

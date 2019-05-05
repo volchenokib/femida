@@ -5,17 +5,17 @@
         <el-header class="asside__header">
           <h1 class="h1">Фемида</h1>
         </el-header>
-        <el-tabs type="card" @tab-click="handleClick">
+        <el-tabs class="tabs" @tab-click="handleClick">
           <el-tab-pane label="Компания">
-            <span>Анализ по компании</span>
+            <!-- <span class="tabs__title">Анализ по компании</span> -->
             <formCompany/>
           </el-tab-pane>
           <el-tab-pane label="Регион" lazy>
-            <span>Анализ по территориальному признаку</span>
+            <!-- <span class="tabs__title">Анализ по территориальному признаку</span> -->
             <formRegion/>
           </el-tab-pane>
           <el-tab-pane label="Связи" lazy>
-            <span>Отслеживание связей между поставщиками</span>
+            <!-- <span class="tabs__title">Отслеживание связей между поставщиками</span> -->
           </el-tab-pane>
         </el-tabs>
       </el-aside>
@@ -80,33 +80,32 @@ export default {
 </script>
 
 <style <style lang="scss">
+@import "./variables.scss";
 html,
 body {
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   height: 100%;
   margin: 0;
 }
 #app {
-  // font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100%;
   text-align: center;
-  color: #2c3e50;
+  color: $regularText;
 }
 
 // typo
 .h1 {
-  // color: #2c3e50;
+  color: #5ab1ef;
   font-size: 20px;
   font-weight: bold;
-  letter-spacing: 1.5px;
+  letter-spacing: 1.9px;
   text-transform: uppercase;
 }
 
 .h2 {
-  // color: #2c3e50;
   font-size: 16px;
   font-weight: bold;
 }
@@ -114,11 +113,7 @@ a {
   color: #2c3e50;
 }
 
-.chartTitle {
-  color: #0e90d0;
-  font-size: 20px;
-}
-
+// hover element UI
 .el-header {
   background-color: #b3c0d1;
   color: #333;
@@ -129,20 +124,41 @@ a {
   color: #333;
 }
 
+.el-table__body tr:hover > td {
+  background-color: $main-background !important;
+}
+
+.el-select-dropdown__item {
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif !important;
+}
+
+.el-select-dropdown__item.selected {
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif !important;
+}
+
 .asside {
-  // background-color: #9abde9;
-  background-color: rgb(203, 219, 247);
+  background-color: $asside-background;
+  box-shadow: $asside-shadow;
+  padding: 0 10px;
+  margin-right: 10px;
   width: 360px !important;
   &__header {
-    background-color: rgb(203, 219, 247) !important;
-    margin-top: -12px;
+    background-color: $header-background;
+    margin: -12px 0 28px 0;
     text-align: center;
   }
 }
 
+.tabs {
+  &__title {
+    color: $regularText;
+  }
+}
+
 .page-wrapper {
-  // background-color: #f3f7ff;
-  background-color: #f5f5f5;
+  background-color: $main-background;
 }
 
 .appHeader {
