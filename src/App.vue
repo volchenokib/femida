@@ -143,7 +143,7 @@ a {
   box-shadow: $asside-shadow;
   padding: 0 10px;
   margin-right: 10px;
-  width: 360px !important;
+  width: 380px !important;
   &__header {
     background-color: $header-background;
     margin: -12px 0 28px 0;

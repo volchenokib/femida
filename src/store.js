@@ -18,6 +18,9 @@ export default new Vuex.Store({
 		topContractsData: {},
 		winRateData: {},
 
+		// panel group
+		vendor: false,
+
 		// pie charts at region page
 		customerAmount: {},
 		vendorAmount: {},

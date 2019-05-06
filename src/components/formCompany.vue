@@ -6,7 +6,9 @@
         v-model="form.company"
         placeholder="AO 'Р-Фарм'"
         :remote-method="remoteMethod"
+        :disabled="isDisable"
         :loading="this.$store.state.searchLoading"
+        @change="getNewData"
         @focus="hideValue"
         filterable
         remote
@@ -42,7 +44,7 @@
     </el-form-item>
 
     <el-form-item>
-      <el-radio-group v-model="form.resource">
+      <el-radio-group v-model="form.resource" :disabled="isDisable" @change="changeSource">
         <el-radio v-model="form.resource" label="customer">По заказчику</el-radio>
         <el-radio v-model="form.resource" label="vendor">По поставщику</el-radio>
       </el-radio-group>
@@ -53,11 +55,28 @@
         class="custom-form__item"
         v-model="form.region"
         no-match-text="Нет данных"
+        :disabled="isDisable"
+        @change="getNewData"
         default-first-option
         filterable
       >
         <el-option v-for="item in regions" :key="item.value" :label="item.label" :value="item"/>
       </el-select>
+
+      <!-- <el-select
+        v-model="region"
+        multiple
+        collapse-tags
+        class="custom-form__item"
+        placeholder="Select"
+      >
+        <el-option
+          v-for="item in regions"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
+        ></el-option>
+      </el-select>-->
     </el-form-item>
   </el-form>
 </template>
@@ -75,9 +94,10 @@ export default {
 
       form: {
         company: "",
-        region: "",
-        resource: "customer"
+        resource: "customer",
+        region: ""
       },
+      region: [],
       value: [],
       regions: [
         {
@@ -131,7 +151,7 @@ export default {
   created() {
     // set default value
     this.form.company = this.$store.state.companies[0];
-    this.form.company2 = this.$store.state.companies[0];
+    // this.form.company2 = this.$store.state.companies[0];
     this.form.region = this.regions[0];
 
     this.$store.dispatch("getDashboardData", this.form);
@@ -148,10 +168,23 @@ export default {
   computed: {
     searchLoading() {
       return this.$store.getters.searchLoading;
+    },
+    isDisable() {
+      return this.$store.getters.getInputState;
     }
   },
 
   methods: {
+    changeSource() {
+      this.$store.state.vendor = !this.$store.state.vendor;
+      this.$store.dispatch("getDashboardData", this.form);
+      console.log("getNewData", this.$store.state.vendor);
+      console.log("getNewData", this.form);
+    },
+    getNewData() {
+      this.$store.dispatch("getDashboardData", this.form);
+      console.log("getNewData", this.form);
+    },
     hideValue() {},
     remoteMethod(query) {
       // this.$store.dispatch("getCompanyList", query);

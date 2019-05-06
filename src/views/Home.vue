@@ -66,7 +66,6 @@ export default {
       return this.$store.getters.criCompositionData;
     },
     winRateData() {
-      console.log("winRateData", this.$store.getters.winRateData);
       return this.$store.getters.winRateData;
     }
   }

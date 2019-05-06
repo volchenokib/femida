@@ -49,6 +49,22 @@
       </div>
     </el-col>
 
+    <!-- wins -->
+    <el-col class="card-panel-col" v-if="this.$store.state.vendor" :xs="12" :sm="12" :lg="12">
+      <div class="card-panel" v-loading="dataLoading" element-loading-spinner="el-icon-loading">
+        <div class="card-panel-description" v-if="!dataLoading">
+          <count-to
+            :start-val="0"
+            :end-val="this.panelData.cri"
+            :suffix="'%'"
+            :duration="2600"
+            class="card-panel-num"
+          />
+          <div class="card-panel-text">побед</div>
+        </div>
+      </div>
+    </el-col>
+
     <!-- CRI -->
     <el-col :xs="12" :sm="12" :lg="12" class="card-panel-col">
       <div class="card-panel" v-loading="dataLoading" element-loading-spinner="el-icon-loading">

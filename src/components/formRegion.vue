@@ -86,7 +86,6 @@ export default {
 
   methods: {
     getNewData(region) {
-      console.log(region);
       this.form.region = region;
       this.$store.dispatch("getDashboardData", this.form.region);
     }
