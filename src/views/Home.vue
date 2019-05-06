@@ -7,8 +7,19 @@
         <pieWinRate
           :class="'chart'"
           :chartData="winRateData"
+          :formatter="formatterWins"
           :title="'Частота выигрыша поставщиков за год'"
           :style="{height: '480px'}"
+          v-if="!this.$store.state.vendor"
+        />
+
+        <pieWinRate
+          :class="'chart'"
+          :chartData="regionsRateData"
+          :formatter="formatterRegions"
+          :title="'Распределение суммы контрактов по регионам'"
+          :style="{height: '480px'}"
+          v-if="this.$store.state.vendor"
         />
       </div>
 
@@ -31,7 +42,7 @@
 
     <div class="company__container-full">
       <lineChart
-        :title="'Динамика CRI для данного заказчика'"
+        :title="this.$store.state.vendor ? 'Динамика CRI для данного поставщика' : 'Динамика CRI для данного заказчика'"
         :chartData="lineChartData"
         :style="{height: '220px'}"
       />
@@ -57,6 +68,12 @@ export default {
     compositionBar,
     pieWinRate
   },
+  data() {
+    return {
+      formatterWins: ["{d|{d}%}", "{c|{c} контрактов}"].join("\n"),
+      formatterRegions: ["{d|{d}%}"].join("\n")
+    };
+  },
 
   computed: {
     lineChartData() {
@@ -67,6 +84,9 @@ export default {
     },
     winRateData() {
       return this.$store.getters.winRateData;
+    },
+    regionsRateData() {
+      return this.$store.getters.regionsRateData;
     }
   }
 };

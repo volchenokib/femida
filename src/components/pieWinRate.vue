@@ -19,6 +19,10 @@ export default {
       type: Object,
       required: true
     },
+    formatter: {
+      type: String,
+      required: true
+    },
     className: {
       type: String,
       default: "chart"
@@ -84,7 +88,7 @@ export default {
           text: this.title,
           left: "center",
           textStyle: {
-            color: "#666",
+            color: "#606266",
             fontFamily:
               "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif",
             fontSize: 16,
@@ -97,7 +101,7 @@ export default {
           type: "scroll",
           bottom: "10",
           left: "center",
-          pageIconColor: "#666"
+          pageIconColor: "#606266"
         },
 
         series: [
@@ -111,7 +115,7 @@ export default {
 
             label: {
               normal: {
-                formatter: ["{d|{d}%}", "{c|{c} контрактов}"].join("\n"),
+                formatter: this.formatter,
 
                 rich: {
                   d: {

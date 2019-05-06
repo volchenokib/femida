@@ -4,11 +4,12 @@
       <el-select
         class="custom-form__item"
         v-model="form.company"
-        placeholder="AO 'Р-Фарм'"
+        placeholder="Название компании"
         :remote-method="remoteMethod"
         :disabled="isDisable"
         :loading="this.$store.state.searchLoading"
         @change="getNewData"
+        :value="companySelectVlue"
         @focus="hideValue"
         filterable
         remote
@@ -27,14 +28,12 @@
       <br>-->
 
       <!-- ---------------------------------------------------------------------------------- -->
-
-      <!-- <div class="sub-title">list suggestions on input</div>
-      <div class="autocomplete-container">
+      <!-- <div class="autocomplete-container">
         <el-autocomplete
           class="custom-form__item"
-          v-model="state2"
+          v-model="form.company"
           :fetch-suggestions="querySearch"
-          placeholder="Please Input"
+          placeholder="Название компании"
           :trigger-on-focus="false"
           @select="handleSelect"
         ></el-autocomplete>
@@ -89,8 +88,7 @@ export default {
   data() {
     return {
       links: [],
-      state1: "",
-      state2: "",
+      state2: "vuex",
 
       form: {
         company: "",
@@ -102,7 +100,7 @@ export default {
       regions: [
         {
           value: "Option101",
-          label: "все регионы"
+          label: "Все регионы"
         },
         {
           value: "Option10",
@@ -144,14 +142,15 @@ export default {
           value: "Option100",
           label: "Ханты-Мансийский автономный округ – Югра"
         }
-      ]
+      ],
+      companySelectVlue: ""
     };
   },
 
   created() {
     // set default value
     this.form.company = this.$store.state.companies[0];
-    // this.form.company2 = this.$store.state.companies[0];
+    // this.form.company = this.state2;
     this.form.region = this.regions[0];
 
     this.$store.dispatch("getDashboardData", this.form);
@@ -185,7 +184,10 @@ export default {
       this.$store.dispatch("getDashboardData", this.form);
       console.log("getNewData", this.form);
     },
-    hideValue() {},
+    hideValue() {
+      this.companySelectVlue = "dsf";
+      console.log("");
+    },
     remoteMethod(query) {
       // this.$store.dispatch("getCompanyList", query);
 

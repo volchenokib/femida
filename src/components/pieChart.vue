@@ -84,7 +84,7 @@ export default {
           text: this.title,
           left: "center",
           textStyle: {
-            color: "#666",
+            color: "#606266",
             fontFamily:
               "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif",
             fontWeight: "bold"
@@ -113,17 +113,16 @@ export default {
             let sum = actualData.data.sum;
             let sumUnit = actualData.data.sumUnit;
             // console.log("formatter", actualData);
-            return `доля: ${percent}% </br> CRI: ${cri}% в среднем </br> контрактов: ${contracts} </br> сумма: ${sum} ${sumUnit}`;
+            return `CRI: ${cri}% в среднем </br> контрактов: ${contracts} </br> сумма: ${sum} ${sumUnit}`;
           }
         },
 
         legend: {
-          left: "center",
-          bottom: "10",
           data: actualData,
-          formatter: function(item) {
-            return (item = "");
-          }
+          type: "scroll",
+          bottom: "10",
+          left: "center",
+          pageIconColor: "#606266"
         },
 
         series: [
@@ -138,25 +137,34 @@ export default {
             label: {
               normal: {
                 fontSize: 11,
-                formatter: function(b) {
-                  function replacer(str, offset, s) {
-                    if (offset >= 25) {
-                      return "\n";
-                    } else {
-                      return " ";
-                    }
+                formatter: ["{d|{d}%}"].join("\n"),
+
+                rich: {
+                  d: {
+                    align: "center",
+                    fontSize: 14
                   }
-                  return b.name.replace(/\s/g, replacer);
-
-                  // if (b.name.length > 30) {
-                  // var find = " ";
-                  // var re = new RegExp(/\s/, "g");
-                  // var str = b.name.replace(re, "\n");
-                  // var str = b.name.replace(/\s/g, "\n");
-                  // return str;
-
-                  //}
                 }
+
+                // function(b) {
+                //   function replacer(str, offset, s) {
+                //     if (offset >= 25) {
+                //       return "\n";
+                //     } else {
+                //       return " ";
+                //     }
+                //   }
+                //   return b.name.replace(/\s/g, replacer);
+
+                // if (b.name.length > 30) {
+                // var find = " ";
+                // var re = new RegExp(/\s/, "g");
+                // var str = b.name.replace(re, "\n");
+                // var str = b.name.replace(/\s/g, "\n");
+                // return str;
+
+                //}
+                // }
               }
             },
 

@@ -84,7 +84,7 @@ export default {
           text: this.title,
           left: "center",
           textStyle: {
-            color: "#666",
+            color: "#606266",
             fontFamily:
               "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif",
             fontWeight: "bold"
@@ -159,24 +159,8 @@ export default {
                 borderColor: "#aaa",
                 borderWidth: 1,
                 borderRadius: 4,
-                // shadowBlur:3,
-                // shadowOffsetX: 2,
-                // shadowOffsetY: 2,
-                // shadowColor: '#999',
                 padding: [15, 10],
                 rich: {
-                  //   a: {
-                  //     color: "#999",
-                  //     lineHeight: 22,
-                  //     align: "center"
-                  //   },
-                  //   abg: {
-                  //     backgroundColor: "#333",
-                  //     width: "100%",
-                  //     align: "right",
-                  //     height: 22,
-                  //     borderRadius: [4, 4, 0, 0]
-                  //   },
                   hr: {
                     borderColor: "#aaa",
                     width: "100%",
@@ -191,12 +175,6 @@ export default {
                   d: {
                     align: "center"
                   }
-                  //   per: {
-                  //     color: "#eee",
-                  //     backgroundColor: "#334455",
-                  //     padding: [2, 4],
-                  //     borderRadius: 2
-                  //   }
                 }
               }
             },

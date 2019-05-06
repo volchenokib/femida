@@ -6,13 +6,13 @@
         <pieChart
           :class="'chart'"
           :chartData="vendorAmountData"
-          :title="'Распределение суммы по заказчикам'"
+          :title="'Распределение суммы конкурсов по заказчикам'"
           :style="{height: '350px', width:'95%'}"
         />
         <br>
         <pieChart
           :chartData="customerAmountData"
-          :title="'Распределение суммы по поставщикам'"
+          :title="'Распределение суммы конкурсов по поставщикам'"
           :style="{height: '350px', width:'95%'}"
         />
       </div>

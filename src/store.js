@@ -1,6 +1,6 @@
-import Vue from "vue";
-import Vuex from "vuex";
-import axios from "axios";
+import Vue from 'vue';
+import Vuex from 'vuex';
+import axios from 'axios';
 
 Vue.use(Vuex);
 
@@ -38,7 +38,7 @@ export default new Vuex.Store({
 		options: [],
 
 		// tab title
-		headerTitle: "Анализ по компании"
+		headerTitle: 'Анализ по компании'
 	},
 	getters: {
 		getDataState(state) {
@@ -71,7 +71,9 @@ export default new Vuex.Store({
 		winRateData(state) {
 			return state.winRateData;
 		},
-
+		regionsRateData(state) {
+			return state.regionsRateData;
+		},
 		companies(state) {
 			return state.companies;
 		},
@@ -93,6 +95,7 @@ export default new Vuex.Store({
 			state.topContractsData = payload.topContractsData;
 			state.criCompositionData = payload.criCompositionData;
 			state.winRateData = payload.winRate;
+			state.regionsRateData = payload.regionsRate;
 			state.data.isLoding = false;
 			state.input.isDisable = false;
 		},
@@ -106,7 +109,7 @@ export default new Vuex.Store({
 	},
 	actions: {
 		getDashboardData(store, payload) {
-			store.commit("API_DATA_PENDING");
+			store.commit('API_DATA_PENDING');
 
 			// return axios
 			// 	.get(
@@ -119,7 +122,7 @@ export default new Vuex.Store({
 
 			let promise = new Promise((resolve, reject) => {
 				setTimeout(() => {
-					resolve("response");
+					resolve('response');
 				}, 2000);
 			});
 
@@ -131,6 +134,7 @@ export default new Vuex.Store({
 							money: 12.8,
 							customers: 1964,
 							cri: 43,
+							wins: 18,
 							risk: 0.2
 						},
 
@@ -140,52 +144,61 @@ export default new Vuex.Store({
 						},
 
 						lineChartIndexData: {
-							expectedData: [[0, 0], [15, 0.06], [20, 0.1], [30, 0.13], [40, 0.15], [50, 0.11], [55, 0]],
+							expectedData: [
+								[0, 0],
+								[15, 0.06],
+								[20, 0.1],
+								[30, 0.13],
+								[40, 0.15],
+								[50, 0.11],
+								[55, 0]
+							],
 							markPoint: [20, 0.1],
-							titleValue: "75"
+							titleValue: '75'
 						},
 
 						customerAmount: {
 							actualData: [
 								{
 									value: 60,
-									name: "ДРУГИЕ",
-									cri: "46",
+									name: 'ДРУГИЕ',
+									cri: '46',
 									contracts: 415,
-									sum: "1,4",
-									sumUnit: "млн. руб"
+									sum: '1,4',
+									sumUnit: 'млн. руб'
 								},
 								{
 									value: 240,
-									name: "ДЕПАРТАМЕНТ ФИНАНСОВ ТОМСКОЙ ОБЛАСТИ",
-									cri: "46",
+									name: 'ДЕПАРТАМЕНТ ФИНАНСОВ ТОМСКОЙ ОБЛАСТИ',
+									cri: '46',
 									contracts: 415,
-									sum: "1,4",
-									sumUnit: "тыс. руб"
+									sum: '1,4',
+									sumUnit: 'тыс. руб'
 								},
 								{
 									value: 149,
-									name: "ФГБНУ 'ТОМСКИЙ НАЦИОНАЛЬНЫЙ ИССЛЕДОВАТЕЛЬСКИЙ МЕДИЦИНСКИЙ ЦЕНТР РОССИЙСКОЙ АКАДЕМИИ НАУК'",
-									cri: "46",
+									name:
+										"ФГБНУ 'ТОМСКИЙ НАЦИОНАЛЬНЫЙ ИССЛЕДОВАТЕЛЬСКИЙ МЕДИЦИНСКИЙ ЦЕНТР РОССИЙСКОЙ АКАДЕМИИ НАУК'",
+									cri: '46',
 									contracts: 415,
-									sum: "1,4",
-									sumUnit: "тыс. руб"
+									sum: '1,4',
+									sumUnit: 'тыс. руб'
 								},
 								{
 									value: 100,
 									name: "УМП 'СПЕЦАВТОХОЗЯЙСТВО Г.ТОМСКА'",
-									cri: "46",
+									cri: '46',
 									contracts: 415,
-									sum: "1,4",
-									sumUnit: "млн. руб"
+									sum: '1,4',
+									sumUnit: 'млн. руб'
 								},
 								{
 									value: 59,
 									name: "ПАО 'СОВКОМБАНК'",
-									cri: "15",
-									contracts: "2",
-									sum: "0,8",
-									sumUnit: "млн. руб"
+									cri: '15',
+									contracts: '2',
+									sum: '0,8',
+									sumUnit: 'млн. руб'
 								}
 							]
 						},
@@ -194,53 +207,54 @@ export default new Vuex.Store({
 							actualData: [
 								{
 									value: 150,
-									name: "ДРУГИЕ",
-									cri: "46",
+									name: 'ДРУГИЕ',
+									cri: '46',
 									contracts: 415,
-									sum: "1,4",
-									sumUnit: "тыс. руб"
+									sum: '1,4',
+									sumUnit: 'тыс. руб'
 								},
 								{
 									value: 205,
 									name:
 										"МУНИЦИПАЛЬНОЕ КАЗЕННОЕ УЧРЕЖДЕНИЕ 'УПРАВЛЕНИЕ МУНИЦИПАЛЬНОЙ СОБСТВЕННОСТЬЮ И ЗАКУПКАМИ НЕРЮНГРИНСКОГО РАЙОНА'",
-									cri: "46",
+									cri: '46',
 									contracts: 415,
-									sum: "1,4",
-									sumUnit: "млн. руб"
+									sum: '1,4',
+									sumUnit: 'млн. руб'
 								},
 								{
 									value: 280,
-									name: "ФГБНУ 'ТОМСКИЙ НАЦИОНАЛЬНЫЙ ИССЛЕДОВАТЕЛЬСКИЙ МЕДИЦИНСКИЙ ЦЕНТР РОССИЙСКОЙ АКАДЕМИИ НАУК'",
-									cri: "46",
+									name:
+										"ФГБНУ 'ТОМСКИЙ НАЦИОНАЛЬНЫЙ ИССЛЕДОВАТЕЛЬСКИЙ МЕДИЦИНСКИЙ ЦЕНТР РОССИЙСКОЙ АКАДЕМИИ НАУК'",
+									cri: '46',
 									contracts: 415,
 									sum: 1.4,
-									sumUnit: "млн. руб"
+									sumUnit: 'млн. руб'
 								},
 								{
 									value: 89,
 									name:
-										"ГОСУДАРСТВЕННОЕ КАЗЕННОЕ ОБЩЕОБРАЗОВАТЕЛЬНОЕ УЧРЕЖДЕНИЕ ЛЕНИНГРАДСКОЙ ОБЛАСТИ МГИНСКАЯ ШКОЛА-ИНТЕРНАТ,РЕАЛИЗУЮЩАЯ АДАПТИРОВАННЫЕ ОБРАЗОВАТЕЛЬНЫЕ ПРОГРАММЫ ДЛЯ ДЕТЕЙ С НАРУШЕНИЯМИ ЗРЕНИЯ",
-									cri: "46",
+										'ГОСУДАРСТВЕННОЕ КАЗЕННОЕ ОБЩЕОБРАЗОВАТЕЛЬНОЕ УЧРЕЖДЕНИЕ ЛЕНИНГРАДСКОЙ ОБЛАСТИ МГИНСКАЯ ШКОЛА-ИНТЕРНАТ,РЕАЛИЗУЮЩАЯ АДАПТИРОВАННЫЕ ОБРАЗОВАТЕЛЬНЫЕ ПРОГРАММЫ ДЛЯ ДЕТЕЙ С НАРУШЕНИЯМИ ЗРЕНИЯ',
+									cri: '46',
 									contracts: 415,
-									sum: "1,4",
-									sumUnit: "тыс. руб"
+									sum: '1,4',
+									sumUnit: 'тыс. руб'
 								},
 								{
 									value: 98,
 									name: "ПАО 'СОВКОМБАНК'",
-									cri: "46",
-									contracts: "415",
-									sum: "1,4",
-									sumUnit: "млрд. руб"
+									cri: '46',
+									contracts: '415',
+									sum: '1,4',
+									sumUnit: 'млрд. руб'
 								}
 							]
 						},
 
 						topContractsData: [
-							{ contract: "0816300017019000088", cri: "66.7" },
-							{ contract: "0816300017019000160", cri: "15" },
-							{ contract: "0345200017019000018", cri: "2" }
+							{ contract: '0816300017019000088', cri: '66.7' },
+							{ contract: '0816300017019000160', cri: '15' },
+							{ contract: '0345200017019000018', cri: '2' }
 						],
 
 						criCompositionData: {
@@ -250,16 +264,17 @@ export default new Vuex.Store({
 						winRate: {
 							actualData: [
 								{
-									value: 28,
-									name: "ДРУГИЕ"
+									value: 53,
+									name: 'ДРУГИЕ'
 								},
 								{
 									value: 17,
-									name: "ДЕПАРТАМЕНТ ФИНАНСОВ ТОМСКОЙ ОБЛАСТИ"
+									name: 'ДЕПАРТАМЕНТ ФИНАНСОВ ТОМСКОЙ ОБЛАСТИ'
 								},
 								{
 									value: 15,
-									name: "ФГБНУ 'ТОМСКИЙ НАЦИОНАЛЬНЫЙ ИССЛЕДОВАТЕЛЬСКИЙ МЕДИЦИНСКИЙ ЦЕНТР РОССИЙСКОЙ АКАДЕМИИ НАУК'"
+									name:
+										"ФГБНУ 'ТОМСКИЙ НАЦИОНАЛЬНЫЙ ИССЛЕДОВАТЕЛЬСКИЙ МЕДИЦИНСКИЙ ЦЕНТР РОССИЙСКОЙ АКАДЕМИИ НАУК'"
 								},
 								{
 									value: 6,
@@ -271,12 +286,36 @@ export default new Vuex.Store({
 									name: "ПАО 'СОВКОМБАНК'"
 								}
 							]
+						},
+						regionsRate: {
+							actualData: [
+								{
+									value: 15,
+									name: 'Республика Адыгея(Адыгея)'
+								},
+								{
+									value: 19,
+									name: 'Город Москва'
+								},
+								{
+									value: 14,
+									name: 'Республика Алтай'
+								},
+								{
+									value: 9,
+									name: 'Республика Бурятия'
+								},
+								{
+									value: 43,
+									name: 'Другие'
+								}
+							]
 						}
 					};
-					store.commit("API_DATA_SUCCES", payload);
+					store.commit('API_DATA_SUCCES', payload);
 				})
 				.catch(error => {
-					store.commit("API_DATA_FAILURE", error);
+					store.commit('API_DATA_FAILURE', error);
 				});
 		},
 
@@ -304,16 +343,16 @@ export default new Vuex.Store({
 
 			let promise = new Promise((resolve, reject) => {
 				setTimeout(() => {
-					resolve("response");
+					resolve('response');
 				}, 2000);
 			});
 			return promise
 				.then(response => {
-					store.commit("API_SEARCH_SUCCES", payload);
+					store.commit('API_SEARCH_SUCCES', payload);
 				})
 
 				.catch(error => {
-					store.commit("API_DATA_FAILURE", error);
+					store.commit('API_DATA_FAILURE', error);
 				});
 		}
 	}

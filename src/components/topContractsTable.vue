@@ -2,7 +2,7 @@
   <div class="table chart" v-loading="dataLoading" element-loading-spinner="el-icon-loading">
     <div class="table__title">Топ контрактов с max CRI</div>
 
-    <el-table :data="topContractsData" :header-row-style="{ color : '#666'}">
+    <el-table :data="topContractsData" :header-row-style="{ color : '#606266'}">
       <el-table-column class="table__custom-header" label="Номер контракта" align="center">
         <template scope="scope">
           <a
@@ -49,7 +49,7 @@ export default {
   min-height: 213px;
   &__title {
     background-color: #fff;
-    color: "#666";
+    color: "#606266";
     font-size: 16px;
     font-weight: bold;
   }

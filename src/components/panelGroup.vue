@@ -55,7 +55,7 @@
         <div class="card-panel-description" v-if="!dataLoading">
           <count-to
             :start-val="0"
-            :end-val="this.panelData.cri"
+            :end-val="this.panelData.wins"
             :suffix="'%'"
             :duration="2600"
             class="card-panel-num"

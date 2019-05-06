@@ -1,6 +1,6 @@
 <template>
-  <div id="app">
-    <div id="charts" ref="chart" style="height:70vh;"></div>
+  <div id="app2">
+    <!-- <div id="charts" ref="chart" style="height:70vh;"></div> -->
   </div>
 </template>
 
