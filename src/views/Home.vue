@@ -97,7 +97,7 @@ export default {
 @import "../variables.scss";
 
 .home {
-  margin: 0 20px;
+  margin: 0 20px 0 10px;
   position: relative;
 }
 

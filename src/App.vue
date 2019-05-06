@@ -18,6 +18,9 @@
             <!-- <span class="tabs__title">Отслеживание связей между поставщиками</span> -->
           </el-tab-pane>
         </el-tabs>
+        <footer class="footer">
+          <span>Copyright © Econophysica 2019. All Rights Reserved</span>
+        </footer>
       </el-aside>
 
       <el-container>
@@ -149,6 +152,13 @@ a {
     margin: -12px 0 28px 0;
     text-align: center;
   }
+}
+
+.footer {
+  bottom: 10px;
+  font-size: 12px;
+  position: absolute;
+  left: 50px;
 }
 
 .tabs {

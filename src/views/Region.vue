@@ -2,29 +2,29 @@
   <div class="region">
     <panelGroup/>
     <div class="region__charts-layout">
-      <div class="region__pieCharts">
+      <div class="region__pieCharts mr">
         <pieChart
           :class="'chart'"
           :chartData="vendorAmountData"
           :title="'Распределение суммы конкурсов по заказчикам'"
-          :style="{height: '350px', width:'95%'}"
+          :style="{height: '350px'}"
         />
         <br>
         <pieChart
           :chartData="customerAmountData"
           :title="'Распределение суммы конкурсов по поставщикам'"
-          :style="{height: '350px', width:'95%'}"
+          :style="{height: '350px'}"
         />
       </div>
 
       <div class="region__pieCharts">
         <lineChart
           :chartData="lineChartData"
-          :style="{height: '350px', width:'95%'}"
+          :style="{height: '350px'}"
           :title="'Динамика CRI по ТО за 2017 год'"
         />
         <br>
-        <lineChartIndex :chartData="lineChartIndexData" :style="{height: '350px', width:'95%'}"/>
+        <lineChartIndex :chartData="lineChartIndexData" :style="{height: '350px'}"/>
       </div>
     </div>
   </div>
@@ -68,6 +68,7 @@ export default {
 <style lang="scss" scoped>
 @import "../variables.scss";
 .region {
+  margin: 0 20px 0 10px;
   &__charts-layout {
     display: flex;
   }
@@ -83,7 +84,10 @@ export default {
   border: $border;
   border-radius: $border-radius;
   box-shadow: box-shadow;
-  margin: 0 auto;
   padding: 15px 0;
+}
+
+.mr {
+  margin-right: 28px;
 }
 </style>
