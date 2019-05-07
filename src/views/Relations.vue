@@ -62,6 +62,7 @@ export default {
             edgeSymbol: ["arrow", "arrow"],
             edgeSymbolSize: [10, 0],
             focusNodeAdjacency: true, // blur
+            hoverAnimation: false,
             edgeLabel: {
               normal: {
                 show: true,
@@ -120,6 +121,9 @@ export default {
                 symbol: "circle",
                 symbolSize: 150,
                 itemStyle: {
+                  emphasis: {
+                    color: "#f1f4f5"
+                  },
                   normal: {
                     color: "#f1f4f5",
                     label: {
@@ -138,10 +142,10 @@ export default {
                 itemStyle: {
                   normal: {
                     color: "#f1f4f5"
+                  },
+                  emphasis: {
+                    color: "#f1f4f5"
                   }
-                  // emphasis: {
-                  //   color: "#000"
-                  // }
                 }
               },
               {
@@ -150,6 +154,9 @@ export default {
                 draggable: true,
                 itemStyle: {
                   normal: {
+                    color: "#f1f4f5"
+                  },
+                  emphasis: {
                     color: "#f1f4f5"
                   }
                 }
@@ -161,6 +168,9 @@ export default {
                 itemStyle: {
                   normal: {
                     color: "#f1f4f5"
+                  },
+                  emphasis: {
+                    color: "#f1f4f5"
                   }
                 }
               },
@@ -171,6 +181,9 @@ export default {
                 itemStyle: {
                   normal: {
                     color: "#f1f4f5"
+                  },
+                  emphasis: {
+                    color: "#f1f4f5"
                   }
                 }
               },
@@ -180,6 +193,9 @@ export default {
                 draggable: true,
                 itemStyle: {
                   normal: {
+                    color: "#f1f4f5"
+                  },
+                  emphasis: {
                     color: "#f1f4f5"
                   }
                 }
