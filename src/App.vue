@@ -16,6 +16,7 @@
           </el-tab-pane>
           <el-tab-pane label="Связи" lazy>
             <!-- <span class="tabs__title">Отслеживание связей между поставщиками</span> -->
+            <formRelations/>
           </el-tab-pane>
         </el-tabs>
         <footer class="footer">
@@ -47,12 +48,14 @@
 <script>
 import formRegion from "./components/formRegion.vue";
 import formCompany from "./components/formCompany.vue";
+import formRelations from "./components/formRelations.vue";
 
 export default {
   name: "app",
   components: {
     formRegion,
-    formCompany
+    formCompany,
+    formRelations
   },
   data() {
     return {};
