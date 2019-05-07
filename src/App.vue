@@ -121,7 +121,7 @@ a {
 
 // hover element UI
 .el-main {
-  padding: 0 20px !important;
+  padding: 20px 20px 0 20px !important;
 }
 .el-header {
   background-color: #b3c0d1;

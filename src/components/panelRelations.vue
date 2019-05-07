@@ -88,8 +88,8 @@ export default {
   //   justify-content: space-between;
   // padding: 0 20px;
   position: absolute;
-  top: 20px;
-  left: 20px;
+  //   top: 20px;
+  left: 10px;
 
   .card-panel-col {
     // margin-bottom: 20px;

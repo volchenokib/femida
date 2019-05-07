@@ -11,7 +11,7 @@
 <script>
 import echarts from "echarts";
 require("echarts/theme/macarons"); // echarts theme
-import { debounce } from "@/utils";
+// import { debounce } from "@/utils";
 import panelRelations from "@/components/panelRelations.vue";
 export default {
   components: {
@@ -48,8 +48,8 @@ export default {
           selectedMode: false,
           data: ["% общих заказчиков", "% в уставном капитале"]
         },
-        tooltip: {},
-        animationDurationUpdate: 1500,
+        // tooltip: {},
+        animationDurationUpdate: 2500,
         animationEasingUpdate: "quinticInOut",
         series: [
           {
@@ -57,17 +57,17 @@ export default {
             type: "graph",
             layout: "force",
             symbol: "circle",
-            symbolSize: 100,
-            roam: false, //drag
+            symbolSize: 50,
+            roam: true, //drag and zoom
             edgeSymbol: ["arrow", "arrow"],
             edgeSymbolSize: [10, 0],
             focusNodeAdjacency: true, // blur
-            hoverAnimation: false,
+            // hoverAnimation: false,
             edgeLabel: {
               normal: {
                 show: true,
                 textStyle: {
-                  fontSize: 14
+                  fontSize: 12
                 },
                 formatter: "{c}"
               }
@@ -103,13 +103,17 @@ export default {
             // company name
             label: {
               normal: {
-                show: true,
-                color: "#606266"
+                color: "#606266",
+                fontSize: 10,
+                position: "top",
+                show: true
               }
             },
-            // size
+
             force: {
-              repulsion: 16000
+              // size
+              repulsion: 10000,
+              layoutAnimation: false
             },
 
             data: [
@@ -127,7 +131,6 @@ export default {
                   normal: {
                     color: "#f1f4f5",
                     label: {
-                      position: "bottom",
                       textStyle: {
                         // color: "#f90"
                       }
@@ -136,22 +139,24 @@ export default {
                 }
               },
               {
-                name: "АО АКРА",
+                name:
+                  "ФГБНУ ТОМСКИЙ НАЦИОНАЛЬНЫЙ ИССЛЕДОВАТЕЛЬСКИЙ МЕДИЦИНСКИЙ ЦЕНТР РОССИЙСКОЙ АКАДЕМИИ НАУК",
+                symbolSize: 20,
                 category: 1,
-                draggable: true,
+                draggable: false,
                 itemStyle: {
                   normal: {
-                    color: "#f1f4f5"
+                    color: "#2ec7c9"
                   },
                   emphasis: {
-                    color: "#f1f4f5"
+                    color: "#32DADD"
                   }
                 }
               },
               {
                 name: "ООО Инвестиционное агентство",
                 category: 1,
-                draggable: true,
+                draggable: false,
                 itemStyle: {
                   normal: {
                     color: "#f1f4f5"
@@ -164,7 +169,7 @@ export default {
               {
                 name: "ООО Сбондс.ру",
                 category: 0,
-                draggable: true,
+                draggable: false,
                 itemStyle: {
                   normal: {
                     color: "#f1f4f5"
@@ -177,7 +182,7 @@ export default {
               {
                 name: "ООО БАНК СКИБ",
                 category: 0,
-                draggable: true,
+                draggable: false,
                 itemStyle: {
                   normal: {
                     color: "#f1f4f5"
@@ -190,7 +195,7 @@ export default {
               {
                 name: "ООО БТЕ",
                 category: 0,
-                draggable: true,
+                draggable: false,
                 itemStyle: {
                   normal: {
                     color: "#f1f4f5"
@@ -206,7 +211,8 @@ export default {
               // #1
               {
                 source: "ПАО СОВКОМБАНК",
-                target: "АО АКРА",
+                target:
+                  "ФГБНУ ТОМСКИЙ НАЦИОНАЛЬНЫЙ ИССЛЕДОВАТЕЛЬСКИЙ МЕДИЦИНСКИЙ ЦЕНТР РОССИЙСКОЙ АКАДЕМИИ НАУК",
                 name: "% общих заказчиков",
                 value: "86%",
 
@@ -231,7 +237,8 @@ export default {
               },
 
               {
-                source: "АО АКРА",
+                source:
+                  "ФГБНУ ТОМСКИЙ НАЦИОНАЛЬНЫЙ ИССЛЕДОВАТЕЛЬСКИЙ МЕДИЦИНСКИЙ ЦЕНТР РОССИЙСКОЙ АКАДЕМИИ НАУК",
                 target: "ПАО СОВКОМБАНК",
                 value: "15%",
                 lineStyle: {
