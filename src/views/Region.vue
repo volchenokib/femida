@@ -84,7 +84,7 @@ export default {
   border: $border;
   border-radius: $border-radius;
   box-shadow: box-shadow;
-  padding: 15px 0;
+  // padding: 15px;
 }
 
 .mr {

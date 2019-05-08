@@ -10,7 +10,12 @@
         default-first-option
         filterable
       >
-        <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item"/>
+        <el-option
+          v-for="region in this.$store.state.regions"
+          :key="region.index"
+          :label="region.label"
+          :value="region.value"
+        />
       </el-select>
     </el-form-item>
   </el-form>
@@ -18,63 +23,18 @@
 
 
 <script>
-// import Chart from "@/components/Charts/Keyboard";
-
 export default {
-  name: "KeyboardChart",
   data() {
     return {
       form: {
         region: ""
-      },
-      options: [
-        {
-          value: "Option1",
-          label: "Республика Адыгея (Адыгея)"
-        },
-        {
-          value: "Option2",
-          label: "Республика Алтай"
-        },
-        {
-          value: "Option3",
-          label: "Республика Башкортостан"
-        },
-        {
-          value: "Option4",
-          label: "Республика Бурятия"
-        },
-        {
-          value: "Option5",
-          label: "Республика Дагестан"
-        },
-        {
-          value: "Option6",
-          label: "Республика Ингушетия"
-        },
-        {
-          value: "Option7",
-          label: "Республика Ингушетия"
-        },
-        {
-          value: "Option8",
-          label: "Кабардино-Балкарская Республика"
-        },
-        {
-          value: "Option9",
-          label: "Город Москва"
-        },
-        {
-          value: "Option10",
-          label: "Ханты-Мансийский автономный округ – Югра"
-        }
-      ]
+      }
     };
   },
 
   created() {
     // set default value
-    this.form.region = this.options[0];
+    this.form.region = "Алтайский край";
     this.$store.dispatch("getDashboardData", this.form.region);
   },
 

@@ -6,7 +6,7 @@
         <div class="card-panel-description" v-if="!dataLoading">
           <count-to
             :start-val="0"
-            :end-val="this.panelData.contracts"
+            :end-val="this.panelDataContracts"
             :duration="2600"
             :separator="' '"
             class="card-panel-num"
@@ -22,9 +22,9 @@
         <div class="card-panel-description" v-if="!dataLoading">
           <count-to
             :start-val="0"
-            :end-val="this.panelData.money"
+            :end-val="this.panelDataMoney"
             :decimal="','"
-            :decimals="2"
+            :decimals="0"
             :duration="2600"
             class="card-panel-num"
           />
@@ -39,7 +39,7 @@
         <div class="card-panel-description" v-if="!dataLoading">
           <count-to
             :start-val="0"
-            :end-val="this.panelData.customers"
+            :end-val="this.panelDataCustomers"
             :separator="' '"
             :duration="2600"
             class="card-panel-num"
@@ -50,7 +50,7 @@
     </el-col>
 
     <!-- wins -->
-    <el-col class="card-panel-col" v-if="this.$store.state.vendor" :xs="12" :sm="12" :lg="12">
+    <!-- <el-col class="card-panel-col" v-if="this.$store.state.vendor" :xs="12" :sm="12" :lg="12">
       <div class="card-panel" v-loading="dataLoading" element-loading-spinner="el-icon-loading">
         <div class="card-panel-description" v-if="!dataLoading">
           <count-to
@@ -63,16 +63,16 @@
           <div class="card-panel-text">побед</div>
         </div>
       </div>
-    </el-col>
+    </el-col>-->
 
-    <!-- CRI -->
+    <!-- Index -->
     <el-col :xs="12" :sm="12" :lg="12" class="card-panel-col">
       <div class="card-panel" v-loading="dataLoading" element-loading-spinner="el-icon-loading">
         <div class="card-panel-description" v-if="!dataLoading">
           <count-to
             :prefix="'CRI '"
             :start-val="0"
-            :end-val="this.panelData.cri"
+            :end-val="this.panelDataIndex"
             :suffix="'%'"
             :duration="2600"
             class="card-panel-num"
@@ -97,7 +97,7 @@
         >
           <count-to
             :start-val="0"
-            :end-val="this.panelData.risk"
+            :end-val="this.panelDataRisk"
             :decimal="','"
             :decimals="1"
             :duration="2600"
@@ -125,20 +125,34 @@ export default {
   data() {
     return {};
   },
+
   created() {},
+
   computed: {
     dataLoading() {
       return this.$store.getters.getDataState;
     },
-    panelData() {
-      return this.$store.getters.panelData;
+    panelDataContracts() {
+      return this.$store.getters.panelDataContracts;
+    },
+    panelDataMoney() {
+      return this.$store.getters.panelDataMoney;
+    },
+    panelDataCustomers() {
+      return this.$store.getters.panelDataCustomers;
+    },
+    panelDataIndex() {
+      return this.$store.getters.panelDataIndex;
+    },
+    panelDataRisk() {
+      return this.$store.getters.panelDataRisk;
     },
     riskColor() {
-      if (this.$store.getters.panelData.risk <= 0.4) {
+      if (this.$store.getters.panelDataRisk <= 0.4) {
         return "#2ec7c9";
       } else if (
-        this.$store.getters.panelData.risk >= 0.4 &&
-        this.$store.getters.panelData.risk <= 0.6
+        this.$store.getters.panelDataRisk >= 0.4 &&
+        this.$store.getters.panelDataRisk <= 0.6
       ) {
         return "#f5994e";
       } else {
@@ -146,11 +160,11 @@ export default {
       }
     },
     riskLevel() {
-      if (this.$store.getters.panelData.risk <= 0.4) {
+      if (this.$store.getters.panelDataRisk <= 0.4) {
         return "низкий";
       } else if (
-        this.$store.getters.panelData.risk >= 0.4 &&
-        this.$store.getters.panelData.risk <= 0.6
+        this.$store.getters.panelDataRisk >= 0.4 &&
+        this.$store.getters.panelDataRisk <= 0.6
       ) {
         return "средний";
       } else {
