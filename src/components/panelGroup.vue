@@ -44,7 +44,7 @@
             :duration="2600"
             class="card-panel-num"
           />
-          <div class="card-panel-text">уникальных заказчиков</div>
+          <div class="card-panel-text">{{customersDesc}}</div>
         </div>
       </div>
     </el-col>
@@ -146,6 +146,20 @@ export default {
     },
     panelDataRisk() {
       return this.$store.getters.panelDataRisk;
+    },
+    customersDesc() {
+      // description format for russian language
+      let lastDigit = this.$store.getters.panelDataCustomers
+        .toString()
+        .slice(-1);
+
+      if (lastDigit == "1") {
+        return "уникальный заказчик";
+      } else if (lastDigit == "2" || lastDigit == "3" || lastDigit == "4") {
+        return "уникальных заказчика";
+      } else {
+        return "уникальных заказчиков";
+      }
     },
     riskColor() {
       if (this.$store.getters.panelDataRisk <= 0.4) {
