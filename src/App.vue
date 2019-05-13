@@ -3,7 +3,9 @@
     <el-container style="height: 100%;">
       <el-aside class="asside">
         <el-header class="asside__header">
-          <h1 class="h1">Фемида</h1>
+          <!-- <h1 class="h1">Фемида</h1> -->
+          <div class="logo"></div>
+          <!-- <img src="./assets/logo.png" alt="logo"> -->
         </el-header>
         <el-tabs class="tabs" @tab-click="handleClick">
           <el-tab-pane label="Компания">
@@ -158,6 +160,14 @@ a {
     margin: -12px 0 28px 0;
     text-align: center;
   }
+}
+
+.logo {
+  background: url(./assets/logo2.png) 50%/50% no-repeat;
+  background-size: cover;
+  height: 100%;
+  margin: 33px 0 0 0;
+  width: 100%;
 }
 
 .footer {
