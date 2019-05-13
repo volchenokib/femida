@@ -4,14 +4,14 @@
     <div class="region__charts-layout">
       <div class="region__pieCharts mr">
         <pieChart
-          :class="'chart'"
-          :chartData="vendorAmountData"
+          :chartData="customerAmountData"
           :title="'Распределение суммы конкурсов по заказчикам'"
           :style="{height: '350px'}"
         />
         <br>
         <pieChart
-          :chartData="customerAmountData"
+          :class="'chart'"
+          :chartData="vendorAmountData"
           :title="'Распределение суммы конкурсов по поставщикам'"
           :style="{height: '350px'}"
         />
@@ -49,12 +49,14 @@ export default {
   },
   computed: {
     lineChartData() {
+      console.log("COMP lineChartData", this.$store.getters.lineChartData);
       return this.$store.getters.lineChartData;
     },
     lineChartIndexData() {
       return this.$store.getters.lineChartIndexData;
     },
     customerAmountData() {
+      // console.log("comp", this.$store.getters.customerAmountData);
       return this.$store.getters.customerAmountData;
     },
     vendorAmountData() {

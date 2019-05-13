@@ -43,11 +43,11 @@ export default {
       return this.$store.getters.panelDataRisk;
     },
     riskColor() {
-      if (this.$store.getters.panelDataRisk <= 0.4) {
+      if (this.$store.getters.panelDataRisk < 0.4) {
         return "#2ec7c9";
       } else if (
         this.$store.getters.panelDataRisk >= 0.4 &&
-        this.$store.getters.panelDataRisk <= 0.6
+        this.$store.getters.panelDataRisk < 0.6
       ) {
         return "#f5994e";
       } else {

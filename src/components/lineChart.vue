@@ -103,6 +103,7 @@ export default {
       }
     },
     setOptions({ expectedData, actualData } = {}) {
+      console.log("component", expectedData, actualData);
       this.chart.setOption({
         title: {
           text: this.title,

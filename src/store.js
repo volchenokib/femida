@@ -365,8 +365,11 @@ export default new Vuex.Store({
 			}
 		],
 
-		// panelData: {},
-		// lineChartData: {},
+		panelData: {},
+		lineChartData: {
+			actualData: [35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35],
+			expectedData: []
+		},
 		// lineChartIndexData: {},
 		// topContractsData: {},
 		// winRateData: {},
@@ -403,37 +406,89 @@ export default new Vuex.Store({
 
 		// panel group component start
 		panelDataContracts(state) {
-			return state.dashboard.statistics.number_of_contracts;
+			return state.panelData.number_of_contracts;
 		},
 		panelDataMoney(state) {
-			let step1 = Math.round(state.dashboard.statistics.total_contract_value);
-			console.log('step1', step1);
+			return Math.abs(Number(state.panelData.total_contract_value)) >= 1.0e9
+				? Math.abs(Number(state.panelData.total_contract_value)) / 1.0e8 / 10
+				: // Six Zeroes for Millions
+				Math.abs(Number(state.panelData.total_contract_value)) >= 1.0e6
+				? Math.abs(Number(state.panelData.total_contract_value)) / 1.0e6
+				: // Three Zeroes for Thousands
+				Math.abs(Number(state.panelData.total_contract_value)) >= 1.0e3
+				? Math.abs(Number(state.panelData.total_contract_value)) / 1.0e3
+				: Math.abs(Number(state.panelData.total_contract_value));
+			// let step1 = Math.round(state.dashboard.statistics.total_contract_value);
+			// console.log('step1', step1);
 
-			let step2 = parseInt(step1 / 1000000);
-			console.log('step2', step2);
+			// let step2 = step1.toString().length; // 11
+			// console.log('step2', step2);
 
-			return Math.round(state.dashboard.statistics.total_contract_value);
+			// let myPow = Math.pow(1, step2);
+			// console.log('myPow', myPow);
+
+			// let step3 = parseInt(step1 / myPow); // 8
+			// console.log('step3', step3);
+
+			// let step4 = step3 / 10;
+			// console.log('step4', step4);
+
+			// // let step3 = parseInt(step1 / (step2 - 3));
+			// // console.log('step3', step3);
+			// return step4;
+			// return Math.round(state.dashboard.statistics.total_contract_value);
 		},
 		panelDataCustomers(state) {
-			return state.dashboard.statistics.unique_customers;
+			return state.panelData.unique_customers;
 		},
 		panelDataIndex(state) {
-			let percent = state.dashboard.statistics.average_cri * 100;
+			let percent = state.panelData.average_cri * 100;
 			let round = Math.round(percent);
 			return round;
 		},
 		panelDataRisk(state) {
-			return state.dashboard.statistics.risk;
+			return state.panelData.risk;
 		},
 		// panel group component end
 
 		lineChartData(state) {
+			// console.log('response:', JSON.parse(state.lineChartData));
+			// console.log('parse:', JSON5.parse(state.lineChartData));
+			// console.log('str', JSON.stringify(state.lineChartData));
+			// console.log('parse', JSON.parse(state.lineChartData));
+			// let percent = state.panelData.average_cri * 100;
+			// let round = Math.round(percent);
+
+			// const lineChartData = {
+			// 	expectedData: [
+			// 		round,
+			// 		round,
+			// 		round,
+			// 		round,
+			// 		round,
+			// 		round,
+			// 		round,
+			// 		round,
+			// 		round,
+			// 		round,
+			// 		round,
+			// 		round
+			// 	]
+			// };
+
+			// console.log(
+			// 	'cri_dynamic parse',
+			// 	JSON.parse(state.dashboard.cri_dynamic)
+			// );
 			return state.lineChartData;
 		},
 		lineChartIndexData(state) {
 			return state.lineChartIndexData;
 		},
+
 		customerAmountData(state) {
+			// console.log('str', JSON.stringify(state.customerAmount));
+			// console.log('parse', JSON.parse(state.customerAmount));
 			return state.customerAmount;
 		},
 		vendorAmountData(state) {
@@ -464,16 +519,22 @@ export default new Vuex.Store({
 			state.input.isDisable = true;
 		},
 		API_DATA_SUCCES(state, payload) {
-			// state.panelData = payload.panelData;
-			// state.lineChartData = payload.lineChartData;
+			state.panelData = payload.statistics;
+			// let = lineChartExpected
+			// state.lineChartData.expectedData = JSON.parse(payload.cri_dynamic);
+			// console.log('MUT state.lineChartData:', state.lineChartData);
+			// state.dashboard = payload;
+			// console.log('MUT', state.dashboard);
+			// state.lineChartData = payload.cri_dynamic;
+			// state.lineChartData = JSON.parse(payload.cri_dynamic);
 			// state.lineChartIndexData = payload.lineChartIndexData;
-			// state.customerAmount = payload.customerAmount;
-			// state.vendorAmount = payload.vendorAmount;
+			// state.customerAmount.actualData = payload.top_customers;
+			// state.vendorAmount = payload.top_customers;
 			// state.topContractsData = payload.topContractsData;
 			// state.criCompositionData = payload.criCompositionData;
 			// state.winRateData = payload.winRate;
 			// state.regionsRateData = payload.regionsRate;
-			state.dashboard = payload;
+			// state.dashboard = payload;
 			state.data.isLoding = false;
 			state.input.isDisable = false;
 		},
@@ -489,14 +550,14 @@ export default new Vuex.Store({
 		getDashboardData(store, payload) {
 			store.commit('API_DATA_PENDING');
 
-			console.log('getDashboardData', payload);
+			// console.log('getDashboardData', payload);
 
 			// return axios
 			axios
 				.get('http://192.168.100.194:5002/region?region=' + payload)
 				.then(response => {
 					store.commit('API_DATA_SUCCES', response.data);
-					console.log('response', response.data);
+					console.log('response:', response.data);
 				})
 				.catch(error => {
 					store.commit('API_DATA_FAILURE', error);

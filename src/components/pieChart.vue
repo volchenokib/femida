@@ -79,6 +79,7 @@ export default {
 
   methods: {
     setOptions({ actualData } = {}) {
+      // console.log("actualData", actualData);
       this.chart.setOption({
         title: {
           text: this.title,
@@ -107,12 +108,12 @@ export default {
           extraCssText: "text-align: left;",
 
           formatter: function(actualData) {
-            let percent = Math.round(actualData.percent);
-            let cri = actualData.data.cri;
-            let contracts = actualData.data.contracts;
+            // console.log("tooltip", actualData);
+            let percent = Math.round(actualData.total_contract_value);
+            let cri = Math.round(actualData.average_cri) * 100;
+            let contracts = actualData.data.number_of_contracts;
             let sum = actualData.data.sum;
             let sumUnit = actualData.data.sumUnit;
-            // console.log("formatter", actualData);
             return `CRI: ${cri}% в среднем </br> контрактов: ${contracts} </br> сумма: ${sum} ${sumUnit}`;
           }
         },

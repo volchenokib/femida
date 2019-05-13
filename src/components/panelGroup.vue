@@ -24,11 +24,11 @@
             :start-val="0"
             :end-val="this.panelDataMoney"
             :decimal="','"
-            :decimals="0"
+            :decimals="1"
             :duration="2600"
             class="card-panel-num"
           />
-          <div class="card-panel-text">млрд. руб.</div>
+          <div class="card-panel-text">{{moneyDesc}}</div>
         </div>
       </div>
     </el-col>
@@ -161,12 +161,23 @@ export default {
         return "уникальных заказчиков";
       }
     },
+    moneyDesc() {
+      const len = this.$store.state.panelData.total_contract_value.toString()
+        .length;
+      if (len >= 9) {
+        return "млрд. руб.";
+      } else if (len >= 6) {
+        return "млн. руб.";
+      } else {
+        return "тыс. руб";
+      }
+    },
     riskColor() {
-      if (this.$store.getters.panelDataRisk <= 0.4) {
+      if (this.$store.getters.panelDataRisk < 0.4) {
         return "#2ec7c9";
       } else if (
         this.$store.getters.panelDataRisk >= 0.4 &&
-        this.$store.getters.panelDataRisk <= 0.6
+        this.$store.getters.panelDataRisk < 0.6
       ) {
         return "#f5994e";
       } else {
@@ -174,11 +185,11 @@ export default {
       }
     },
     riskLevel() {
-      if (this.$store.getters.panelDataRisk <= 0.4) {
+      if (this.$store.getters.panelDataRisk < 0.4) {
         return "низкий";
       } else if (
         this.$store.getters.panelDataRisk >= 0.4 &&
-        this.$store.getters.panelDataRisk <= 0.6
+        this.$store.getters.panelDataRisk < 0.6
       ) {
         return "средний";
       } else {
