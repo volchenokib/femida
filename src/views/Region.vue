@@ -4,7 +4,7 @@
     <div class="region__charts-layout">
       <div class="region__pieCharts mr">
         <pieChart
-          :chartData="customerAmountData"
+          :chartData="this.$store.state.customerAmountData"
           :title="'Распределение суммы конкурсов по заказчикам'"
           :style="{height: '350px'}"
         />
@@ -56,7 +56,7 @@ export default {
       return this.$store.getters.lineChartIndexData;
     },
     customerAmountData() {
-      // console.log("comp", this.$store.getters.customerAmountData);
+      console.log("computed pieChart", this.$store.getters.customerAmountData);
       return this.$store.getters.customerAmountData;
     },
     vendorAmountData() {

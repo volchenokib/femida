@@ -99,9 +99,10 @@ export default {
       }
     },
     setOptions({ expectedData, markPoint, titleValue } = {}) {
+      console.log("lineChartIndex", expectedData, markPoint);
       this.chart.setOption({
         title: {
-          text: `Ваш CRI меньше чем у ${titleValue}% регионов`,
+          text: `Распределение CRI по регионам`,
           x: "center",
           align: "center",
           textStyle: {

@@ -367,10 +367,13 @@ export default new Vuex.Store({
 
 		panelData: {},
 		lineChartData: {
-			actualData: [35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35],
+			actualData: [],
 			expectedData: []
 		},
-		// lineChartIndexData: {},
+		lineChartIndexData: {
+			expectedData: [],
+			markPoint: []
+		},
 		// topContractsData: {},
 		// winRateData: {},
 
@@ -452,34 +455,6 @@ export default new Vuex.Store({
 		// panel group component end
 
 		lineChartData(state) {
-			// console.log('response:', JSON.parse(state.lineChartData));
-			// console.log('parse:', JSON5.parse(state.lineChartData));
-			// console.log('str', JSON.stringify(state.lineChartData));
-			// console.log('parse', JSON.parse(state.lineChartData));
-			// let percent = state.panelData.average_cri * 100;
-			// let round = Math.round(percent);
-
-			// const lineChartData = {
-			// 	expectedData: [
-			// 		round,
-			// 		round,
-			// 		round,
-			// 		round,
-			// 		round,
-			// 		round,
-			// 		round,
-			// 		round,
-			// 		round,
-			// 		round,
-			// 		round,
-			// 		round
-			// 	]
-			// };
-
-			// console.log(
-			// 	'cri_dynamic parse',
-			// 	JSON.parse(state.dashboard.cri_dynamic)
-			// );
 			return state.lineChartData;
 		},
 		lineChartIndexData(state) {
@@ -487,8 +462,7 @@ export default new Vuex.Store({
 		},
 
 		customerAmountData(state) {
-			// console.log('str', JSON.stringify(state.customerAmount));
-			// console.log('parse', JSON.parse(state.customerAmount));
+			console.log('getters pieChart', state.customerAmount.actualData);
 			return state.customerAmount;
 		},
 		vendorAmountData(state) {
@@ -520,15 +494,73 @@ export default new Vuex.Store({
 		},
 		API_DATA_SUCCES(state, payload) {
 			state.panelData = payload.statistics;
-			// let = lineChartExpected
 			// state.lineChartData.expectedData = JSON.parse(payload.cri_dynamic);
 			// console.log('MUT state.lineChartData:', state.lineChartData);
 			// state.dashboard = payload;
 			// console.log('MUT', state.dashboard);
-			// state.lineChartData = payload.cri_dynamic;
-			// state.lineChartData = JSON.parse(payload.cri_dynamic);
-			// state.lineChartIndexData = payload.lineChartIndexData;
-			// state.customerAmount.actualData = payload.top_customers;
+			// let expectedData = [];
+
+			// function fillActualData(state, payload) {
+			// 	const i = 12;
+			// 	let percent = payload.statistics.average_cri * 100;
+			// 	let round = Math.round(percent);
+			// 	let actualData = [];
+			// 	while (i) actualData.push(round);
+			// 	i--;
+			// 	return state.lineChartData.actualData;
+			// }
+			// fillActualData(state, payload);
+			// state.lineChartData.actualData = sth;
+
+			// lineChart start
+			const dataForActualOne = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+			const dataForActualTwo = dataForActualOne.map(
+				n => (n = payload.statistics.average_cri)
+			);
+			const dataForActualThree = dataForActualTwo.map(n => n * 100);
+			const dataForActualFour = dataForActualThree.map(n => Math.round(n));
+			state.lineChartData.actualData = dataForActualFour;
+
+			const dataForExpectedOne = Object.values(payload.cri_dynamic);
+			const dataForExpectedTwo = dataForExpectedOne.map(n => n * 100);
+			const dataForExpectedThree = dataForExpectedTwo.map(n => Math.round(n));
+			state.lineChartData.expectedData = dataForExpectedThree;
+
+			// lineChart end
+
+			// lineChartIndex start
+			let lineChartIndexOne = Object.keys(
+				payload.region_histogram.histogram
+			).map(key => {
+				return [key * 100, payload.region_histogram.histogram[key]];
+			});
+
+			state.lineChartIndexData.expectedData = lineChartIndexOne;
+			state.lineChartIndexData.markPoint = [
+				payload.place_in_hist.x * 100,
+				payload.place_in_hist.y
+			];
+			// lineChartIndex end
+
+			// pieChart start
+			const value = Object.values(payload.top_customers.total_contract_value);
+			// console.log('value', value);
+			const name = Object.values(payload.top_customers.customer);
+			// console.log('name', name);
+
+			state.customerAmount.actualData = {
+				value: value[0],
+				name: name[0]
+			};
+			console.log('mut pieChart', state.customerAmount.actualData);
+
+			// state.customerAmount.actualData = payload.top_customers.map(item => {
+			// 	let elem = item;
+			// 	console.log('elem', elem);
+			// 	return elem;
+			// });
+			// pieChart end
+
 			// state.vendorAmount = payload.top_customers;
 			// state.topContractsData = payload.topContractsData;
 			// state.criCompositionData = payload.criCompositionData;
@@ -549,8 +581,6 @@ export default new Vuex.Store({
 	actions: {
 		getDashboardData(store, payload) {
 			store.commit('API_DATA_PENDING');
-
-			// console.log('getDashboardData', payload);
 
 			// return axios
 			axios
