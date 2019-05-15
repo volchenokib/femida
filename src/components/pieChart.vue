@@ -79,7 +79,7 @@ export default {
 
   methods: {
     setOptions({ actualData } = {}) {
-      console.log("comp pieChart", actualData);
+      console.log("component pieChart", actualData);
       this.chart.setOption({
         title: {
           text: this.title,
@@ -109,12 +109,12 @@ export default {
 
           formatter: function(actualData) {
             // console.log("tooltip", actualData);
-            let percent = Math.round(actualData.total_contract_value);
-            let cri = Math.round(actualData.average_cri) * 100;
-            let contracts = actualData.data.number_of_contracts;
+            let cri = actualData.data.cri;
+            let contracts = actualData.data.contracts;
             let sum = actualData.data.sum;
             let sumUnit = actualData.data.sumUnit;
-            return `CRI: ${cri}% в среднем </br> контрактов: ${contracts} </br> сумма: ${sum} ${sumUnit}`;
+            return `CRI: ${cri ||
+              "- "}% в среднем </br> контрактов: ${contracts} </br> сумма: ${sum} ${sumUnit}`;
           }
         },
 

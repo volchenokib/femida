@@ -99,7 +99,6 @@ export default {
       }
     },
     setOptions({ expectedData, markPoint, titleValue } = {}) {
-      console.log("lineChartIndex", expectedData, markPoint);
       this.chart.setOption({
         title: {
           text: `Распределение CRI по регионам`,
@@ -131,7 +130,9 @@ export default {
           boundaryGap: false,
           axisTick: {
             show: false
-          }
+          },
+          min: 30,
+          max: 55
         },
 
         yAxis: {
@@ -144,7 +145,11 @@ export default {
         tooltip: {
           trigger: "axis",
           axisPointer: {
-            type: "cross"
+            axis: "x",
+            type: "cross",
+            label: {
+              backgroundColor: "#6a7985"
+            }
           },
           backgroundColor: "rgba(50, 50, 50, 0.9)",
           color: "#ff7f50",
@@ -157,7 +162,8 @@ export default {
             fontWeight: "lighter"
           },
 
-          extraCssText: "text-align: left;"
+          extraCssText: "text-align: left;",
+          formatter: "CRI: {c}%"
         },
 
         legend: {
@@ -188,26 +194,6 @@ export default {
               symbol: "pin"
             }
           }
-          // {
-          //   name: "CRI за 2017",
-          //   smooth: true,
-          //   type: "line",
-          //   itemStyle: {
-          //     normal: {
-          //       color: "#3888fa",
-          //       lineStyle: {
-          //         color: "#3888fa",
-          //         width: 2
-          //       },
-          //       areaStyle: {
-          //         color: "#f3f8ff"
-          //       }
-          //     }
-          //   },
-          //   data: actualData,
-          //   animationDuration: 2800,
-          //   animationEasing: "quadraticOut"
-          // }
         ]
       });
     },

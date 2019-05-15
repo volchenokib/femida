@@ -6,15 +6,15 @@
       <el-table-column class="table__custom-header" label="Номер контракта" align="center">
         <template scope="scope">
           <a
-            :href="`//www.zakupki.gov.ru/epz/order/notice/ea44/view/common-info.html?regNumber=${scope.row.contract}`"
+            :href="`//www.zakupki.gov.ru/epz/order/notice/ea44/view/common-info.html?regNumber=${scope.row.contract_number}`"
             target="_blank"
-          >{{scope.row.contract}}</a>
+          >{{scope.row.contract_number}}</a>
         </template>
       </el-table-column>
 
       <el-table-column class="table__custom-header" label="CRI" align="center">
         <template scope="scope">
-          <span>{{scope.row.cri}}%</span>
+          <span>{{Math.round(scope.row.CRI*100)}}%</span>
         </template>
       </el-table-column>
     </el-table>

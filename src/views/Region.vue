@@ -4,7 +4,7 @@
     <div class="region__charts-layout">
       <div class="region__pieCharts mr">
         <pieChart
-          :chartData="this.$store.state.customerAmountData"
+          :chartData="customerAmountData"
           :title="'Распределение суммы конкурсов по заказчикам'"
           :style="{height: '350px'}"
         />
@@ -49,14 +49,14 @@ export default {
   },
   computed: {
     lineChartData() {
-      console.log("COMP lineChartData", this.$store.getters.lineChartData);
+      // console.log("COMP lineChartData", this.$store.getters.lineChartData);
       return this.$store.getters.lineChartData;
     },
     lineChartIndexData() {
       return this.$store.getters.lineChartIndexData;
     },
     customerAmountData() {
-      console.log("computed pieChart", this.$store.getters.customerAmountData);
+      // console.log("computed pieChart", this.$store.getters.customerAmountData);
       return this.$store.getters.customerAmountData;
     },
     vendorAmountData() {
@@ -86,7 +86,7 @@ export default {
   border: $border;
   border-radius: $border-radius;
   box-shadow: box-shadow;
-  // padding: 15px;
+  // padding: 15px 0;
 }
 
 .mr {

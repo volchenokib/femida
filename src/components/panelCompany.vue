@@ -6,7 +6,7 @@
         <div class="card-panel-description" v-if="!dataLoading">
           <count-to
             :start-val="0"
-            :end-val="this.panelDataContracts"
+            :end-val="this.panelDataCompanyContracts"
             :duration="2600"
             :separator="' '"
             class="card-panel-num"
@@ -22,7 +22,7 @@
         <div class="card-panel-description" v-if="!dataLoading">
           <count-to
             :start-val="0"
-            :end-val="this.panelDataMoney"
+            :end-val="this.panelDataCompanyMoney"
             :decimal="','"
             :decimals="1"
             :duration="2600"
@@ -34,12 +34,12 @@
     </el-col>
 
     <!-- customers -->
-    <el-col :xs="12" :sm="12" :lg="12" class="card-panel-col">
+    <el-col :xs="12" :sm="12" :lg="12" class="card-panel-col" v-if="this.$store.state.vendor">
       <div class="card-panel" v-loading="dataLoading" element-loading-spinner="el-icon-loading">
         <div class="card-panel-description" v-if="!dataLoading">
           <count-to
             :start-val="0"
-            :end-val="this.panelDataCustomers"
+            :end-val="this.panelDataCompanyCustomers"
             :separator="' '"
             :duration="2600"
             class="card-panel-num"
@@ -49,21 +49,21 @@
       </div>
     </el-col>
 
-    <!-- wins -->
-    <!-- <el-col class="card-panel-col" v-if="this.$store.state.vendor" :xs="12" :sm="12" :lg="12">
+    <!-- vendor -->
+    <el-col :xs="12" :sm="12" :lg="12" class="card-panel-col" v-if="!this.$store.state.vendor">
       <div class="card-panel" v-loading="dataLoading" element-loading-spinner="el-icon-loading">
         <div class="card-panel-description" v-if="!dataLoading">
           <count-to
             :start-val="0"
-            :end-val="this.panelData.wins"
-            :suffix="'%'"
+            :end-val="this.panelDataCompanyVendors"
+            :separator="' '"
             :duration="2600"
             class="card-panel-num"
           />
-          <div class="card-panel-text">побед</div>
+          <div class="card-panel-text">{{vendorDesc}}</div>
         </div>
       </div>
-    </el-col>-->
+    </el-col>
 
     <!-- Index -->
     <el-col :xs="12" :sm="12" :lg="12" class="card-panel-col">
@@ -72,7 +72,7 @@
           <count-to
             :prefix="'CRI '"
             :start-val="0"
-            :end-val="this.panelDataIndex"
+            :end-val="this.panelDataCompanyIndex"
             :suffix="'%'"
             :duration="2600"
             class="card-panel-num"
@@ -89,7 +89,7 @@
         v-loading="dataLoading"
         element-loading-spinner="el-icon-loading"
       >
-        <simplePie v-if="!dataLoading"/>
+        <simpleCompanyPie v-if="!dataLoading"/>
         <div
           class="card-panel-description"
           v-if="!dataLoading"
@@ -97,7 +97,7 @@
         >
           <count-to
             :start-val="0"
-            :end-val="this.panelDataRisk"
+            :end-val="this.panelDataCompanyRisk"
             :decimal="','"
             :decimals="1"
             :duration="2600"
@@ -115,11 +115,11 @@
 
 <script>
 import CountTo from "vue-count-to";
-import simplePie from "@/components/simplePie";
+import simpleCompanyPie from "@/components/simpleCompanyPie";
 export default {
-  name: "panelGroup",
+  name: "panelCompanyGroup",
   components: {
-    simplePie,
+    simpleCompanyPie,
     CountTo
   },
   data() {
@@ -132,24 +132,42 @@ export default {
     dataLoading() {
       return this.$store.getters.getDataState;
     },
-    panelDataContracts() {
-      return this.$store.getters.panelDataContracts;
+    panelDataCompanyContracts() {
+      return this.$store.getters.panelDataCompanyContracts;
     },
-    panelDataMoney() {
-      return this.$store.getters.panelDataMoney;
+    panelDataCompanyMoney() {
+      return this.$store.getters.panelDataCompanyMoney;
     },
-    panelDataCustomers() {
-      return this.$store.getters.panelDataCustomers;
+    panelDataCompanyCustomers() {
+      return this.$store.getters.panelDataCompanyCustomers;
     },
-    panelDataIndex() {
-      return this.$store.getters.panelDataIndex;
+    panelDataCompanyVendors() {
+      return this.$store.getters.panelDataCompanyVendors;
     },
-    panelDataRisk() {
-      return this.$store.getters.panelDataRisk;
+    panelDataCompanyIndex() {
+      return this.$store.getters.panelDataCompanyIndex;
+    },
+    panelDataCompanyRisk() {
+      return this.$store.getters.panelDataCompanyRisk;
     },
     customersDesc() {
       // description format for russian language
-      let lastDigit = this.$store.getters.panelDataCustomers
+      let lastDigit = this.$store.getters.panelDataCompanyCustomers
+        .toString()
+        .slice(-1);
+
+      if (lastDigit == "1") {
+        return "уникальный заказчик";
+      } else if (lastDigit == "2" || lastDigit == "3" || lastDigit == "4") {
+        return "уникальных заказчика";
+      } else {
+        return "уникальных заказчиков";
+      }
+    },
+
+    vendorDesc() {
+      // description format for russian language
+      let lastDigit = this.$store.getters.panelDataCompanyCustomers
         .toString()
         .slice(-1);
 
@@ -164,25 +182,23 @@ export default {
 
     moneyDesc() {
       const money = Math.round(
-        this.$store.state.panelData.total_contract_value
+        this.$store.state.panelDataCompany.total_contract_value
       );
       const len = money.toString().length;
       if (len > 9) {
-        console.log("units:", len);
         return "млрд. руб.";
       } else if (len > 6 && len <= 9) {
-        console.log("units:", len);
         return "млн. руб.";
       } else {
         return "тыс. руб";
       }
     },
     riskColor() {
-      if (this.$store.getters.panelDataRisk < 0.4) {
+      if (this.$store.getters.panelDataCompanyRisk < 0.4) {
         return "#2ec7c9";
       } else if (
-        this.$store.getters.panelDataRisk >= 0.4 &&
-        this.$store.getters.panelDataRisk < 0.6
+        this.$store.getters.panelDataCompanyRisk >= 0.4 &&
+        this.$store.getters.panelDataCompanyRisk < 0.6
       ) {
         return "#f5994e";
       } else {
@@ -190,11 +206,11 @@ export default {
       }
     },
     riskLevel() {
-      if (this.$store.getters.panelDataRisk < 0.4) {
+      if (this.$store.getters.panelDataCompanyRisk < 0.4) {
         return "низкий";
       } else if (
-        this.$store.getters.panelDataRisk >= 0.4 &&
-        this.$store.getters.panelDataRisk < 0.6
+        this.$store.getters.panelDataCompanyRisk >= 0.4 &&
+        this.$store.getters.panelDataCompanyRisk < 0.6
       ) {
         return "средний";
       } else {

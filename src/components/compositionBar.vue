@@ -79,6 +79,7 @@ export default {
 
   methods: {
     setOptions({ actualData } = {}) {
+      console.log("actualData:", actualData);
       this.chart.setOption({
         title: {
           text: this.title,

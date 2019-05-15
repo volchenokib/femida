@@ -37,6 +37,87 @@ export default {
       this.formatOption();
     },
     formatOption() {
+      let main_company_styles = {
+        symbol: "circle",
+        symbolSize: 80,
+        itemStyle: {
+          emphasis: {
+            color: "#c92e2e"
+          },
+          normal: {
+            color: "#c92e2e",
+            label: {
+              textStyle: {
+                // color: "#f90"
+              }
+            }
+          }
+        }
+      };
+
+      let sub_company_style = {
+        symbolSize: 30,
+        category: 1,
+        draggable: false,
+        itemStyle: {
+          normal: {
+            color: "#2ec7c9"
+          },
+          emphasis: {
+            color: "#32DADD"
+          }
+        }
+      };
+
+      let company_data = this.$store.state.connections_companies.map(function(x, i) {
+        if (i===0) {
+          return Object.assign({}, main_company_styles,{name: x});
+        } else {
+          return Object.assign({}, sub_company_style,{name: x});
+        }});
+      let customers_link_style = {
+        lineStyle: {
+          normal: {
+            color: "#d87a80",
+            curveness: 0.2
+          }
+        },
+
+        label: {
+          normal: {
+            textStyle: {
+              color: "#d87a80"
+            },
+            formatter: "{c}"
+          }
+        },
+
+        symbol: ["arrow", "arrow"],
+        symbolSize: [10, 10]
+      };
+
+      let capital_link_style = {
+        lineStyle: {
+          normal: {
+            color: "#9a7fd1",
+            curveness: 0.2
+          }
+        },
+        label: {
+          normal: {
+            textStyle: {
+              color: "#9a7fd1"
+            }
+          }
+        }
+      };
+      let link_data = this.$store.state.connections_links.map(function(x) {
+        if (x.name==="% в уставном капитале") {
+          return Object.assign({}, capital_link_style, x);
+        } else {
+          return Object.assign({}, customers_link_style, x);
+        }});
+
       this.option = {
         // title: {
         //   text: "Graph"
@@ -116,330 +197,9 @@ export default {
               layoutAnimation: false
             },
 
-            data: [
-              // main
-              {
-                name: "ПАО СОВКОМБАНК",
-                // symbol:
-                //   "image://http://www.damndigital.com/wp-content/uploads/2010/12/steve-jobs.jpg",
-                symbol: "circle",
-                symbolSize: 150,
-                itemStyle: {
-                  emphasis: {
-                    color: "#f1f4f5"
-                  },
-                  normal: {
-                    color: "#f1f4f5",
-                    label: {
-                      textStyle: {
-                        // color: "#f90"
-                      }
-                    }
-                  }
-                }
-              },
-              {
-                name:
-                  "ФГБНУ ТОМСКИЙ НАЦИОНАЛЬНЫЙ ИССЛЕДОВАТЕЛЬСКИЙ МЕДИЦИНСКИЙ ЦЕНТР РОССИЙСКОЙ АКАДЕМИИ НАУК",
-                symbolSize: 20,
-                category: 1,
-                draggable: false,
-                itemStyle: {
-                  normal: {
-                    color: "#2ec7c9"
-                  },
-                  emphasis: {
-                    color: "#32DADD"
-                  }
-                }
-              },
-              {
-                name: "ООО Инвестиционное агентство",
-                category: 1,
-                draggable: false,
-                itemStyle: {
-                  normal: {
-                    color: "#f1f4f5"
-                  },
-                  emphasis: {
-                    color: "#f1f4f5"
-                  }
-                }
-              },
-              {
-                name: "ООО Сбондс.ру",
-                category: 0,
-                draggable: false,
-                itemStyle: {
-                  normal: {
-                    color: "#f1f4f5"
-                  },
-                  emphasis: {
-                    color: "#f1f4f5"
-                  }
-                }
-              },
-              {
-                name: "ООО БАНК СКИБ",
-                category: 0,
-                draggable: false,
-                itemStyle: {
-                  normal: {
-                    color: "#f1f4f5"
-                  },
-                  emphasis: {
-                    color: "#f1f4f5"
-                  }
-                }
-              },
-              {
-                name: "ООО БТЕ",
-                category: 0,
-                draggable: false,
-                itemStyle: {
-                  normal: {
-                    color: "#f1f4f5"
-                  },
-                  emphasis: {
-                    color: "#f1f4f5"
-                  }
-                }
-              }
-            ],
+            data: company_data,
 
-            links: [
-              // #1
-              {
-                source: "ПАО СОВКОМБАНК",
-                target:
-                  "ФГБНУ ТОМСКИЙ НАЦИОНАЛЬНЫЙ ИССЛЕДОВАТЕЛЬСКИЙ МЕДИЦИНСКИЙ ЦЕНТР РОССИЙСКОЙ АКАДЕМИИ НАУК",
-                name: "% общих заказчиков",
-                value: "86%",
-
-                lineStyle: {
-                  normal: {
-                    color: "#d87a80",
-                    curveness: 0.2
-                  }
-                },
-
-                label: {
-                  normal: {
-                    textStyle: {
-                      color: "#d87a80"
-                    },
-                    formatter: "{c}"
-                  }
-                },
-
-                symbol: ["arrow", "arrow"],
-                symbolSize: [10, 10]
-              },
-
-              {
-                source:
-                  "ФГБНУ ТОМСКИЙ НАЦИОНАЛЬНЫЙ ИССЛЕДОВАТЕЛЬСКИЙ МЕДИЦИНСКИЙ ЦЕНТР РОССИЙСКОЙ АКАДЕМИИ НАУК",
-                target: "ПАО СОВКОМБАНК",
-                value: "15%",
-                lineStyle: {
-                  normal: {
-                    color: "#9a7fd1",
-                    curveness: 0.2
-                  }
-                },
-                label: {
-                  normal: {
-                    textStyle: {
-                      color: "#9a7fd1"
-                    }
-                  }
-                }
-              },
-
-              // #2
-              {
-                source: "ПАО СОВКОМБАНК",
-                target: "ООО Инвестиционное агентство",
-                value: "75%",
-                lineStyle: {
-                  normal: {
-                    color: "#d87a80",
-                    curveness: 0.2
-                  }
-                },
-                label: {
-                  normal: {
-                    textStyle: {
-                      color: "#d87a80"
-                    },
-                    formatter: "{c}"
-                  }
-                },
-
-                symbol: ["arrow", "arrow"],
-                symbolSize: [10, 10]
-              },
-
-              {
-                source: "ООО Инвестиционное агентство",
-                target: "ПАО СОВКОМБАНК",
-                value: "25%",
-                lineStyle: {
-                  normal: {
-                    color: "#9a7fd1",
-                    curveness: 0.2
-                  }
-                },
-                label: {
-                  normal: {
-                    textStyle: {
-                      color: "#9a7fd1"
-                    },
-                    formatter: "{c}"
-                  }
-                }
-              },
-
-              // #3
-              {
-                source: "ПАО СОВКОМБАНК",
-                target: "ООО Сбондс.ру",
-                value: "17%",
-
-                lineStyle: {
-                  normal: {
-                    color: "#d87a80",
-                    curveness: 0.2
-                  }
-                },
-
-                label: {
-                  normal: {
-                    textStyle: {
-                      color: "#d87a80"
-                    },
-                    formatter: "{c}"
-                  }
-                },
-
-                symbol: ["arrow", "arrow"],
-                symbolSize: [10, 10]
-              },
-
-              {
-                source: "ООО Сбондс.ру",
-                target: "ПАО СОВКОМБАНК",
-                value: "5%",
-
-                lineStyle: {
-                  normal: {
-                    color: "#9a7fd1",
-                    curveness: 0.2
-                  }
-                },
-
-                label: {
-                  normal: {
-                    textStyle: {
-                      color: "#9a7fd1"
-                    },
-                    formatter: "{c}"
-                  }
-                }
-              },
-
-              // #4
-              {
-                source: "ПАО СОВКОМБАНК",
-                target: "ООО БАНК СКИБ",
-                value: "15%",
-                lineStyle: {
-                  normal: {
-                    color: "#d87a80",
-                    curveness: 0.2
-                  }
-                },
-
-                label: {
-                  normal: {
-                    textStyle: {
-                      color: "#d87a80"
-                    },
-                    formatter: "{c}"
-                  }
-                },
-
-                symbol: ["arrow", "arrow"],
-                symbolSize: [10, 10]
-              },
-
-              {
-                source: "ООО БАНК СКИБ",
-                target: "ПАО СОВКОМБАНК",
-                value: "38%",
-                lineStyle: {
-                  normal: {
-                    color: "#9a7fd1",
-                    curveness: 0.2
-                  }
-                },
-
-                label: {
-                  normal: {
-                    textStyle: {
-                      color: "#9a7fd1"
-                    },
-                    formatter: "{c}"
-                  }
-                }
-              },
-
-              // #5
-              {
-                source: "ПАО СОВКОМБАНК",
-                target: "ООО БТЕ",
-                value: "28%",
-                lineStyle: {
-                  normal: {
-                    color: "#d87a80",
-                    curveness: 0.2
-                  }
-                },
-
-                label: {
-                  normal: {
-                    textStyle: {
-                      color: "#d87a80"
-                    },
-                    formatter: "{c}"
-                  }
-                },
-
-                symbol: ["arrow", "arrow"],
-                symbolSize: [10, 10]
-              },
-
-              {
-                source: "ООО БТЕ",
-                target: "ПАО СОВКОМБАНК",
-                value: "28%",
-                lineStyle: {
-                  normal: {
-                    color: "#9a7fd1",
-                    curveness: 0.2
-                  }
-                },
-
-                label: {
-                  normal: {
-                    textStyle: {
-                      color: "#9a7fd1"
-                    },
-                    formatter: "{c}"
-                  }
-                }
-              }
-            ]
+            links: link_data,
           }
         ]
       };

@@ -6,6 +6,8 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
 	state: {
+		isCustomer: true,
+		errorMsg: false,
 		data: {
 			isLoding: false
 		},
@@ -15,6 +17,10 @@ export default new Vuex.Store({
 		dashboard: null,
 
 		regions: [
+			{
+				value: ' ',
+				label: 'Все регионы'
+			},
 			{
 				value: 'Алтайский край',
 				label: 'Алтайский край'
@@ -366,33 +372,46 @@ export default new Vuex.Store({
 		],
 
 		panelData: {},
+		panelDataCompany: {},
+
 		lineChartData: {
 			actualData: [],
 			expectedData: []
 		},
+
+		lineChartDataCompany: {
+			actualData: [],
+			expectedData: []
+		},
+
 		lineChartIndexData: {
 			expectedData: [],
 			markPoint: []
 		},
-		// topContractsData: {},
-		// winRateData: {},
+		topContractsData: {},
+
+		winRateData: {
+			actualData: []
+		},
+
+		regionsRateData: {
+			actualData: []
+		},
 
 		// panel group
 		vendor: false,
 
 		// pie charts at region page
-		customerAmount: {},
-		vendorAmount: {},
-		criCompositionData: {},
+		customerAmount: {
+			actualData: []
+		},
+		vendorAmount: {
+			actualData: []
+		},
+		criCompositionData: {
+			actualData: []
+		},
 
-		// search companies input
-		companies: [
-			"AO 'Р-Фарм'",
-			"ФГБНУ 'ТОМСКИЙ НАЦИОНАЛЬНЫЙ ИССЛЕДОВАТЕЛЬСКИЙ МЕДИЦИНСКИЙ ЦЕНТР РОССИЙСКОЙ АКАДЕМИИ НАУК'",
-			"ООО 'Инвестиционное агенство'",
-			"ПОА 'Совкомбанк'",
-			"OOO 'БТЕ'"
-		],
 		searchLoading: false,
 		options: [],
 
@@ -442,7 +461,7 @@ export default new Vuex.Store({
 			// return Math.round(state.dashboard.statistics.total_contract_value);
 		},
 		panelDataCustomers(state) {
-			return state.panelData.unique_customers;
+			return state.panelData.unique_contractors;
 		},
 		panelDataIndex(state) {
 			let percent = state.panelData.average_cri * 100;
@@ -454,18 +473,68 @@ export default new Vuex.Store({
 		},
 		// panel group component end
 
+		// panel group company component start
+		panelDataCompanyContracts(state) {
+			return state.panelDataCompany.number_of_contracts;
+		},
+		panelDataCompanyMoney(state) {
+			return Math.abs(Number(state.panelDataCompany.total_contract_value)) >=
+				1.0e9
+				? Math.abs(Number(state.panelDataCompany.total_contract_value)) /
+						1.0e8 /
+						10
+				: // Six Zeroes for Millions
+				Math.abs(Number(state.panelDataCompany.total_contract_value)) >= 1.0e6
+				? Math.abs(Number(state.panelDataCompany.total_contract_value)) / 1.0e6
+				: // Three Zeroes for Thousands
+				Math.abs(Number(state.panelDataCompany.total_contract_value)) >= 1.0e3
+				? Math.abs(Number(state.panelDataCompany.total_contract_value)) / 1.0e3
+				: Math.abs(Number(state.panelDataCompany.total_contract_value));
+		},
+		panelDataCompanyCustomers(state) {
+			return state.panelDataCompany.unique_customers;
+		},
+		panelDataCompanyVendors(state) {
+			return state.panelDataCompany.unique_contractors;
+		},
+		panelDataCompanyIndex(state) {
+			let percent = state.panelDataCompany.average_cri * 100;
+			let round = Math.round(percent);
+			return round;
+		},
+		panelDataCompanyRisk(state) {
+			return state.panelDataCompany.risk;
+		},
+		// panel group company component end
+
 		lineChartData(state) {
 			return state.lineChartData;
+		},
+		lineChartDataCompany(state) {
+			return state.lineChartDataCompany;
 		},
 		lineChartIndexData(state) {
 			return state.lineChartIndexData;
 		},
 
 		customerAmountData(state) {
-			console.log('getters pieChart', state.customerAmount.actualData);
 			return state.customerAmount;
 		},
 		vendorAmountData(state) {
+			// let vendorAmount = state.vendorAmount.actualData.map(item => {
+			// 	return Math.abs(Number(item.sum)) >= 1.0e9
+			// 		? Math.abs(Number(item.sum)) / 1.0e8 / 10
+			// 		: // Six Zeroes for Millions
+			// 		Math.abs(Number(item.sum)) >= 1.0e6
+			// 		? Math.abs(Number(item.sum)) / 1.0e6
+			// 		: // Three Zeroes for Thousands
+			// 		Math.abs(Number(item.sum)) >= 1.0e3
+			// 		? Math.abs(Number(item.sum)) / 1.0e3
+			// 		: Math.abs(Number(item.sum));
+			// });
+
+			// console.log('vendorAmount', vendorAmount);
+
 			return state.vendorAmount;
 		},
 		topContractsData(state) {
@@ -475,6 +544,7 @@ export default new Vuex.Store({
 			return state.criCompositionData;
 		},
 		winRateData(state) {
+			console.log('winRateData getters', state.winRateData);
 			return state.winRateData;
 		},
 		regionsRateData(state) {
@@ -487,11 +557,13 @@ export default new Vuex.Store({
 			return state.searchLoading;
 		}
 	},
+
 	mutations: {
 		API_DATA_PENDING(state) {
 			state.data.isLoding = true;
 			state.input.isDisable = true;
 		},
+
 		API_DATA_SUCCES(state, payload) {
 			state.panelData = payload.statistics;
 			// state.lineChartData.expectedData = JSON.parse(payload.cri_dynamic);
@@ -542,49 +614,160 @@ export default new Vuex.Store({
 			];
 			// lineChartIndex end
 
-			// pieChart start
-			const value = Object.values(payload.top_customers.total_contract_value);
-			// console.log('value', value);
-			const name = Object.values(payload.top_customers.customer);
-			// console.log('name', name);
+			// pieChart region page customer start
+			state.customerAmount.actualData = payload.top_customers.map(item => {
+				let mapItem = {
+					name: item.customer.toLowerCase(),
+					value: Math.round(item.total_contract_value_percent),
+					cri: Math.round(item.average_cri * 100),
+					contracts: item.number_of_contracts,
+					sum: item.total_contract_value,
+					sumUnit: 'руб'
+				};
+				return mapItem;
+			});
+			// pieChart region page customer start end
 
-			state.customerAmount.actualData = {
-				value: value[0],
-				name: name[0]
-			};
-			console.log('mut pieChart', state.customerAmount.actualData);
+			// pieChart region page contracts start
+			state.vendorAmount.actualData = payload.top_contractors.map(item => {
+				let mapItem = {
+					name: item.contractor.toLowerCase(),
+					value: item.total_contract_value_percent,
+					cri: Math.round(item.average_cri * 100),
+					contracts: item.number_of_contracts,
+					sum: item.total_contract_value,
+					sumUnit: 'руб'
+				};
+				return mapItem;
+			});
+			// pieChart region page contracts end
 
-			// state.customerAmount.actualData = payload.top_customers.map(item => {
-			// 	let elem = item;
-			// 	console.log('elem', elem);
-			// 	return elem;
-			// });
-			// pieChart end
+			// state.winRateData = payload.top_contracts;
 
-			// state.vendorAmount = payload.top_customers;
-			// state.topContractsData = payload.topContractsData;
-			// state.criCompositionData = payload.criCompositionData;
-			// state.winRateData = payload.winRate;
-			// state.regionsRateData = payload.regionsRate;
 			// state.dashboard = payload;
 			state.data.isLoding = false;
 			state.input.isDisable = false;
 		},
+
+		API_DATA_FAILURE(state, payload) {
+			state.errorMsg = true;
+			// state.data.isLoding = false;
+			state.input.isDisable = false;
+		},
+
+		API_DATA_COMPANY_SUCCES(state, payload) {
+			state.panelDataCompany = payload.statistics;
+			state.winRateData.actualData = payload.top_contracts.map(item => {
+				let mapItem = {
+					name: item.contractor.toLowerCase(),
+					value: Math.round(item.Contract_Value)
+				};
+				return mapItem;
+			});
+
+			state.topContractsData = payload.top_cri_contracts;
+
+			state.criCompositionData.actualData = payload.CRI_parts;
+
+			// lineChart start
+			const dataForActualOne = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+			const dataForActualTwo = dataForActualOne.map(
+				n => (n = payload.statistics.average_cri)
+			);
+			const dataForActualThree = dataForActualTwo.map(n => n * 100);
+			const dataForActualFour = dataForActualThree.map(n => Math.round(n));
+			state.lineChartDataCompany.actualData = dataForActualFour;
+
+			const dataForExpectedOne = Object.values(payload.cri_dynamic);
+			const dataForExpectedTwo = dataForExpectedOne.map(n => n * 100);
+			const dataForExpectedThree = dataForExpectedTwo.map(n => Math.round(n));
+			state.lineChartDataCompany.expectedData = dataForExpectedThree;
+			// lineChart end
+
+			state.data.isLoding = false;
+			state.input.isDisable = false;
+			state.errorMsg = false;
+		},
+
+		API_CONNECTIONS_DATA_SUCCES(state, payload) {
+			state.connections_companies = payload.companies;
+			state.connections_links = payload.links;
+		},
+
 		API_SEARCH_PENDING(state) {
 			state.searchLoading = true;
 		},
 
 		API_SEARCH_SUCCES(state, payload) {
-			state.companies = payload;
+			state.options = payload;
+		},
+		API_SEARCH_FAILURE(state, payload) {
+			state.options = [];
 		}
 	},
+
 	actions: {
-		getDashboardData(store, payload) {
+		getSearchData(store, payload) {
+			axios
+				.get(
+					'http://anticor.ecotomsk.com:5002/companies?type=' +
+						payload.type +
+						'&shortname=' +
+						payload.company
+				)
+				// .get(
+				// 	'http://192.168.100.194:5002/companies?type=' +
+				// 		payload.type +
+				// 		'&shortname=' +
+				// 		payload.company
+				// )
+				.then(response => {
+					store.commit('API_SEARCH_SUCCES', response.data.company_names);
+				})
+				.catch(error => {
+					store.commit('API_SEARCH_FAILURE', error);
+					console.log('error', error);
+				});
+		},
+
+		getCompanyData(store, payload) {
 			store.commit('API_DATA_PENDING');
 
 			// return axios
 			axios
-				.get('http://192.168.100.194:5002/region?region=' + payload)
+				.get(
+					'http://anticor.ecotomsk.com:5002/' +
+						payload.type +
+						'?name=' +
+						payload.company +
+						'&region=' +
+						payload.region
+				)
+				// .get(
+				// 	'http://192.168.100.194:5002/' +
+				// 		payload.type +
+				// 		'?name=' +
+				// 		payload.company +
+				// 		'&region=' +
+				// 		payload.region
+				// )
+				.then(response => {
+					console.log('getCompanyData:', response.data);
+					store.commit('API_DATA_COMPANY_SUCCES', response.data);
+				})
+				.catch(error => {
+					store.commit('API_DATA_FAILURE', error);
+					console.log('error', error);
+				});
+		},
+
+		getDashboardData(store, payload) {
+			store.commit('API_DATA_PENDING');
+
+			// return axios http://192.168.100.194:5002
+			axios
+				.get('http://anticor.ecotomsk.com:5002/region?region=' + payload)
+				// .get('http://192.168.100.194:5002/region?region=' + payload)
 				.then(response => {
 					store.commit('API_DATA_SUCCES', response.data);
 					console.log('response:', response.data);
@@ -793,40 +976,20 @@ export default new Vuex.Store({
 			// 	// 	});
 		},
 
-		getCompanyList(store, payload) {
-			// if (payload !== "") {
-			// 	store.commit("API_SEARCH_PENDING");
+		getRelationsData(store, payload) {
+			store.commit('API_DATA_PENDING');
 
-			// 	setTimeout(() => {
-			// 		const list = [
-			// 			"AO 'Р-Фарм'",
-			// 			"ФГБНУ 'ТОМСКИЙ НАЦИОНАЛЬНЫЙ ИССЛЕДОВАТЕЛЬСКИЙ МЕДИЦИНСКИЙ ЦЕНТР РОССИЙСКОЙ АКАДЕМИИ НАУК'",
-			// 			"ООО 'Инвестиционное агенство'",
-			// 			"ПОА 'Совкомбанк'",
-			// 			"OOO 'БТЕ'"
-			// 		];
-
-			// 		store.commit("API_SEARCH_SUCCES", payload);
-			// 		this.options = this.list.filter(item => {
-			// 			return item.label.toLowerCase().indexOf(query.toLowerCase()) > -1;
-			// 		});
-			// 	}, 200);
-			// } else {
-			// 	// this.options = [];
-			// }
-
-			let promise = new Promise((resolve, reject) => {
-				setTimeout(() => {
-					resolve('response');
-				}, 2000);
-			});
-			return promise
+			// return axios http://192.168.100.194:5002
+			axios
+				.get('http://anticor.ecotomsk.com:5002/connections?name=' + payload)
+				// .get('http://192.168.100.194:5002/connections?name=' + payload)
 				.then(response => {
-					store.commit('API_SEARCH_SUCCES', payload);
+					store.commit('API_CONNECTIONS_DATA_SUCCES', response.data);
+					console.log('response:', response.data);
 				})
-
 				.catch(error => {
 					store.commit('API_DATA_FAILURE', error);
+					console.log('error', error);
 				});
 		}
 	}

@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <panelGroup/>
+    <panelCompany/>
 
     <div class="company__charts-layout">
       <div class="company__container-left">
@@ -15,7 +15,7 @@
 
         <pieWinRate
           :class="'chart'"
-          :chartData="regionsRateData"
+          :chartData="winRateData"
           :formatter="formatterRegions"
           :title="'Распределение суммы контрактов по регионам'"
           :style="{height: '480px'}"
@@ -41,18 +41,27 @@
     <br>
 
     <div class="company__container-full">
-      <lineChart
+      <lineChartCompany
         :title="this.$store.state.vendor ? 'Динамика CRI для данного поставщика' : 'Динамика CRI для данного заказчика'"
-        :chartData="lineChartData"
+        :chartData="lineChartDataCompany"
         :style="{height: '220px'}"
       />
     </div>
+
+    <!-- error  -->
+    <el-alert
+      class="errorMsg"
+      title="Нет данных"
+      type="error"
+      effect="light"
+      v-if="this.$store.state.errorMsg"
+    ></el-alert>
   </div>
 </template>
 
 <script>
-import panelGroup from "@/components/panelGroup.vue";
-import lineChart from "@/components/lineChart";
+import panelCompany from "@/components/panelCompany.vue";
+import lineChartCompany from "@/components/lineChartCompany";
 import topContractsTable from "@/components/topContractsTable";
 import criComposition from "@/components/criComposition";
 import compositionBar from "@/components/compositionBar";
@@ -61,12 +70,15 @@ import pieWinRate from "@/components/pieWinRate";
 export default {
   name: "home",
   components: {
-    panelGroup,
-    lineChart,
+    panelCompany,
+    lineChartCompany,
     topContractsTable,
     criComposition,
     compositionBar,
     pieWinRate
+  },
+  created() {
+    this.$store.dispatch("getRelationsData", "ЗАКРЫТОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"МОЛКОМБИНАТ \"АДЫГЕЙСКИЙ\"");
   },
   data() {
     return {
@@ -76,8 +88,8 @@ export default {
   },
 
   computed: {
-    lineChartData() {
-      return this.$store.getters.lineChartData;
+    lineChartDataCompany() {
+      return this.$store.getters.lineChartDataCompany;
     },
     criCompositionData() {
       return this.$store.getters.criCompositionData;
@@ -136,5 +148,15 @@ export default {
   border: $border;
   border-radius: $border-radius;
   box-shadow: box-shadow;
+}
+
+.errorMsg {
+  background-color: rgba(0, 0, 0, 0.6);
+  width: 200px;
+  padding: 20px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 99999;
 }
 </style>

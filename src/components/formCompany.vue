@@ -8,9 +8,9 @@
         :remote-method="remoteMethod"
         :disabled="isDisable"
         :loading="this.$store.state.searchLoading"
-        @change="getNewData"
         :value="companySelectVlue"
-        @focus="hideValue"
+        @change="getNewData"
+        @focus="clearDefaultValue"
         filterable
         remote
         reserve-keyword
@@ -43,9 +43,9 @@
     </el-form-item>
 
     <el-form-item>
-      <el-radio-group v-model="form.resource" :disabled="isDisable" @change="changeSource">
-        <el-radio v-model="form.resource" label="customer">По заказчику</el-radio>
-        <el-radio v-model="form.resource" label="vendor">По поставщику</el-radio>
+      <el-radio-group v-model="form.type" :disabled="isDisable" @change="changeSource">
+        <el-radio v-model="form.type" label="customer">По заказчику</el-radio>
+        <el-radio v-model="form.type" label="contractor">По поставщику</el-radio>
       </el-radio-group>
     </el-form-item>
 
@@ -55,27 +55,18 @@
         v-model="form.region"
         no-match-text="Нет данных"
         :disabled="isDisable"
+        popper-class="custom-popper"
         @change="getNewData"
         default-first-option
         filterable
       >
-        <el-option v-for="item in regions" :key="item.value" :label="item.label" :value="item"/>
-      </el-select>
-
-      <!-- <el-select
-        v-model="region"
-        multiple
-        collapse-tags
-        class="custom-form__item"
-        placeholder="Select"
-      >
         <el-option
-          v-for="item in regions"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"
-        ></el-option>
-      </el-select>-->
+          v-for="region in this.$store.state.regions"
+          :key="region.index"
+          :label="region.label"
+          :value="region.value"
+        />
+      </el-select>
     </el-form-item>
   </el-form>
 </template>
@@ -92,68 +83,22 @@ export default {
 
       form: {
         company: "",
-        resource: "customer",
+        type: "customer",
         region: ""
       },
       region: [],
       value: [],
-      regions: [
-        {
-          value: "Option101",
-          label: "Все регионы"
-        },
-        {
-          value: "Option10",
-          label: "Республика Адыгея (Адыгея)"
-        },
-        {
-          value: "Option20",
-          label: "Республика Алтай"
-        },
-        {
-          value: "Option30",
-          label: "Республика Башкортостан"
-        },
-        {
-          value: "Option40",
-          label: "Республика Бурятия"
-        },
-        {
-          value: "Option50",
-          label: "Республика Дагестан"
-        },
-        {
-          value: "Option60",
-          label: "Республика Ингушетия"
-        },
-        {
-          value: "Option70",
-          label: "Республика Ингушетия"
-        },
-        {
-          value: "Option80",
-          label: "Кабардино-Балкарская Республика"
-        },
-        {
-          value: "Option90",
-          label: "Город Москва"
-        },
-        {
-          value: "Option100",
-          label: "Ханты-Мансийский автономный округ – Югра"
-        }
-      ],
       companySelectVlue: ""
     };
   },
 
   created() {
     // set default value
-    this.form.company = this.$store.state.companies[0];
-    // this.form.company = this.state2;
-    this.form.region = this.regions[0];
+    this.form.company =
+      'УНИТАРНОЕ МУНИЦИПАЛЬНОЕ ПРЕДПРИЯТИЕ "СПЕЦАВТОХОЗЯЙСТВО Г. ТОМСКА"';
+    this.form.region = " ";
 
-    this.$store.dispatch("getDashboardData", this.form);
+    this.$store.dispatch("getCompanyData", this.form);
 
     // this.list = this.companies.map(item => {
     //   return { value: item, label: item };
@@ -176,31 +121,33 @@ export default {
   methods: {
     changeSource() {
       this.$store.state.vendor = !this.$store.state.vendor;
-      this.$store.dispatch("getDashboardData", this.form);
-      console.log("getNewData", this.$store.state.vendor);
-      console.log("getNewData", this.form);
+      this.$store.dispatch("getCompanyData", this.form);
     },
-    getNewData() {
-      this.$store.dispatch("getDashboardData", this.form);
-      console.log("getNewData", this.form);
-    },
-    hideValue() {
-      this.companySelectVlue = "dsf";
-      console.log("");
-    },
-    remoteMethod(query) {
-      // this.$store.dispatch("getCompanyList", query);
 
-      if (query !== "") {
+    getNewData() {
+      this.$store.dispatch("getCompanyData", this.form);
+      console.log("getNewData:", this.form);
+    },
+
+    clearDefaultValue() {
+      // this.form.company = " ";
+    },
+
+    remoteMethod(query) {
+      if (query.length >= 5) {
         this.$store.state.searchLoading = true;
-        setTimeout(() => {
-          this.$store.state.searchLoading = false;
-          this.$store.state.options = this.$store.state.companies.filter(
-            item => {
-              return item.toLowerCase().indexOf(query.toLowerCase()) > -1;
-            }
-          );
-        }, 200);
+
+        let searchForm = {
+          company: query,
+          type: this.form.type,
+          region: this.form.region
+        };
+
+        console.log("searchForm:", searchForm);
+
+        this.$store.dispatch("getSearchData", searchForm);
+
+        this.$store.state.searchLoading = false;
       } else {
         this.$store.state.options = [];
       }
@@ -259,9 +206,16 @@ export default {
   }
 }
 
-.custom-popper {
-  background-color: coral;
-}
+// .custom-popper {
+//   color: coral;
+// }
+// .el-scrollbar__view .el-select-dropdown__list {
+//   color: coral !important;
+// }
+
+// .custom-popper {
+//   background-color: coral;
+// }
 
 .autocomplete-container {
   min-width: 340px;
