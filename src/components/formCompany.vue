@@ -8,12 +8,12 @@
         :remote-method="remoteMethod"
         :disabled="isDisable"
         :loading="this.$store.state.searchLoading"
-        :value="companySelectVlue"
         @change="getNewData"
-        @focus="clearDefaultValue"
+        @focus="hideDefaultValue"
+        @blur="showDefaultValue"
+        default-first-option
         filterable
         remote
-        reserve-keyword
       >
         <el-option
           v-for="item in this.$store.state.options"
@@ -23,23 +23,6 @@
         ></el-option>
         <i slot="prefix" class="el-input__icon el-icon-search"></i>
       </el-select>
-      <!-- 
-      <br>
-      <br>-->
-
-      <!-- ---------------------------------------------------------------------------------- -->
-      <!-- <div class="autocomplete-container">
-        <el-autocomplete
-          class="custom-form__item"
-          v-model="form.company"
-          :fetch-suggestions="querySearch"
-          placeholder="Название компании"
-          :trigger-on-focus="false"
-          @select="handleSelect"
-        ></el-autocomplete>
-      </div>-->
-
-      <!-- ---------------------------------------------------------------------------------- -->
     </el-form-item>
 
     <el-form-item>
@@ -78,17 +61,12 @@ export default {
   components: {},
   data() {
     return {
-      links: [],
-      state2: "vuex",
-
       form: {
         company: "",
         type: "customer",
         region: ""
       },
-      region: [],
-      value: [],
-      companySelectVlue: ""
+      tempInputValue: ""
     };
   },
 
@@ -99,14 +77,6 @@ export default {
     this.form.region = " ";
 
     this.$store.dispatch("getCompanyData", this.form);
-
-    // this.list = this.companies.map(item => {
-    //   return { value: item, label: item };
-    // });
-  },
-
-  mounted() {
-    this.links = this.loadAll();
   },
 
   computed: {
@@ -128,8 +98,21 @@ export default {
       this.$store.dispatch("getCompanyData", this.form);
     },
 
-    clearDefaultValue() {
-      // this.form.company = " ";
+    hideDefaultValue() {
+      // this.tempInputValue = this.form.company;
+      // this.form.company = "";
+      // this.$store.state.options.push(this.tempInputValue);
+    },
+    showDefaultValue(e) {
+      // this.$store.state.options = [];
+      // console.log("e", e);
+      // click не на элементе дропдауна
+      // if (!e.target.value) {
+      //   this.form.company = this.tempInputValue;
+      //   this.tempInputValue = "";
+      //   this.$store.state.options = [];
+      //   console.log("click не на элементе дропдауна");
+      // }
     },
 
     remoteMethod(query) {
@@ -148,45 +131,7 @@ export default {
       } else {
         this.$store.state.options = [];
       }
-    },
-
-    // ----------------------------------------------------------------------------------------
-
-    querySearch(queryString, cb) {
-      var links = this.links;
-      var results = queryString
-        ? links.filter(this.createFilter(queryString))
-        : links;
-      // call callback function to return suggestions
-      cb(results);
-    },
-    createFilter(queryString) {
-      return link => {
-        return (
-          link.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0
-        );
-      };
-    },
-    loadAll() {
-      return [
-        { value: "AO 'Р-Фарм'", link: "https://github.com/vuejs/vue" },
-        {
-          value:
-            "ФГБНУ 'ТОМСКИЙ НАЦИОНАЛЬНЫЙ ИССЛЕДОВАТЕЛЬСКИЙ МЕДИЦИНСКИЙ ЦЕНТР РОССИЙСКОЙ АКАДЕМИИ НАУК'",
-          link: "https://github.com/ElemeFE/element"
-        },
-        {
-          value: "ООО 'Инвестиционное агенство'",
-          link: "https://github.com/ElemeFE/cooking"
-        },
-        { value: "mint-ui", link: "https://github.com/ElemeFE/mint-ui" },
-        { value: "vuex", link: "https://github.com/vuejs/vuex" },
-        { value: "vue-router", link: "https://github.com/vuejs/vue-router" },
-        { value: "babel", link: "https://github.com/babel/babel" }
-      ];
-    },
-
-    handleSelect(item) {}
+    }
   }
 };
 </script>
@@ -200,17 +145,6 @@ export default {
     width: 100%;
   }
 }
-
-// .custom-popper {
-//   color: coral;
-// }
-// .el-scrollbar__view .el-select-dropdown__list {
-//   color: coral !important;
-// }
-
-// .custom-popper {
-//   background-color: coral;
-// }
 
 .autocomplete-container {
   min-width: 340px;

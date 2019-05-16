@@ -1,6 +1,6 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
-import axios from 'axios';
+import Vue from "vue";
+import Vuex from "vuex";
+import axios from "axios";
 
 Vue.use(Vuex);
 
@@ -16,358 +16,360 @@ export default new Vuex.Store({
 		},
 		dashboard: null,
 
+		options: [],
+
 		regions: [
 			{
-				value: ' ',
-				label: 'Все регионы'
+				value: " ",
+				label: "Все регионы"
 			},
 			{
-				value: 'Алтайский край',
-				label: 'Алтайский край'
+				value: "Алтайский край",
+				label: "Алтайский край"
 			},
 			{
-				value: 'Амурская обл',
-				label: 'Амурская область'
+				value: "Амурская обл",
+				label: "Амурская область"
 			},
 			{
-				value: 'Архангельская обл',
-				label: 'Архангельская область'
+				value: "Архангельская обл",
+				label: "Архангельская область"
 			},
 			{
-				value: 'Астраханская обл',
-				label: 'Астраханская область'
+				value: "Астраханская обл",
+				label: "Астраханская область"
 			},
 			{
-				value: 'Белгородская обл',
-				label: 'Белгородская область'
+				value: "Белгородская обл",
+				label: "Белгородская область"
 			},
 			{
-				value: 'Брянская обл',
-				label: 'Брянская область'
+				value: "Брянская обл",
+				label: "Брянская область"
 			},
 			{
-				value: 'Владимирская обл',
-				label: 'Владимирская область'
+				value: "Владимирская обл",
+				label: "Владимирская область"
 			},
 			{
-				value: 'Волгоградская обл',
-				label: 'Волгоградская область'
+				value: "Волгоградская обл",
+				label: "Волгоградская область"
 			},
 			{
-				value: 'Вологодская обл',
-				label: 'Вологодская область'
+				value: "Вологодская обл",
+				label: "Вологодская область"
 			},
 			{
-				value: 'Воронежская обл',
-				label: 'Воронежская область'
+				value: "Воронежская обл",
+				label: "Воронежская область"
 			},
 			{
-				value: 'Москва',
-				label: 'г. Москва'
+				value: "Москва",
+				label: "г. Москва"
 			},
 			{
-				value: 'Еврейская Аобл',
-				label: 'Еврейская автономная область'
+				value: "Еврейская Аобл",
+				label: "Еврейская автономная область"
 			},
 			{
-				value: 'Забайкальский край',
-				label: 'Забайкальский край'
+				value: "Забайкальский край",
+				label: "Забайкальский край"
 			},
 			{
-				value: 'Ивановская обл',
-				label: 'Ивановская область'
+				value: "Ивановская обл",
+				label: "Ивановская область"
 			},
 			{
-				value: 'Байконур г',
-				label: 'г. Байконур'
+				value: "Байконур г",
+				label: "г. Байконур"
 			},
 			{
-				value: 'Иркутская обл',
-				label: 'Иркутская область'
+				value: "Иркутская обл",
+				label: "Иркутская область"
 			},
 			{
-				value: 'Кабардино-Балкарская Респ',
-				label: 'Кабардино-Балкарская Республика'
+				value: "Кабардино-Балкарская Респ",
+				label: "Кабардино-Балкарская Республика"
 			},
 			{
-				value: 'Калининградская обл',
-				label: 'Калининградская область'
+				value: "Калининградская обл",
+				label: "Калининградская область"
 			},
 			{
-				value: 'Калужская обл',
-				label: 'Калужская область'
+				value: "Калужская обл",
+				label: "Калужская область"
 			},
 			{
-				value: 'Камчатский край',
-				label: 'Камчатский край'
+				value: "Камчатский край",
+				label: "Камчатский край"
 			},
 			{
-				value: 'Карачаево-Черкесская Респ',
-				label: 'Карачаево-Черкесская Республика'
+				value: "Карачаево-Черкесская Респ",
+				label: "Карачаево-Черкесская Республика"
 			},
 			{
-				value: 'Кемеровская обл',
-				label: 'Кемеровская область'
+				value: "Кемеровская обл",
+				label: "Кемеровская область"
 			},
 			{
-				value: 'Кировская обл',
-				label: 'Кировская область'
+				value: "Кировская обл",
+				label: "Кировская область"
 			},
 			{
-				value: 'Костромская обл',
-				label: 'Костромская область'
+				value: "Костромская обл",
+				label: "Костромская область"
 			},
 			{
-				value: 'Краснодарский край',
-				label: 'Краснодарский край'
+				value: "Краснодарский край",
+				label: "Краснодарский край"
 			},
 			{
-				value: 'Красноярский край',
-				label: 'Красноярский край'
+				value: "Красноярский край",
+				label: "Красноярский край"
 			},
 			{
-				value: 'Курганская обл',
-				label: 'Курганская область'
+				value: "Курганская обл",
+				label: "Курганская область"
 			},
 			{
-				value: 'Курская обл',
-				label: 'Курская область'
+				value: "Курская обл",
+				label: "Курская область"
 			},
 			{
-				value: 'Ленинградская обл',
-				label: 'Ленинградская область'
+				value: "Ленинградская обл",
+				label: "Ленинградская область"
 			},
 			{
-				value: 'Липецкая обл',
-				label: 'Липецкая область'
+				value: "Липецкая обл",
+				label: "Липецкая область"
 			},
 			{
-				value: 'Магаданская обл',
-				label: 'Магаданская область'
+				value: "Магаданская обл",
+				label: "Магаданская область"
 			},
 			{
-				value: 'Московская обл',
-				label: 'Московская область'
+				value: "Московская обл",
+				label: "Московская область"
 			},
 			{
-				value: 'Мурманская обл',
-				label: 'Мурманская область'
+				value: "Мурманская обл",
+				label: "Мурманская область"
 			},
 			{
-				value: 'Ямало-Ненецкий АО',
-				label: 'Ненецкий автономный округ'
+				value: "Ямало-Ненецкий АО",
+				label: "Ненецкий автономный округ"
 			},
 			{
-				value: 'Нижегородская обл',
-				label: 'Нижегородская область'
+				value: "Нижегородская обл",
+				label: "Нижегородская область"
 			},
 			{
-				value: 'Новгородская обл',
-				label: 'Новгородская область'
+				value: "Новгородская обл",
+				label: "Новгородская область"
 			},
 			{
-				value: 'Новосибирская обл',
-				label: 'Новосибирская область'
+				value: "Новосибирская обл",
+				label: "Новосибирская область"
 			},
 			{
-				value: 'Омская обл',
-				label: 'Омская область'
+				value: "Омская обл",
+				label: "Омская область"
 			},
 			{
-				value: 'Оренбургская обл',
-				label: 'Оренбургская область'
+				value: "Оренбургская обл",
+				label: "Оренбургская область"
 			},
 			{
-				value: 'Орловская обл',
-				label: 'Орловская область'
+				value: "Орловская обл",
+				label: "Орловская область"
 			},
 			{
-				value: 'Пензенская обл',
-				label: 'Пензенская область'
+				value: "Пензенская обл",
+				label: "Пензенская область"
 			},
 			{
-				value: 'Пермский край',
-				label: 'Пермский край'
+				value: "Пермский край",
+				label: "Пермский край"
 			},
 			{
-				value: 'Приморский край',
-				label: 'Приморский край'
+				value: "Приморский край",
+				label: "Приморский край"
 			},
 			{
-				value: 'Псковская обл',
-				label: 'Псковская область'
+				value: "Псковская обл",
+				label: "Псковская область"
 			},
 			{
-				value: 'Псковская обл',
-				label: 'Псковская область'
+				value: "Псковская обл",
+				label: "Псковская область"
 			},
 			{
-				value: 'Адыгея Респ',
-				label: 'Республика Адыгея (Адыгея)'
+				value: "Адыгея Респ",
+				label: "Республика Адыгея (Адыгея)"
 			},
 			{
-				value: 'Алтай Респ',
-				label: 'Республика Алтай'
+				value: "Алтай Респ",
+				label: "Республика Алтай"
 			},
 			{
-				value: 'Башкортостан Респ',
-				label: 'Республика Башкортостан'
+				value: "Башкортостан Респ",
+				label: "Республика Башкортостан"
 			},
 			{
-				value: 'Бурятия Респ',
-				label: 'Республика Бурятия'
+				value: "Бурятия Респ",
+				label: "Республика Бурятия"
 			},
 			{
-				value: 'Дагестан Респ',
-				label: 'Республика Дагестан'
+				value: "Дагестан Респ",
+				label: "Республика Дагестан"
 			},
 			{
-				value: 'Ингушетия Респ',
-				label: 'Республика Ингушетия'
+				value: "Ингушетия Респ",
+				label: "Республика Ингушетия"
 			},
 			{
-				value: 'Калмыкия Респ',
-				label: 'Республика Калмыкия'
+				value: "Калмыкия Респ",
+				label: "Республика Калмыкия"
 			},
 			{
-				value: 'Карелия Респ',
-				label: 'Республика Карелия'
+				value: "Карелия Респ",
+				label: "Республика Карелия"
 			},
 			{
-				value: 'Коми Респ',
-				label: 'Республика Коми'
+				value: "Коми Респ",
+				label: "Республика Коми"
 			},
 			{
-				value: 'Крым Респ',
-				label: 'Республика Крым'
+				value: "Крым Респ",
+				label: "Республика Крым"
 			},
 			{
-				value: 'Марий Эл Респ',
-				label: 'Республика Марий Эл'
+				value: "Марий Эл Респ",
+				label: "Республика Марий Эл"
 			},
 			{
-				value: 'Мордовия Респ',
-				label: 'Республика Мордовия'
+				value: "Мордовия Респ",
+				label: "Республика Мордовия"
 			},
 			{
-				value: 'Якутия Респ',
-				label: 'Республика Саха (Якутия)'
+				value: "Якутия Респ",
+				label: "Республика Саха (Якутия)"
 			},
 			{
-				value: 'Северная Осетия - Алания Респ',
-				label: 'Республика Северная Осетия - Алания'
+				value: "Северная Осетия - Алания Респ",
+				label: "Республика Северная Осетия - Алания"
 			},
 			{
-				value: 'Татарстан Респ',
-				label: 'Республика Татарстан (Татарстан)'
+				value: "Татарстан Респ",
+				label: "Республика Татарстан (Татарстан)"
 			},
 			{
-				value: 'Тыва Респ',
-				label: 'Республика Тыва'
+				value: "Тыва Респ",
+				label: "Республика Тыва"
 			},
 			{
-				value: 'Хакасия Респ',
-				label: 'Республика Хакасия'
+				value: "Хакасия Респ",
+				label: "Республика Хакасия"
 			},
 			{
-				value: 'Ростовская обл',
-				label: 'Ростовская область'
+				value: "Ростовская обл",
+				label: "Ростовская область"
 			},
 			{
-				value: 'Рязанская обл',
-				label: 'Рязанская область'
+				value: "Рязанская обл",
+				label: "Рязанская область"
 			},
 			{
-				value: 'Самарская обл',
-				label: 'Самарская область'
+				value: "Самарская обл",
+				label: "Самарская область"
 			},
 			{
-				value: 'Санкт-Петербург',
-				label: 'Санкт-Петербург'
+				value: "Санкт-Петербург",
+				label: "Санкт-Петербург"
 			},
 			{
-				value: 'Саратовская обл',
-				label: 'Саратовская область'
+				value: "Саратовская обл",
+				label: "Саратовская область"
 			},
 			{
-				value: 'Сахалинская обл',
-				label: 'Сахалинская область'
+				value: "Сахалинская обл",
+				label: "Сахалинская область"
 			},
 			{
-				value: 'Свердловская обл',
-				label: 'Свердловская область'
+				value: "Свердловская обл",
+				label: "Свердловская область"
 			},
 			{
-				value: 'Севастополь г',
-				label: 'Севастополь'
+				value: "Севастополь г",
+				label: "Севастополь"
 			},
 			{
-				value: 'Смоленская обл',
-				label: 'Смоленская область'
+				value: "Смоленская обл",
+				label: "Смоленская область"
 			},
 			{
-				value: 'Ставропольский край',
-				label: 'Ставропольский край'
+				value: "Ставропольский край",
+				label: "Ставропольский край"
 			},
 			{
-				value: 'Тамбовская обл',
-				label: 'Тамбовская область'
+				value: "Тамбовская обл",
+				label: "Тамбовская область"
 			},
 			{
-				value: 'Тверская обл',
-				label: 'Тверская область'
+				value: "Тверская обл",
+				label: "Тверская область"
 			},
 			{
-				value: 'Томская обл',
-				label: 'Томская область'
+				value: "Томская обл",
+				label: "Томская область"
 			},
 			{
-				value: 'Тульская обл',
-				label: 'Тульская область'
+				value: "Тульская обл",
+				label: "Тульская область"
 			},
 			{
-				value: 'Тюменская обл',
-				label: 'Тюменская область'
+				value: "Тюменская обл",
+				label: "Тюменская область"
 			},
 			{
-				value: 'Удмуртская Респ',
-				label: 'Удмуртская Республика'
+				value: "Удмуртская Респ",
+				label: "Удмуртская Республика"
 			},
 			{
-				value: 'Ульяновская обл',
-				label: 'Ульяновская область'
+				value: "Ульяновская обл",
+				label: "Ульяновская область"
 			},
 			{
-				value: 'Хабаровский край',
-				label: 'Хабаровский край'
+				value: "Хабаровский край",
+				label: "Хабаровский край"
 			},
 			{
-				value: 'Ханты-Мансийский Автономный округ - Югра АО',
-				label: 'Ханты-Мансийский автономный округ - Югра'
+				value: "Ханты-Мансийский Автономный округ - Югра АО",
+				label: "Ханты-Мансийский автономный округ - Югра"
 			},
 			{
-				value: 'Челябинская обл',
-				label: 'Челябинская область'
+				value: "Челябинская обл",
+				label: "Челябинская область"
 			},
 			{
-				value: 'Чеченская Респ',
-				label: 'Чеченская Республика'
+				value: "Чеченская Респ",
+				label: "Чеченская Республика"
 			},
 			{
-				value: 'Чувашская Республика - Чувашия',
-				label: 'Чувашская Республика - Чувашия'
+				value: "Чувашская Республика - Чувашия",
+				label: "Чувашская Республика - Чувашия"
 			},
 			{
-				value: 'Чукотский АО',
-				label: 'Чукотский автономный округ'
+				value: "Чукотский АО",
+				label: "Чукотский автономный округ"
 			},
 			{
-				value: 'Ненецкий АО',
-				label: 'Ямало-Ненецкий автономный округ'
+				value: "Ненецкий АО",
+				label: "Ямало-Ненецкий автономный округ"
 			},
 			{
-				value: 'Ярославская обл',
-				label: 'Ярославская область'
+				value: "Ярославская обл",
+				label: "Ярославская область"
 			}
 		],
 
@@ -414,10 +416,9 @@ export default new Vuex.Store({
 		},
 
 		searchLoading: false,
-		options: [],
 
 		// tab title
-		headerTitle: 'Анализ по компании'
+		headerTitle: "Анализ по компании"
 	},
 
 	getters: {
@@ -433,19 +434,14 @@ export default new Vuex.Store({
 			return state.panelData.number_of_contracts;
 		},
 		panelDataMoney(state) {
-			return Math.abs(Number(state.panelData.total_contract_value)) >=
-				1.0e9
-				? Math.abs(Number(state.panelData.total_contract_value)) /
-						1.0e8 /
-						10
+			return Math.abs(Number(state.panelData.total_contract_value)) >= 1.0e9
+				? Math.abs(Number(state.panelData.total_contract_value)) / 1.0e8 / 10
 				: // Six Zeroes for Millions
 				Math.abs(Number(state.panelData.total_contract_value)) >= 1.0e6
-				? Math.abs(Number(state.panelData.total_contract_value)) /
-				  1.0e6
+				? Math.abs(Number(state.panelData.total_contract_value)) / 1.0e6
 				: // Three Zeroes for Thousands
 				Math.abs(Number(state.panelData.total_contract_value)) >= 1.0e3
-				? Math.abs(Number(state.panelData.total_contract_value)) /
-				  1.0e3
+				? Math.abs(Number(state.panelData.total_contract_value)) / 1.0e3
 				: Math.abs(Number(state.panelData.total_contract_value));
 		},
 		panelDataCustomers(state) {
@@ -466,31 +462,15 @@ export default new Vuex.Store({
 			return state.panelDataCompany.number_of_contracts;
 		},
 		panelDataCompanyMoney(state) {
-			return Math.abs(
-				Number(state.panelDataCompany.total_contract_value)
-			) >= 1.0e9
-				? Math.abs(
-						Number(state.panelDataCompany.total_contract_value)
-				  ) /
-						1.0e8 /
-						10
+			return Math.abs(Number(state.panelDataCompany.total_contract_value)) >= 1.0e9
+				? Math.abs(Number(state.panelDataCompany.total_contract_value)) / 1.0e8 / 10
 				: // Six Zeroes for Millions
-				Math.abs(
-						Number(state.panelDataCompany.total_contract_value)
-				  ) >= 1.0e6
-				? Math.abs(
-						Number(state.panelDataCompany.total_contract_value)
-				  ) / 1.0e6
+				Math.abs(Number(state.panelDataCompany.total_contract_value)) >= 1.0e6
+				? Math.abs(Number(state.panelDataCompany.total_contract_value)) / 1.0e6
 				: // Three Zeroes for Thousands
-				Math.abs(
-						Number(state.panelDataCompany.total_contract_value)
-				  ) >= 1.0e3
-				? Math.abs(
-						Number(state.panelDataCompany.total_contract_value)
-				  ) / 1.0e3
-				: Math.abs(
-						Number(state.panelDataCompany.total_contract_value)
-				  );
+				Math.abs(Number(state.panelDataCompany.total_contract_value)) >= 1.0e3
+				? Math.abs(Number(state.panelDataCompany.total_contract_value)) / 1.0e3
+				: Math.abs(Number(state.panelDataCompany.total_contract_value));
 		},
 		panelDataCompanyCustomers(state) {
 			return state.panelDataCompany.unique_customers;
@@ -570,68 +550,53 @@ export default new Vuex.Store({
 
 			// lineChart start
 			const dataForActualOne = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-			const dataForActualTwo = dataForActualOne.map(
-				n => (n = payload.statistics.average_cri)
-			);
+			const dataForActualTwo = dataForActualOne.map(n => (n = payload.statistics.average_cri));
 			const dataForActualThree = dataForActualTwo.map(n => n * 100);
-			const dataForActualFour = dataForActualThree.map(n =>
-				Math.round(n)
-			);
+			const dataForActualFour = dataForActualThree.map(n => Math.round(n));
 			state.lineChartData.actualData = dataForActualFour;
 
 			const dataForExpectedOne = Object.values(payload.cri_dynamic);
 			const dataForExpectedTwo = dataForExpectedOne.map(n => n * 100);
-			const dataForExpectedThree = dataForExpectedTwo.map(n =>
-				Math.round(n)
-			);
+			const dataForExpectedThree = dataForExpectedTwo.map(n => Math.round(n));
 			state.lineChartData.expectedData = dataForExpectedThree;
 
 			// lineChart end
 
 			// lineChartIndex start
-			let lineChartIndexOne = Object.keys(
-				payload.region_histogram.histogram
-			).map(key => {
+			let lineChartIndexOne = Object.keys(payload.region_histogram.histogram).map(key => {
 				return [key * 100, payload.region_histogram.histogram[key]];
 			});
 
 			state.lineChartIndexData.expectedData = lineChartIndexOne;
-			state.lineChartIndexData.markPoint = [
-				payload.place_in_hist.x * 100,
-				payload.place_in_hist.y
-			];
+			state.lineChartIndexData.markPoint = [payload.place_in_hist.x * 100, payload.place_in_hist.y];
 			// lineChartIndex end
 
 			// pieChart region page customer start
-			state.customerAmount.actualData = payload.top_customers.map(
-				item => {
-					let mapItem = {
-						name: item.customer.toLowerCase(),
-						value: Math.round(item.total_contract_value_percent),
-						cri: Math.round(item.average_cri * 100),
-						contracts: item.number_of_contracts,
-						sum: item.total_contract_value,
-						sumUnit: 'руб'
-					};
-					return mapItem;
-				}
-			);
+			state.customerAmount.actualData = payload.top_customers.map(item => {
+				let mapItem = {
+					name: item.customer.toLowerCase(),
+					value: Math.round(item.total_contract_value_percent),
+					cri: Math.round(item.average_cri * 100),
+					contracts: item.number_of_contracts,
+					sum: item.total_contract_value,
+					sumUnit: "руб"
+				};
+				return mapItem;
+			});
 			// pieChart region page customer start end
 
 			// pieChart region page contracts start
-			state.vendorAmount.actualData = payload.top_contractors.map(
-				item => {
-					let mapItem = {
-						name: item.contractor.toLowerCase(),
-						value: item.total_contract_value_percent,
-						cri: Math.round(item.average_cri * 100),
-						contracts: item.number_of_contracts,
-						sum: item.total_contract_value,
-						sumUnit: 'руб'
-					};
-					return mapItem;
-				}
-			);
+			state.vendorAmount.actualData = payload.top_contractors.map(item => {
+				let mapItem = {
+					name: item.contractor.toLowerCase(),
+					value: item.total_contract_value_percent,
+					cri: Math.round(item.average_cri * 100),
+					contracts: item.number_of_contracts,
+					sum: item.total_contract_value,
+					sumUnit: "руб"
+				};
+				return mapItem;
+			});
 			// pieChart region page contracts end
 
 			// state.winRateData = payload.top_contracts;
@@ -659,71 +624,63 @@ export default new Vuex.Store({
 
 			state.topContractsData = payload.top_cri_contracts;
 
-			state.criCompositionData.actualData = payload.CRI_parts.map(
-				item => {
-					let mapItem = {
-						name: item.part,
-						value: item.percent.toFixed(2)
-					};
-					return mapItem;
-				}
-			);
+			state.criCompositionData.actualData = payload.CRI_parts.map(item => {
+				let mapItem = {
+					name: item.part,
+					value: item.percent.toFixed(2)
+				};
+				return mapItem;
+			});
 
 			// lineChart start
 			const dataForActualOne = Object.keys(payload.cri_dynamic);
-			const dataForActualTwo = dataForActualOne.map(
-				n => (n = payload.statistics.average_cri)
-			);
+			const dataForActualTwo = dataForActualOne.map(n => (n = payload.statistics.average_cri));
 			const dataForActualThree = dataForActualTwo.map(n => n * 100);
-			const dataForActualFour = dataForActualThree.map(n =>
-				Math.round(n)
-			);
+			const dataForActualFour = dataForActualThree.map(n => Math.round(n));
 			state.lineChartDataCompany.actualData = dataForActualFour;
 
 			const dataForExpectedOne = Object.values(payload.cri_dynamic);
 			const dataForExpectedTwo = dataForExpectedOne.map(n => n * 100);
-			const dataForExpectedThree = dataForExpectedTwo.map(n =>
-				Math.round(n)
-			);
+			const dataForExpectedThree = dataForExpectedTwo.map(n => Math.round(n));
 			state.lineChartDataCompany.expectedData = dataForExpectedThree;
 
 			const dataForMonthOne = Object.keys(payload.cri_dynamic);
 			const dataForMonthTwo = dataForMonthOne.map(month => {
 				if (month == 1) {
-					return 'Январь';
+					return "Январь";
 				}
 				if (month == 2) {
-					return 'Февраль';
+					return "Февраль";
 				}
 				if (month == 3) {
-					return 'Март';
+					return "Март";
 				}
 				if (month == 4) {
-					return 'Апрель';
+					return "Апрель";
 				}
 				if (month == 5) {
-					return 'Май';
+					return "Май";
 				}
 				if (month == 6) {
-					return 'Июнь';
+					return "Июнь";
 				}
 				if (month == 7) {
-					return 'Июль';
+					return "Июль";
 				}
 				if (month == 8) {
-					return 'Август';
+					return "Август";
 				}
 				if (month == 9) {
-					return 'Сентябрь';
+					return "Сентябрь";
 				}
 				if (month == 10) {
-					return 'Октябрь';
+					return "Октябрь";
 				}
 				if (month == 11) {
-					return 'Ноябрь';
+					return "Ноябрь";
 				}
 				if (month == 12) {
-					return 'Декабрь';
+					return "Декабрь";
 				}
 			});
 			state.lineChartDataCompany.month = dataForMonthTwo;
@@ -732,6 +689,7 @@ export default new Vuex.Store({
 			state.data.isLoding = false;
 			state.input.isDisable = false;
 			state.errorMsg = false;
+			// state.options = [];
 		},
 
 		API_CONNECTIONS_DATA_SUCCES(state, payload) {
@@ -758,12 +716,7 @@ export default new Vuex.Store({
 	actions: {
 		getSearchData(store, payload) {
 			axios
-				.get(
-					'http://anticor.ecotomsk.com:5002/companies?type=' +
-						payload.type +
-						'&shortname=' +
-						payload.company
-				)
+				.get("http://anticor.ecotomsk.com:5002/companies?type=" + payload.type + "&shortname=" + payload.company)
 				// .get(
 				// 	'http://192.168.100.194:5002/companies?type=' +
 				// 		payload.type +
@@ -771,29 +724,20 @@ export default new Vuex.Store({
 				// 		payload.company
 				// )
 				.then(response => {
-					store.commit(
-						'API_SEARCH_SUCCES',
-						response.data.company_names
-					);
+					store.commit("API_SEARCH_SUCCES", response.data.company_names);
 				})
 				.catch(error => {
-					store.commit('API_SEARCH_FAILURE', error);
-					console.log('error', error);
+					store.commit("API_SEARCH_FAILURE", error);
+					console.log("error", error);
 				});
 		},
 
 		getCompanyData(store, payload) {
-			store.commit('API_DATA_PENDING');
+			store.commit("API_DATA_PENDING");
 
-			// return axios
 			axios
 				.get(
-					'http://anticor.ecotomsk.com:5002/' +
-						payload.type +
-						'?name=' +
-						payload.company +
-						'&region=' +
-						payload.region
+					"http://anticor.ecotomsk.com:5002/" + payload.type + "?name=" + payload.company + "&region=" + payload.region
 				)
 				// .get(
 				// 	'http://192.168.100.194:5002/' +
@@ -804,49 +748,44 @@ export default new Vuex.Store({
 				// 		payload.region
 				// )
 				.then(response => {
-					store.commit('API_DATA_COMPANY_SUCCES', response.data);
+					store.commit("API_DATA_COMPANY_SUCCES", response.data);
 				})
 				.catch(error => {
-					store.commit('API_DATA_FAILURE', error);
-					console.log('error', error);
+					store.commit("API_DATA_FAILURE", error);
+					console.log("error", error);
 				});
 		},
 
 		getDashboardData(store, payload) {
-			store.commit('API_DATA_PENDING');
+			store.commit("API_DATA_PENDING");
 
 			// return axios http://192.168.100.194:5002
 			axios
-				.get(
-					'http://anticor.ecotomsk.com:5002/region?region=' + payload
-				)
+				.get("http://anticor.ecotomsk.com:5002/region?region=" + payload)
 				// .get('http://192.168.100.194:5002/region?region=' + payload)
 				.then(response => {
-					store.commit('API_DATA_SUCCES', response.data);
-					console.log('response:', response.data);
+					store.commit("API_DATA_SUCCES", response.data);
+					console.log("response:", response.data);
 				})
 				.catch(error => {
-					store.commit('API_DATA_FAILURE', error);
-					console.log('error', error);
+					store.commit("API_DATA_FAILURE", error);
+					console.log("error", error);
 				});
 		},
 
 		getRelationsData(store, payload) {
-			store.commit('API_DATA_PENDING');
+			store.commit("API_DATA_PENDING");
 
 			// return axios http://192.168.100.194:5002
 			axios
-				.get(
-					'http://anticor.ecotomsk.com:5002/connections?name=' +
-						payload
-				)
+				.get("http://anticor.ecotomsk.com:5002/connections?name=" + payload)
 				// .get('http://192.168.100.194:5002/connections?name=' + payload)
 				.then(response => {
-					store.commit('API_CONNECTIONS_DATA_SUCCES', response.data);
+					store.commit("API_CONNECTIONS_DATA_SUCCES", response.data);
 				})
 				.catch(error => {
-					store.commit('API_DATA_FAILURE', error);
-					console.log('error', error);
+					store.commit("API_DATA_FAILURE", error);
+					console.log("error", error);
 				});
 		}
 	}
