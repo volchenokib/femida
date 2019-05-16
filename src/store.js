@@ -382,15 +382,7 @@ export default new Vuex.Store({
 		lineChartDataCompany: {
 			actualData: [],
 			expectedData: [],
-			month: [
-				'Январь',
-				'Январь',
-				'Январь',
-				'Январь',
-				'Январь',
-				'Январь',
-				'Январь'
-			]
+			month: []
 		},
 
 		lineChartIndexData: {
@@ -561,9 +553,7 @@ export default new Vuex.Store({
 		API_DATA_SUCCES(state, payload) {
 			state.panelData = payload.statistics;
 			// state.lineChartData.expectedData = JSON.parse(payload.cri_dynamic);
-			// console.log('MUT state.lineChartData:', state.lineChartData);
 			// state.dashboard = payload;
-			// console.log('MUT', state.dashboard);
 			// let expectedData = [];
 
 			// function fillActualData(state, payload) {
@@ -747,6 +737,10 @@ export default new Vuex.Store({
 		API_CONNECTIONS_DATA_SUCCES(state, payload) {
 			state.connections_companies = payload.companies;
 			state.connections_links = payload.links;
+
+			state.data.isLoding = false;
+			state.input.isDisable = false;
+			state.errorMsg = false;
 		},
 
 		API_SEARCH_PENDING(state) {
@@ -849,7 +843,6 @@ export default new Vuex.Store({
 				// .get('http://192.168.100.194:5002/connections?name=' + payload)
 				.then(response => {
 					store.commit('API_CONNECTIONS_DATA_SUCCES', response.data);
-					// console.log('response:', response.data);
 				})
 				.catch(error => {
 					store.commit('API_DATA_FAILURE', error);

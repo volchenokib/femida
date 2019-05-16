@@ -105,7 +105,6 @@ export default {
 			}
 		},
 		setOptions({ expectedData, actualData, month } = {}) {
-			console.log('indexDynamic', actualData, expectedData, month);
 			this.chart.setOption({
 				title: {
 					text: this.title,
