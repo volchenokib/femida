@@ -124,16 +124,12 @@ export default {
     changeSource() {
       this.$store.state.vendor = !this.$store.state.vendor;
       this.$store.dispatch("getDashboardData", this.form);
-      console.log("getNewData", this.$store.state.vendor);
-      console.log("getNewData", this.form);
     },
     getNewData() {
       this.$store.dispatch("getDashboardData", this.form);
-      console.log("getNewData", this.form);
     },
     hideValue() {
-      this.companySelectVlue = "dsf";
-      console.log("");
+      // this.companySelectVlue = "dsf";
     },
     remoteMethod(query) {
       // this.$store.dispatch("getCompanyList", query);
@@ -189,9 +185,7 @@ export default {
       ];
     },
 
-    handleSelect(item) {
-      console.log(item);
-    }
+    handleSelect(item) {}
   }
 };
 </script>

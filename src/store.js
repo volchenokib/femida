@@ -418,6 +418,7 @@ export default new Vuex.Store({
 		// tab title
 		headerTitle: 'Анализ по компании'
 	},
+
 	getters: {
 		getDataState(state) {
 			return state.data.isLoding;
@@ -440,25 +441,6 @@ export default new Vuex.Store({
 				Math.abs(Number(state.panelData.total_contract_value)) >= 1.0e3
 				? Math.abs(Number(state.panelData.total_contract_value)) / 1.0e3
 				: Math.abs(Number(state.panelData.total_contract_value));
-			// let step1 = Math.round(state.dashboard.statistics.total_contract_value);
-			// console.log('step1', step1);
-
-			// let step2 = step1.toString().length; // 11
-			// console.log('step2', step2);
-
-			// let myPow = Math.pow(1, step2);
-			// console.log('myPow', myPow);
-
-			// let step3 = parseInt(step1 / myPow); // 8
-			// console.log('step3', step3);
-
-			// let step4 = step3 / 10;
-			// console.log('step4', step4);
-
-			// // let step3 = parseInt(step1 / (step2 - 3));
-			// // console.log('step3', step3);
-			// return step4;
-			// return Math.round(state.dashboard.statistics.total_contract_value);
 		},
 		panelDataCustomers(state) {
 			return state.panelData.unique_contractors;
@@ -521,20 +503,6 @@ export default new Vuex.Store({
 			return state.customerAmount;
 		},
 		vendorAmountData(state) {
-			// let vendorAmount = state.vendorAmount.actualData.map(item => {
-			// 	return Math.abs(Number(item.sum)) >= 1.0e9
-			// 		? Math.abs(Number(item.sum)) / 1.0e8 / 10
-			// 		: // Six Zeroes for Millions
-			// 		Math.abs(Number(item.sum)) >= 1.0e6
-			// 		? Math.abs(Number(item.sum)) / 1.0e6
-			// 		: // Three Zeroes for Thousands
-			// 		Math.abs(Number(item.sum)) >= 1.0e3
-			// 		? Math.abs(Number(item.sum)) / 1.0e3
-			// 		: Math.abs(Number(item.sum));
-			// });
-
-			// console.log('vendorAmount', vendorAmount);
-
 			return state.vendorAmount;
 		},
 		topContractsData(state) {
@@ -544,7 +512,6 @@ export default new Vuex.Store({
 			return state.criCompositionData;
 		},
 		winRateData(state) {
-			console.log('winRateData getters', state.winRateData);
 			return state.winRateData;
 		},
 		regionsRateData(state) {
@@ -667,7 +634,13 @@ export default new Vuex.Store({
 
 			state.topContractsData = payload.top_cri_contracts;
 
-			state.criCompositionData.actualData = payload.CRI_parts;
+			state.criCompositionData.actualData = payload.CRI_parts.map(item => {
+				let mapItem = {
+					name: item.part,
+					value: item.percent.toFixed(2)
+				};
+				return mapItem;
+			});
 
 			// lineChart start
 			const dataForActualOne = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
@@ -752,7 +725,6 @@ export default new Vuex.Store({
 				// 		payload.region
 				// )
 				.then(response => {
-					console.log('getCompanyData:', response.data);
 					store.commit('API_DATA_COMPANY_SUCCES', response.data);
 				})
 				.catch(error => {
@@ -776,204 +748,6 @@ export default new Vuex.Store({
 					store.commit('API_DATA_FAILURE', error);
 					console.log('error', error);
 				});
-
-			// 	// let promise = new Promise((resolve, reject) => {
-			// 	// 	setTimeout(() => {
-			// 	// 		resolve('response');
-			// 	// 	}, 2000);
-			// 	// });
-
-			// 	// return promise
-			// 	// 	.then(response => {
-			// 	// 		let payload.data = {
-			// 	// 			panelData: {
-			// 	// 				contracts: 6928,
-			// 	// 				money: 12.8,
-			// 	// 				customers: 1964,
-			// 	// 				cri: 43,
-			// 	// 				wins: 18,
-			// 	// 				risk: 0.2
-			// 	// 			},
-
-			// 	// 			lineChartData: {
-			// 	// 				actualData: [43, 43, 43, 43, 43, 43, 43, 43, 43, 43, 43, 43],
-			// 	// 				expectedData: [55, 37, 50, 43, 40, 100, 35, 50, 41, 48, 42, 47]
-			// 	// 			},
-
-			// 	// 			lineChartIndexData: {
-			// 	// 				expectedData: [
-			// 	// 					[0, 0],
-			// 	// 					[15, 0.06],
-			// 	// 					[20, 0.1],
-			// 	// 					[30, 0.13],
-			// 	// 					[40, 0.15],
-			// 	// 					[50, 0.11],
-			// 	// 					[55, 0]
-			// 	// 				],
-			// 	// 				markPoint: [20, 0.1],
-			// 	// 				titleValue: '75'
-			// 	// 			},
-
-			// 	// 			customerAmount: {
-			// 	// 				actualData: [
-			// 	// 					{
-			// 	// 						value: 60,
-			// 	// 						name: 'ДРУГИЕ',
-			// 	// 						cri: '46',
-			// 	// 						contracts: 415,
-			// 	// 						sum: '1,4',
-			// 	// 						sumUnit: 'млн. руб'
-			// 	// 					},
-			// 	// 					{
-			// 	// 						value: 240,
-			// 	// 						name: 'ДЕПАРТАМЕНТ ФИНАНСОВ ТОМСКОЙ ОБЛАСТИ',
-			// 	// 						cri: '46',
-			// 	// 						contracts: 415,
-			// 	// 						sum: '1,4',
-			// 	// 						sumUnit: 'тыс. руб'
-			// 	// 					},
-			// 	// 					{
-			// 	// 						value: 149,
-			// 	// 						name:
-			// 	// 							"ФГБНУ 'ТОМСКИЙ НАЦИОНАЛЬНЫЙ ИССЛЕДОВАТЕЛЬСКИЙ МЕДИЦИНСКИЙ ЦЕНТР РОССИЙСКОЙ АКАДЕМИИ НАУК'",
-			// 	// 						cri: '46',
-			// 	// 						contracts: 415,
-			// 	// 						sum: '1,4',
-			// 	// 						sumUnit: 'тыс. руб'
-			// 	// 					},
-			// 	// 					{
-			// 	// 						value: 100,
-			// 	// 						name: "УМП 'СПЕЦАВТОХОЗЯЙСТВО Г.ТОМСКА'",
-			// 	// 						cri: '46',
-			// 	// 						contracts: 415,
-			// 	// 						sum: '1,4',
-			// 	// 						sumUnit: 'млн. руб'
-			// 	// 					},
-			// 	// 					{
-			// 	// 						value: 59,
-			// 	// 						name: "ПАО 'СОВКОМБАНК'",
-			// 	// 						cri: '15',
-			// 	// 						contracts: '2',
-			// 	// 						sum: '0,8',
-			// 	// 						sumUnit: 'млн. руб'
-			// 	// 					}
-			// 	// 				]
-			// 	// 			},
-
-			// 	// 			vendorAmount: {
-			// 	// 				actualData: [
-			// 	// 					{
-			// 	// 						value: 150,
-			// 	// 						name: 'ДРУГИЕ',
-			// 	// 						cri: '46',
-			// 	// 						contracts: 415,
-			// 	// 						sum: '1,4',
-			// 	// 						sumUnit: 'тыс. руб'
-			// 	// 					},
-			// 	// 					{
-			// 	// 						value: 205,
-			// 	// 						name:
-			// 	// 							"МУНИЦИПАЛЬНОЕ КАЗЕННОЕ УЧРЕЖДЕНИЕ 'УПРАВЛЕНИЕ МУНИЦИПАЛЬНОЙ СОБСТВЕННОСТЬЮ И ЗАКУПКАМИ НЕРЮНГРИНСКОГО РАЙОНА'",
-			// 	// 						cri: '46',
-			// 	// 						contracts: 415,
-			// 	// 						sum: '1,4',
-			// 	// 						sumUnit: 'млн. руб'
-			// 	// 					},
-			// 	// 					{
-			// 	// 						value: 280,
-			// 	// 						name:
-			// 	// 							"ФГБНУ 'ТОМСКИЙ НАЦИОНАЛЬНЫЙ ИССЛЕДОВАТЕЛЬСКИЙ МЕДИЦИНСКИЙ ЦЕНТР РОССИЙСКОЙ АКАДЕМИИ НАУК'",
-			// 	// 						cri: '46',
-			// 	// 						contracts: 415,
-			// 	// 						sum: 1.4,
-			// 	// 						sumUnit: 'млн. руб'
-			// 	// 					},
-			// 	// 					{
-			// 	// 						value: 89,
-			// 	// 						name:
-			// 	// 							'ГОСУДАРСТВЕННОЕ КАЗЕННОЕ ОБЩЕОБРАЗОВАТЕЛЬНОЕ УЧРЕЖДЕНИЕ ЛЕНИНГРАДСКОЙ ОБЛАСТИ МГИНСКАЯ ШКОЛА-ИНТЕРНАТ,РЕАЛИЗУЮЩАЯ АДАПТИРОВАННЫЕ ОБРАЗОВАТЕЛЬНЫЕ ПРОГРАММЫ ДЛЯ ДЕТЕЙ С НАРУШЕНИЯМИ ЗРЕНИЯ',
-			// 	// 						cri: '46',
-			// 	// 						contracts: 415,
-			// 	// 						sum: '1,4',
-			// 	// 						sumUnit: 'тыс. руб'
-			// 	// 					},
-			// 	// 					{
-			// 	// 						value: 98,
-			// 	// 						name: "ПАО 'СОВКОМБАНК'",
-			// 	// 						cri: '46',
-			// 	// 						contracts: '415',
-			// 	// 						sum: '1,4',
-			// 	// 						sumUnit: 'млрд. руб'
-			// 	// 					}
-			// 	// 				]
-			// 	// 			},
-
-			// 	// 			topContractsData: [
-			// 	// 				{ contract: '0816300017019000088', cri: '66.7' },
-			// 	// 				{ contract: '0816300017019000160', cri: '15' },
-			// 	// 				{ contract: '0345200017019000018', cri: '2' }
-			// 	// 			],
-
-			// 	// 			criCompositionData: {
-			// 	// 				actualData: [[20], [75], [5]]
-			// 	// 			},
-
-			// 	// 			winRate: {
-			// 	// 				actualData: [
-			// 	// 					{
-			// 	// 						value: 53,
-			// 	// 						name: 'ДРУГИЕ'
-			// 	// 					},
-			// 	// 					{
-			// 	// 						value: 17,
-			// 	// 						name: 'ДЕПАРТАМЕНТ ФИНАНСОВ ТОМСКОЙ ОБЛАСТИ'
-			// 	// 					},
-			// 	// 					{
-			// 	// 						value: 15,
-			// 	// 						name:
-			// 	// 							"ФГБНУ 'ТОМСКИЙ НАЦИОНАЛЬНЫЙ ИССЛЕДОВАТЕЛЬСКИЙ МЕДИЦИНСКИЙ ЦЕНТР РОССИЙСКОЙ АКАДЕМИИ НАУК'"
-			// 	// 					},
-			// 	// 					{
-			// 	// 						value: 6,
-			// 	// 						name:
-			// 	// 							"МУНИЦИПАЛЬНОЕ КАЗЕННОЕ УЧРЕЖДЕНИЕ 'УПРАВЛЕНИЕ МУНИЦИПАЛЬНОЙ СОБСТВЕННОСТЬЮ И ЗАКУПКАМИ НЕРЮНГРИНСКОГО РАЙОНА'"
-			// 	// 					},
-			// 	// 					{
-			// 	// 						value: 9,
-			// 	// 						name: "ПАО 'СОВКОМБАНК'"
-			// 	// 					}
-			// 	// 				]
-			// 	// 			},
-			// 	// 			regionsRate: {
-			// 	// 				actualData: [
-			// 	// 					{
-			// 	// 						value: 15,
-			// 	// 						name: 'Республика Адыгея(Адыгея)'
-			// 	// 					},
-			// 	// 					{
-			// 	// 						value: 19,
-			// 	// 						name: 'Город Москва'
-			// 	// 					},
-			// 	// 					{
-			// 	// 						value: 14,
-			// 	// 						name: 'Республика Алтай'
-			// 	// 					},
-			// 	// 					{
-			// 	// 						value: 9,
-			// 	// 						name: 'Республика Бурятия'
-			// 	// 					},
-			// 	// 					{
-			// 	// 						value: 43,
-			// 	// 						name: 'Другие'
-			// 	// 					}
-			// 	// 				]
-			// 	// 			}
-			// 	// 		};
-			// 	// 		store.commit('API_DATA_SUCCES', payload.data);
-			// 	// 	})
-			// 	// 	.catch(error => {
-			// 	// 		store.commit('API_DATA_FAILURE', error);
-			// 	// 	});
 		},
 
 		getRelationsData(store, payload) {
@@ -985,7 +759,7 @@ export default new Vuex.Store({
 				// .get('http://192.168.100.194:5002/connections?name=' + payload)
 				.then(response => {
 					store.commit('API_CONNECTIONS_DATA_SUCCES', response.data);
-					console.log('response:', response.data);
+					// console.log('response:', response.data);
 				})
 				.catch(error => {
 					store.commit('API_DATA_FAILURE', error);

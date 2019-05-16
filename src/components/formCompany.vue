@@ -126,7 +126,6 @@ export default {
 
     getNewData() {
       this.$store.dispatch("getCompanyData", this.form);
-      console.log("getNewData:", this.form);
     },
 
     clearDefaultValue() {
@@ -142,8 +141,6 @@ export default {
           type: this.form.type,
           region: this.form.region
         };
-
-        console.log("searchForm:", searchForm);
 
         this.$store.dispatch("getSearchData", searchForm);
 
@@ -189,9 +186,7 @@ export default {
       ];
     },
 
-    handleSelect(item) {
-      console.log(item);
-    }
+    handleSelect(item) {}
   }
 };
 </script>

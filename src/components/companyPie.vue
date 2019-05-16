@@ -19,6 +19,20 @@ export default {
       type: Object,
       required: true
     },
+    formatter: {
+      type: String,
+      required: true
+    },
+    showTooltip: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    formatterTooltip: {
+      type: String,
+      required: false,
+      default: "{b}"
+    },
     className: {
       type: String,
       default: "chart"
@@ -78,7 +92,8 @@ export default {
   },
 
   methods: {
-    setOptions({ actualData } = {}) {
+    setOptions({ actualData }) {
+      console.log("actualData", actualData);
       this.chart.setOption({
         title: {
           text: this.title,
@@ -87,98 +102,63 @@ export default {
             color: "#606266",
             fontFamily:
               "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif",
+            fontSize: 16,
             fontWeight: "bold"
           }
         },
 
-        // tooltip: {
-        //   backgroundColor: "rgba(50, 50, 50, 0.9)",
-        //   color: "#ff7f50",
-        //   padding: [15, 20],
-        //   trigger: "item",
+        tooltip: {
+          show: this.showTooltip,
+          backgroundColor: "rgba(50, 50, 50, 0.9)",
+          color: "#ff7f50",
+          padding: [15, 20],
+          trigger: "item",
 
-        //   textStyle: {
-        //     fontFamily:
-        //       "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif",
-        //     fontSize: 14,
-        //     fontWeight: "lighter"
-        //   },
+          textStyle: {
+            fontFamily:
+              "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif",
+            fontSize: 14,
+            fontWeight: "lighter"
+          },
 
-        //   extraCssText: "text-align: left;",
+          extraCssText: "text-align: left;",
 
-        //   formatter: function(actualData) {
-        //     let percent = Math.round(actualData.percent);
-        //     // let cri = actualData.data.cri;
-        //     // let contracts = actualData.data.contracts;
-        //     // let sum = actualData.data.sum;
-        //     // let sumUnit = actualData.data.sumUnit;
-        //     // // console.log("formatter", actualData);
-        //     return `доля: ${percent}%`;
-        //   }
-        // },
+          formatter: this.formatterTooltip
+        },
 
         legend: {
-          left: "center",
-          bottom: "10",
           data: actualData,
-          formatter: function(item) {
-            return (item = "");
-          }
+          type: "scroll",
+          bottom: "10",
+          left: "center",
+          pageIconColor: "#606266"
         },
 
         series: [
           {
-            name: "",
+            name: "легенда",
             type: "pie",
             roseType: "radius",
-            radius: [15, 95],
+            radius: [20, 120],
             center: ["50%", "50%"],
             data: actualData,
 
             label: {
               normal: {
-                // formatter: function(b) {
-                //   if (b.name.length > 30) {
-                //     var find = " ";
-                //     var re = new RegExp(find, "g");
-                //     var str = b.name.replace(re, "\n");
-                //     return str;
-                //   }
-                // },
+                formatter: this.formatter,
 
-                // fontSize: 11,
-                // rich: {
-                //   b: {
-                // align: "center",
-                // verticalAlign: "middle"
-                //   }
-                // }
-                formatter: "{d}%\n{br|}{hr|}\n{b}",
-
-                backgroundColor: "#eee",
-                borderColor: "#aaa",
-                borderWidth: 1,
-                borderRadius: 4,
-                padding: [15, 10],
                 rich: {
-                  hr: {
-                    borderColor: "#aaa",
-                    width: "100%",
-                    borderWidth: 0.5,
-                    height: 0
-                  },
-                  b: {
-                    align: "center",
-                    fontSize: 11,
-                    lineHeight: 33
-                  },
                   d: {
-                    align: "center"
+                    align: "center",
+                    fontSize: 14
+                  },
+                  c: {
+                    align: "center",
+                    fontSize: 12
                   }
                 }
               }
             },
-
             animationEasing: "cubicInOut",
             animationDuration: 2600
           }

@@ -49,14 +49,12 @@ export default {
   },
   computed: {
     lineChartData() {
-      // console.log("COMP lineChartData", this.$store.getters.lineChartData);
       return this.$store.getters.lineChartData;
     },
     lineChartIndexData() {
       return this.$store.getters.lineChartIndexData;
     },
     customerAmountData() {
-      // console.log("computed pieChart", this.$store.getters.customerAmountData);
       return this.$store.getters.customerAmountData;
     },
     vendorAmountData() {

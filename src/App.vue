@@ -68,7 +68,6 @@ export default {
 
   methods: {
     handleClick(tab, event) {
-      // console.log(tab, event);
       if (tab.label == "Компания") {
         this.$router.replace("/");
         this.$store.state.headerTitle = "Анализ по компании";

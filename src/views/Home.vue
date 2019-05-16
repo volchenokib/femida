@@ -4,51 +4,51 @@
 
     <div class="company__charts-layout">
       <div class="company__container-left">
-        <pieWinRate
+        <companyPie
           :class="'chart'"
           :chartData="winRateData"
           :formatter="formatterWins"
           :title="'Частота выигрыша поставщиков за год'"
-          :style="{height: '480px'}"
+          :height="'480px'"
           v-if="!this.$store.state.vendor"
         />
 
-        <pieWinRate
+        <companyPie
           :class="'chart'"
           :chartData="winRateData"
           :formatter="formatterRegions"
           :title="'Распределение суммы контрактов по регионам'"
-          :style="{height: '480px'}"
+          :height="'480px'"
           v-if="this.$store.state.vendor"
+        />
+
+        <br>
+
+        <lineChartCompany
+          :title="this.$store.state.vendor ? 'Динамика CRI для данного поставщика' : 'Динамика CRI для данного заказчика'"
+          :chartData="lineChartDataCompany"
+          :height="'220px'"
         />
       </div>
 
       <div class="company__container-right">
-        <topContractsTable/>
+        <companyPie
+          :class="'chart'"
+          :chartData="criCompositionData"
+          :formatter="formatterIndex"
+          :showTooltip="true"
+          :title="'Составляющие CRI'"
+          :height="'480px'"
+          :width="'94%'"
+        />
 
         <br>
 
-        <!-- <criComposition :title="'Составляющие CRI'" :chartData="criCompositionData"/> -->
-
-        <compositionBar
-          :title="'Составляющие CRI'"
-          :chartData="criCompositionData"
-          :style="{height: '243px'}"
-        />
+        <topContractsTable/>
       </div>
     </div>
 
-    <br>
-
-    <div class="company__container-full">
-      <lineChartCompany
-        :title="this.$store.state.vendor ? 'Динамика CRI для данного поставщика' : 'Динамика CRI для данного заказчика'"
-        :chartData="lineChartDataCompany"
-        :style="{height: '220px'}"
-      />
-    </div>
-
-    <!-- error  -->
+    <!-- error message -->
     <el-alert
       class="errorMsg"
       title="Нет данных"
@@ -63,9 +63,8 @@
 import panelCompany from "@/components/panelCompany.vue";
 import lineChartCompany from "@/components/lineChartCompany";
 import topContractsTable from "@/components/topContractsTable";
-import criComposition from "@/components/criComposition";
-import compositionBar from "@/components/compositionBar";
-import pieWinRate from "@/components/pieWinRate";
+
+import companyPie from "@/components/companyPie";
 
 export default {
   name: "home",
@@ -73,17 +72,19 @@ export default {
     panelCompany,
     lineChartCompany,
     topContractsTable,
-    criComposition,
-    compositionBar,
-    pieWinRate
+    companyPie
   },
   created() {
-    this.$store.dispatch("getRelationsData", "ЗАКРЫТОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"МОЛКОМБИНАТ \"АДЫГЕЙСКИЙ\"");
+    this.$store.dispatch(
+      "getRelationsData",
+      'ЗАКРЫТОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО "МОЛКОМБИНАТ "АДЫГЕЙСКИЙ"'
+    );
   },
   data() {
     return {
       formatterWins: ["{d|{d}%}", "{c|{c} контрактов}"].join("\n"),
-      formatterRegions: ["{d|{d}%}"].join("\n")
+      formatterRegions: ["{d|{d}%}"].join("\n"),
+      formatterIndex: "{c|{c}%}"
     };
   },
 

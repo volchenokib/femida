@@ -168,10 +168,8 @@ export default {
       );
       const len = money.toString().length;
       if (len > 9) {
-        console.log("units:", len);
         return "млрд. руб.";
       } else if (len > 6 && len <= 9) {
-        console.log("units:", len);
         return "млн. руб.";
       } else {
         return "тыс. руб";

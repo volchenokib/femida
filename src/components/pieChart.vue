@@ -79,7 +79,6 @@ export default {
 
   methods: {
     setOptions({ actualData } = {}) {
-      console.log("component pieChart", actualData);
       this.chart.setOption({
         title: {
           text: this.title,
@@ -108,7 +107,6 @@ export default {
           extraCssText: "text-align: left;",
 
           formatter: function(actualData) {
-            // console.log("tooltip", actualData);
             let cri = actualData.data.cri;
             let contracts = actualData.data.contracts;
             let sum = actualData.data.sum;
