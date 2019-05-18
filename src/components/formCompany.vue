@@ -8,9 +8,9 @@
         :remote-method="remoteMethod"
         :disabled="isDisable"
         :loading="this.$store.state.searchLoading"
-        @change="getNewData"
         @focus="hideDefaultValue"
         @blur="showDefaultValue"
+        @change="getNewData"
         default-first-option
         filterable
         remote
@@ -36,9 +36,11 @@
       <el-select
         class="custom-form__item"
         v-model="form.region"
+        placeholder="Название региона"
         no-match-text="Нет данных"
         :disabled="isDisable"
-        popper-class="custom-popper"
+        @focus="hideRegionValue"
+        @blur="showRegionValue"
         @change="getNewData"
         default-first-option
         filterable
@@ -61,12 +63,12 @@ export default {
   components: {},
   data() {
     return {
+      tempInputValue: "",
       form: {
         company: "",
         type: "customer",
         region: ""
-      },
-      tempInputValue: ""
+      }
     };
   },
 
@@ -83,6 +85,7 @@ export default {
     searchLoading() {
       return this.$store.getters.searchLoading;
     },
+
     isDisable() {
       return this.$store.getters.getInputState;
     }
@@ -98,21 +101,30 @@ export default {
       this.$store.dispatch("getCompanyData", this.form);
     },
 
+    // company on focus
     hideDefaultValue() {
-      // this.tempInputValue = this.form.company;
-      // this.form.company = "";
-      // this.$store.state.options.push(this.tempInputValue);
+      this.$store.state.options = [];
+      this.tempInputValue = this.form.company;
+      this.form.company = "";
+      this.$store.state.options.push(this.tempInputValue);
     },
+
+    // company on blur
     showDefaultValue(e) {
-      // this.$store.state.options = [];
-      // console.log("e", e);
-      // click не на элементе дропдауна
-      // if (!e.target.value) {
-      //   this.form.company = this.tempInputValue;
-      //   this.tempInputValue = "";
-      //   this.$store.state.options = [];
-      //   console.log("click не на элементе дропдауна");
-      // }
+      this.form.company = this.tempInputValue;
+      this.tempInputValue = "";
+    },
+
+    // region on focus
+    hideRegionValue() {
+      this.tempRegionValue = this.form.region;
+      this.form.region = "";
+    },
+
+    // region on blur
+    showRegionValue() {
+      this.form.region = this.tempRegionValue;
+      this.tempRegionValue = "";
     },
 
     remoteMethod(query) {

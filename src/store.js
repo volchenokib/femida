@@ -689,7 +689,7 @@ export default new Vuex.Store({
 			state.data.isLoding = false;
 			state.input.isDisable = false;
 			state.errorMsg = false;
-			// state.options = [];
+			state.options = [];
 		},
 
 		API_CONNECTIONS_DATA_SUCCES(state, payload) {
