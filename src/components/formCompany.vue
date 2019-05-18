@@ -42,7 +42,6 @@
         @focus="hideRegionValue"
         @blur="showRegionValue"
         @change="getNewData"
-        default-first-option
         filterable
       >
         <el-option
@@ -64,6 +63,7 @@ export default {
   data() {
     return {
       tempInputValue: "",
+      tempRegionValue: "",
       form: {
         company: "",
         type: "customer",
@@ -97,7 +97,9 @@ export default {
       this.$store.dispatch("getCompanyData", this.form);
     },
 
-    getNewData() {
+    getNewData(region) {
+      this.form.region = region;
+      console.log("this.form.region:", this.form.region);
       this.$store.dispatch("getCompanyData", this.form);
     },
 
