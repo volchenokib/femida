@@ -46,7 +46,7 @@ export default {
 
 <style lang="scss" scoped>
 .table {
-  min-height: 213px;
+  min-height: 220px;
   &__title {
     background-color: #fff;
     color: "#606266";

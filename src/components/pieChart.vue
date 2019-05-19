@@ -43,21 +43,6 @@ export default {
     };
   },
 
-  watch: {
-    chartData: {
-      deep: true,
-      handler(val) {
-        this.setOptions(val);
-      }
-    }
-  },
-
-  computed: {
-    dataLoading() {
-      return this.$store.getters.getDataState;
-    }
-  },
-
   mounted() {
     this.initChart();
     this.__resizeHandler = debounce(() => {
@@ -75,6 +60,21 @@ export default {
     window.removeEventListener("resize", this.__resizeHandler);
     this.chart.dispose();
     this.chart = null;
+  },
+
+  watch: {
+    chartData: {
+      deep: true,
+      handler(val) {
+        this.setOptions(val);
+      }
+    }
+  },
+
+  computed: {
+    dataLoading() {
+      return this.$store.getters.getDataState;
+    }
   },
 
   methods: {
@@ -112,7 +112,9 @@ export default {
             let sum = actualData.data.sum;
             let sumUnit = actualData.data.sumUnit;
             return `CRI: ${cri ||
-              "- "}% в среднем </br> контрактов: ${contracts} </br> сумма: ${sum} ${sumUnit}`;
+              "- "}% в среднем </br> контрактов: ${contracts} </br> сумма: ${sum.toFixed(
+              1
+            )} ${sumUnit}`;
           }
         },
 

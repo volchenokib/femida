@@ -1,30 +1,38 @@
 <template>
   <div class="region">
     <panelGroup/>
+
     <div class="region__charts-layout">
-      <div class="region__pieCharts mr">
+      <div class="region__container-left">
         <pieChart
           :chartData="customerAmountData"
           :title="'Распределение суммы конкурсов по заказчикам'"
-          :style="{height: '350px'}"
+          :height="'400px'"
+          :width="'100%'"
         />
+
         <br>
+
+        <lineChart
+          :chartData="lineChartData"
+          :title="'Динамика CRI по ТО за 2017 год'"
+          :height="'300px'"
+          :width="'100%'"
+        />
+      </div>
+
+      <div class="region__container-right">
         <pieChart
           :class="'chart'"
           :chartData="vendorAmountData"
           :title="'Распределение суммы конкурсов по поставщикам'"
-          :style="{height: '350px'}"
+          :height="'400px'"
+          :width="'94%'"
         />
-      </div>
 
-      <div class="region__pieCharts">
-        <lineChart
-          :chartData="lineChartData"
-          :style="{height: '350px'}"
-          :title="'Динамика CRI по ТО за 2017 год'"
-        />
         <br>
-        <lineChartIndex :chartData="lineChartIndexData" :style="{height: '350px'}"/>
+
+        <lineChartIndex :chartData="lineChartIndexData" :height="'300px'" :width="'94%'"/>
       </div>
     </div>
   </div>
@@ -69,9 +77,25 @@ export default {
 @import "../variables.scss";
 .region {
   margin: 0 20px 0 10px;
+  position: relative;
   &__charts-layout {
     display: flex;
+    justify-content: space-between;
+    margin: 0;
+    padding: 0;
   }
+
+  &__container-left {
+    margin-right: 5px;
+    position: relative;
+    width: 50%;
+  }
+
+  &__container-right {
+    position: relative;
+    width: 46%;
+  }
+
   &__pieCharts {
     display: flex;
     flex-direction: column;
@@ -84,10 +108,6 @@ export default {
   border: $border;
   border-radius: $border-radius;
   box-shadow: box-shadow;
-  // padding: 15px 0;
-}
-
-.mr {
-  margin-right: 28px;
+  padding: 15px;
 }
 </style>

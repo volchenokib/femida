@@ -42,21 +42,6 @@ export default {
     };
   },
 
-  watch: {
-    chartData: {
-      deep: true,
-      handler(val) {
-        this.setOptions(val);
-      }
-    }
-  },
-
-  computed: {
-    dataLoading() {
-      return this.$store.getters.getDataState;
-    }
-  },
-
   mounted() {
     this.initChart();
     if (this.autoResize) {
@@ -75,6 +60,7 @@ export default {
         this.sidebarResizeHandler
       );
   },
+
   beforeDestroy() {
     if (!this.chart) {
       return;
@@ -92,12 +78,29 @@ export default {
     this.chart.dispose();
     this.chart = null;
   },
+
+  watch: {
+    chartData: {
+      deep: true,
+      handler(val) {
+        this.setOptions(val);
+      }
+    }
+  },
+
+  computed: {
+    dataLoading() {
+      return this.$store.getters.getDataState;
+    }
+  },
+
   methods: {
     sidebarResizeHandler(e) {
       if (e.propertyName === "width") {
         this.__resizeHandler();
       }
     },
+
     setOptions({ expectedData, markPoint, titleValue } = {}) {
       this.chart.setOption({
         title: {
@@ -163,7 +166,10 @@ export default {
           },
 
           extraCssText: "text-align: left;",
-          formatter: "CRI: {c}%"
+          formatter: function(params) {
+            let indexValue = params.map(item => item);
+            return "CRI: " + indexValue[0].data[0] + "%";
+          }
         },
 
         legend: {
@@ -197,6 +203,7 @@ export default {
         ]
       });
     },
+
     initChart() {
       this.chart = echarts.init(this.$el, "macarons");
       this.setOptions(this.chartData);

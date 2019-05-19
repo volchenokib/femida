@@ -19,12 +19,12 @@ export default {
       default: "chart"
     },
     width: {
-      type: String
-      // default: "100%"
+      type: String,
+      default: "100%"
     },
     height: {
       type: String,
-      default: "250px"
+      default: "480px"
     },
     autoResize: {
       type: Boolean,

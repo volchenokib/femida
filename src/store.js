@@ -499,6 +499,8 @@ export default new Vuex.Store({
 		},
 
 		customerAmountData(state) {
+			// state.customerAmount.map(item => {});
+			console.log("customerAmount", state.customerAmount);
 			return state.customerAmount;
 		},
 		vendorAmountData(state) {
@@ -564,10 +566,11 @@ export default new Vuex.Store({
 
 			// lineChartIndex start
 			let lineChartIndexOne = Object.keys(payload.region_histogram.histogram).map(key => {
-				return [key * 100, payload.region_histogram.histogram[key]];
+				return [Math.round(key * 100), payload.region_histogram.histogram[key]];
 			});
 
 			state.lineChartIndexData.expectedData = lineChartIndexOne;
+			console.log("lineChartIndexOne", state.lineChartIndexData.expectedData);
 			state.lineChartIndexData.markPoint = [payload.place_in_hist.x * 100, payload.place_in_hist.y];
 			// lineChartIndex end
 
@@ -578,8 +581,25 @@ export default new Vuex.Store({
 					value: Math.round(item.total_contract_value_percent),
 					cri: Math.round(item.average_cri * 100),
 					contracts: item.number_of_contracts,
-					sum: item.total_contract_value,
-					sumUnit: "руб"
+					sum:
+						Math.abs(Number(item.total_contract_value)) >= 1.0e9
+							? Math.abs(Number(item.total_contract_value)) / 1.0e8 / 10
+							: // Six Zeroes for Millions
+							Math.abs(Number(item.total_contract_value)) >= 1.0e6
+							? Math.abs(Number(item.total_contract_value)) / 1.0e6
+							: // Three Zeroes for Thousands
+							Math.abs(Number(item.total_contract_value)) >= 1.0e3
+							? Math.abs(Number(item.total_contract_value)) / 1.0e3
+							: Math.abs(Number(item.total_contract_value)),
+					// sum: item.total_contract_value,
+					sumUnit:
+						Math.round(item.total_contract_value).toString().length > 9
+							? "млрд. руб"
+							: Math.round(item.total_contract_value).toString().length > 6
+							? "млн. руб"
+							: Math.round(item.total_contract_value).toString().length > 3
+							? "тыс.руб"
+							: "руб"
 				};
 				return mapItem;
 			});
@@ -592,8 +612,25 @@ export default new Vuex.Store({
 					value: item.total_contract_value_percent,
 					cri: Math.round(item.average_cri * 100),
 					contracts: item.number_of_contracts,
-					sum: item.total_contract_value,
-					sumUnit: "руб"
+					sum:
+						Math.abs(Number(item.total_contract_value)) >= 1.0e9
+							? Math.abs(Number(item.total_contract_value)) / 1.0e8 / 10
+							: // Six Zeroes for Millions
+							Math.abs(Number(item.total_contract_value)) >= 1.0e6
+							? Math.abs(Number(item.total_contract_value)) / 1.0e6
+							: // Three Zeroes for Thousands
+							Math.abs(Number(item.total_contract_value)) >= 1.0e3
+							? Math.abs(Number(item.total_contract_value)) / 1.0e3
+							: Math.abs(Number(item.total_contract_value)),
+					// sum: item.total_contract_value,
+					sumUnit:
+						Math.round(item.total_contract_value).toString().length > 9
+							? "млрд. руб"
+							: Math.round(item.total_contract_value).toString().length > 6
+							? "млн. руб"
+							: Math.round(item.total_contract_value).toString().length > 3
+							? "тыс.руб"
+							: "руб"
 				};
 				return mapItem;
 			});
