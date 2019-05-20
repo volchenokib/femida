@@ -534,21 +534,6 @@ export default new Vuex.Store({
 
 		API_DATA_SUCCES(state, payload) {
 			state.panelData = payload.statistics;
-			// state.lineChartData.expectedData = JSON.parse(payload.cri_dynamic);
-			// state.dashboard = payload;
-			// let expectedData = [];
-
-			// function fillActualData(state, payload) {
-			// 	const i = 12;
-			// 	let percent = payload.statistics.average_cri * 100;
-			// 	let round = Math.round(percent);
-			// 	let actualData = [];
-			// 	while (i) actualData.push(round);
-			// 	i--;
-			// 	return state.lineChartData.actualData;
-			// }
-			// fillActualData(state, payload);
-			// state.lineChartData.actualData = sth;
 
 			// lineChart start
 			const dataForActualOne = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
@@ -570,7 +555,6 @@ export default new Vuex.Store({
 			});
 
 			state.lineChartIndexData.expectedData = lineChartIndexOne;
-			console.log("lineChartIndexOne", state.lineChartIndexData.expectedData);
 			state.lineChartIndexData.markPoint = [payload.place_in_hist.x * 100, payload.place_in_hist.y];
 			// lineChartIndex end
 

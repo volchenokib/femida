@@ -62,7 +62,7 @@ export default {
   components: {},
   data() {
     return {
-      tempInputValue: "",
+      tempCompanyValue: "",
       tempRegionValue: "",
       form: {
         company: "",
@@ -97,24 +97,22 @@ export default {
       this.$store.dispatch("getCompanyData", this.form);
     },
 
-    getNewData(region) {
-      this.form.region = region;
-      console.log("this.form.region:", this.form.region);
+    getNewData() {
       this.$store.dispatch("getCompanyData", this.form);
     },
 
     // company on focus
     hideDefaultValue() {
       this.$store.state.options = [];
-      this.tempInputValue = this.form.company;
+      this.tempCompanyValue = this.form.company;
       this.form.company = "";
-      this.$store.state.options.push(this.tempInputValue);
+      this.$store.state.options.push(this.tempCompanyValue);
     },
 
     // company on blur
     showDefaultValue(e) {
-      this.form.company = this.tempInputValue;
-      this.tempInputValue = "";
+      this.form.company = this.tempCompanyValue;
+      this.tempCompanyValue = "";
     },
 
     // region on focus
