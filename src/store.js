@@ -510,6 +510,7 @@ export default new Vuex.Store({
 			return state.topContractsData;
 		},
 		criCompositionData(state) {
+			console.log("state.criCompositionData:", state.criCompositionData);
 			return state.criCompositionData;
 		},
 		winRateData(state) {
@@ -648,7 +649,7 @@ export default new Vuex.Store({
 			state.criCompositionData.actualData = payload.CRI_parts.map(item => {
 				let mapItem = {
 					name: item.part,
-					value: item.percent.toFixed(2)
+					value: Math.round(item.percent)
 				};
 				return mapItem;
 			});

@@ -19,16 +19,17 @@ export default {
       type: Object,
       required: true
     },
-    formatter: {
+    labelFormatter: {
       type: String,
-      required: true
+      required: true,
+      default: "{c}"
     },
     showTooltip: {
       type: Boolean,
       required: false,
       default: false
     },
-    formatterTooltip: {
+    tooltipFormatter: {
       type: String,
       required: false,
       default: "{b}"
@@ -122,7 +123,7 @@ export default {
 
           extraCssText: "text-align: left;",
 
-          formatter: this.formatterTooltip
+          formatter: this.tooltipFormatter
         },
 
         legend: {
@@ -137,6 +138,7 @@ export default {
           {
             name: "легенда",
             type: "pie",
+            minAngle: 23,
             roseType: "radius",
             radius: [20, 120],
             center: ["50%", "50%"],
@@ -144,8 +146,7 @@ export default {
 
             label: {
               normal: {
-                formatter: this.formatter,
-
+                formatter: this.labelFormatter,
                 rich: {
                   d: {
                     align: "center",

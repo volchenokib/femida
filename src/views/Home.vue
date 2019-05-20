@@ -7,7 +7,7 @@
         <companyPie
           :class="'chart'"
           :chartData="winRateData"
-          :formatter="formatterWins"
+          :labelFormatter="winrateLabel"
           :title="'Частота выигрыша поставщиков за год'"
           :height="'480px'"
           v-if="!this.$store.state.vendor"
@@ -35,7 +35,8 @@
         <companyPie
           :class="'chart'"
           :chartData="criCompositionData"
-          :formatter="formatterIndex"
+          :labelFormatter="indexLabel"
+          :tooltipFormatter="indexTooltip"
           :showTooltip="true"
           :title="'Составляющие CRI'"
           :height="'480px'"
@@ -83,9 +84,10 @@ export default {
   },
   data() {
     return {
-      formatterWins: ["{d|{d}%}", "{c|{c} контрактов}"].join("\n"),
+      winrateLabel: ["{d|{d}%}", "контрактов: {c|{c}}"].join("\n"),
       formatterRegions: ["{d|{d}%}"].join("\n"),
-      formatterIndex: "{c|{c}%}"
+      indexTooltip: "{b}",
+      indexLabel: "{c|{c}%}"
     };
   },
 
