@@ -27,12 +27,12 @@
           :chartData="vendorAmountData"
           :title="'Распределение суммы конкурсов по поставщикам'"
           :height="'400px'"
-          :width="'94%'"
+          :width="'95%'"
         />
 
         <br>
 
-        <lineChartIndex :chartData="lineChartIndexData" :height="'300px'" :width="'94%'"/>
+        <lineChartIndex :chartData="lineChartIndexData" :height="'300px'" :width="'95%'"/>
       </div>
     </div>
   </div>

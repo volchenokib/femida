@@ -594,7 +594,7 @@ export default new Vuex.Store({
 			state.vendorAmount.actualData = payload.top_contractors.map(item => {
 				let mapItem = {
 					name: item.contractor.toLowerCase(),
-					value: item.total_contract_value_percent,
+					value: Math.round(item.total_contract_value_percent).toFixed(0),
 					cri: Math.round(item.average_cri * 100),
 					contracts: item.number_of_contracts,
 					sum:
@@ -730,6 +730,7 @@ export default new Vuex.Store({
 		API_SEARCH_SUCCES(state, payload) {
 			state.options = payload;
 		},
+
 		API_SEARCH_FAILURE(state, payload) {
 			state.options = [];
 		}

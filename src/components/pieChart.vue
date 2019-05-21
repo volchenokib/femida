@@ -137,15 +137,18 @@ export default {
 
             label: {
               normal: {
-                fontSize: 11,
-                formatter: ["{d|{d}%}"].join("\n"),
-
-                rich: {
-                  d: {
-                    align: "center",
-                    fontSize: 14
-                  }
+                fontSize: 14,
+                // formatter: ["{d|{d}%}"].join("\n"),
+                formatter: function(actualData) {
+                  return actualData.value + "%";
                 }
+
+                // rich: {
+                //   d: {
+                //     align: "center",
+                //     fontSize: 14
+                //   }
+                // }
 
                 // function(b) {
                 //   function replacer(str, offset, s) {
