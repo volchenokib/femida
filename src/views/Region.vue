@@ -55,6 +55,11 @@ export default {
   data() {
     return {};
   },
+
+  created() {
+    this.$store.state.regionform.region = "Алтайский край";
+  },
+
   computed: {
     lineChartData() {
       return this.$store.getters.lineChartData;

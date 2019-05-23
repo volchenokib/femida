@@ -8,6 +8,9 @@ export default new Vuex.Store({
 	state: {
 		isCustomer: true,
 		errorMsg: false,
+		regionform: {
+			region: ""
+		},
 		data: {
 			isLoding: false
 		},
@@ -759,6 +762,7 @@ export default new Vuex.Store({
 			store.commit("API_DATA_PENDING");
 
 			axios
+				// .get("https://femida-f90e5.firebaseio.com/company.json") // + "payload"
 				.get(
 					"http://anticor.ecotomsk.com:5002/" + payload.type + "?name=" + payload.company + "&region=" + payload.region
 				)
@@ -784,6 +788,7 @@ export default new Vuex.Store({
 
 			// return axios http://192.168.100.194:5002
 			axios
+				// .get("https://femida-f90e5.firebaseio/company.json") // + payload
 				.get("http://anticor.ecotomsk.com:5002/region?region=" + payload)
 				// .get('http://192.168.100.194:5002/region?region=' + payload)
 				.then(response => {
