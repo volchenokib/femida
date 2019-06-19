@@ -45,7 +45,7 @@
         filterable
       >
         <el-option
-          v-for="region in this.$store.state.regions"
+          v-for="region in this.$store.state.common.regions"
           :key="region.index"
           :label="region.label"
           :value="region.value"
@@ -76,7 +76,7 @@ export default {
     // set default value
     this.form.company =
       'УНИТАРНОЕ МУНИЦИПАЛЬНОЕ ПРЕДПРИЯТИЕ "СПЕЦАВТОХОЗЯЙСТВО Г. ТОМСКА"';
-    this.form.region = " ";
+    this.form.region = "";
 
     this.$store.dispatch("getCompanyData", this.form);
   },

@@ -1,17 +1,19 @@
-import Vue from "vue";
-import Vuex from "vuex";
-import axios from "axios";
+import Vue from 'vue';
+import Vuex from 'vuex';
 
-import companies from "./modules/companies";
-import regions from "./modules/regions";
-import relations from "./modules/relations";
+import companies from './modules/companies';
+import common from './modules/common';
+// import regions from './store/modules/regions';
+// import relations from './store/modules/relations';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
 	modules: {
-		companies,
-		regions,
-		relations
+		namespaced: true,
+		common,
+		companies
+		// regions,
+		// relations
 	}
 });

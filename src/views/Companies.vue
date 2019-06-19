@@ -77,10 +77,10 @@ export default {
     indexDynamic
   },
   created() {
-    this.$store.dispatch(
-      "getRelationsData",
-      'ЗАКРЫТОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО "МОЛКОМБИНАТ "АДЫГЕЙСКИЙ"'
-    );
+    // this.$store.dispatch(
+    //   "getRelationsData",
+    //   'ЗАКРЫТОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО "МОЛКОМБИНАТ "АДЫГЕЙСКИЙ"'
+    // );
   },
   data() {
     return {

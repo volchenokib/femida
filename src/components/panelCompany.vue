@@ -116,6 +116,7 @@
 <script>
 import CountTo from "vue-count-to";
 import simpleCompanyPie from "@/components/simpleCompanyPie";
+
 export default {
   name: "panelCompanyGroup",
   components: {
@@ -181,9 +182,7 @@ export default {
     },
 
     moneyDesc() {
-      const money = Math.round(
-        this.$store.state.panelDataCompany.total_contract_value
-      );
+      const money = Math.round(this.$store.getters.panelDataCompanyDesc);
       const len = money.toString().length;
       if (len > 9) {
         return "млрд. руб.";

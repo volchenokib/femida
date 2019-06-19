@@ -1,4 +1,5 @@
 export function API_DATA_COMPANY_SUCCES(state, payload) {
+	// console.log('state', state);
 	state.panelDataCompany = payload.statistics;
 	state.winRateData.actualData = payload.top_contracts.map(item => {
 		let mapItem = {
@@ -20,7 +21,9 @@ export function API_DATA_COMPANY_SUCCES(state, payload) {
 
 	// lineChart start
 	const dataForActualOne = Object.keys(payload.cri_dynamic);
-	const dataForActualTwo = dataForActualOne.map(n => (n = payload.statistics.average_cri));
+	const dataForActualTwo = dataForActualOne.map(
+		n => (n = payload.statistics.average_cri)
+	);
 	const dataForActualThree = dataForActualTwo.map(n => n * 100);
 	const dataForActualFour = dataForActualThree.map(n => Math.round(n));
 	state.lineChartDataCompany.actualData = dataForActualFour;
@@ -33,47 +36,44 @@ export function API_DATA_COMPANY_SUCCES(state, payload) {
 	const dataForMonthOne = Object.keys(payload.cri_dynamic);
 	const dataForMonthTwo = dataForMonthOne.map(month => {
 		if (month == 1) {
-			return "Январь";
+			return 'Январь';
 		}
 		if (month == 2) {
-			return "Февраль";
+			return 'Февраль';
 		}
 		if (month == 3) {
-			return "Март";
+			return 'Март';
 		}
 		if (month == 4) {
-			return "Апрель";
+			return 'Апрель';
 		}
 		if (month == 5) {
-			return "Май";
+			return 'Май';
 		}
 		if (month == 6) {
-			return "Июнь";
+			return 'Июнь';
 		}
 		if (month == 7) {
-			return "Июль";
+			return 'Июль';
 		}
 		if (month == 8) {
-			return "Август";
+			return 'Август';
 		}
 		if (month == 9) {
-			return "Сентябрь";
+			return 'Сентябрь';
 		}
 		if (month == 10) {
-			return "Октябрь";
+			return 'Октябрь';
 		}
 		if (month == 11) {
-			return "Ноябрь";
+			return 'Ноябрь';
 		}
 		if (month == 12) {
-			return "Декабрь";
+			return 'Декабрь';
 		}
 	});
 	state.lineChartDataCompany.month = dataForMonthTwo;
 	// lineChart end
 
-	state.data.isLoding = false;
-	state.input.isDisable = false;
-	state.errorMsg = false;
 	state.options = [];
 }
