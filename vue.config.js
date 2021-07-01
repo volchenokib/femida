@@ -1,11 +1,3 @@
-// module.exports = {
-// 	devServer: {
-// 		proxy: {
-// 			'/': {
-// 				target: 'http://localhost:9000',
-// 				ws: true,
-// 				changeOrigin: true
-// 			}
-// 		}
-// 	}
-// };
+module.exports = {
+	publicPath: process.env.NODE_ENV === "production" ? "/femida/" : "/"
+};
