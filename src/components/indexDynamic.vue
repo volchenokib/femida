@@ -1,30 +1,30 @@
 <template>
-  <div
-    :class="className"
-    :style="{height:height,width:width}"
-    v-loading="dataLoading"
-    element-loading-spinner="el-icon-loading"
-  />
+	<div
+		:class="className"
+		:style="{ height: height, width: width }"
+		v-loading="dataLoading"
+		element-loading-spinner="el-icon-loading"
+	/>
 </template>
 
 <script>
-import echarts from 'echarts';
-require('echarts/theme/macarons'); // echarts theme
-import { debounce } from '@/utils';
+import echarts from "echarts";
+require("echarts/theme/macarons"); // echarts theme
+import { debounce } from "@/utils";
 
 export default {
 	props: {
 		className: {
 			type: String,
-			default: 'chart'
+			default: "chart"
 		},
 		width: {
 			type: String,
-			default: '100%'
+			default: "100%"
 		},
 		height: {
 			type: String,
-			default: '250px'
+			default: "250px"
 		},
 		autoResize: {
 			type: Boolean,
@@ -36,7 +36,7 @@ export default {
 		},
 		title: {
 			type: String,
-			default: 'Chart Title'
+			default: "Chart Title"
 		}
 	},
 	data() {
@@ -50,6 +50,7 @@ export default {
 		chartData: {
 			deep: true,
 			handler(val) {
+				console.log("val", val);
 				this.setOptions(val);
 			}
 		}
@@ -69,15 +70,13 @@ export default {
 					this.chart.resize();
 				}
 			}, 100);
-			window.addEventListener('resize', this.__resizeHandler);
+			window.addEventListener("resize", this.__resizeHandler);
 		}
 
-		this.sidebarElm = document.getElementsByClassName(
-			'sidebar-container'
-		)[0];
+		this.sidebarElm = document.getElementsByClassName("sidebar-container")[0];
 		this.sidebarElm &&
 			this.sidebarElm.addEventListener(
-				'transitionend',
+				"transitionend",
 				this.sidebarResizeHandler
 			);
 	},
@@ -86,12 +85,12 @@ export default {
 			return;
 		}
 		if (this.autoResize) {
-			window.removeEventListener('resize', this.__resizeHandler);
+			window.removeEventListener("resize", this.__resizeHandler);
 		}
 
 		this.sidebarElm &&
 			this.sidebarElm.removeEventListener(
-				'transitionend',
+				"transitionend",
 				this.sidebarResizeHandler
 			);
 
@@ -100,7 +99,7 @@ export default {
 	},
 	methods: {
 		sidebarResizeHandler(e) {
-			if (e.propertyName === 'width') {
+			if (e.propertyName === "width") {
 				this.__resizeHandler();
 			}
 		},
@@ -108,14 +107,14 @@ export default {
 			this.chart.setOption({
 				title: {
 					text: this.title,
-					x: 'center',
-					align: 'center',
+					x: "center",
+					align: "center",
 					textStyle: {
-						color: '#606266',
+						color: "#606266",
 						fontFamily:
-							'-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif',
+							"-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif",
 						fontSize: 16,
-						fontWeight: 'bold'
+						fontWeight: "bold"
 					}
 				},
 
@@ -128,7 +127,7 @@ export default {
 				},
 
 				xAxis: {
-					type: 'category',
+					type: "category",
 					data: month,
 					boundaryGap: true,
 					axisTick: {
@@ -142,45 +141,45 @@ export default {
 				},
 
 				yAxis: {
-					type: 'value',
+					type: "value",
 					axisTick: {
 						show: false
 					},
 					axisLabel: {
 						formatter: function(val) {
-							return val + '%';
+							return val + "%";
 						}
 					}
 				},
 
 				tooltip: {
-					trigger: 'axis',
+					trigger: "axis",
 					axisPointer: {
-						type: 'cross'
+						type: "cross"
 					},
-					backgroundColor: 'rgba(50, 50, 50, 0.9)',
-					color: '#ff7f50',
+					backgroundColor: "rgba(50, 50, 50, 0.9)",
+					color: "#ff7f50",
 					padding: [15, 20],
 
 					textStyle: {
 						fontFamily:
-							'-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif',
+							"-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif",
 						fontSize: 14,
-						fontWeight: 'lighter'
+						fontWeight: "lighter"
 					},
 
-					extraCssText: 'text-align: left;'
+					extraCssText: "text-align: left;"
 				},
 
 				legend: {
-					data: ['CRI 2017', 'CRI'],
-					right: '32',
-					top: '5'
+					data: ["CRI 2017", "CRI"],
+					right: "32",
+					top: "5"
 				},
 
 				series: [
 					{
-						name: 'CRI',
+						name: "CRI",
 						// itemStyle: {
 						// 	normal: {
 						// 		color: '#FF005A'
@@ -190,17 +189,17 @@ export default {
 						// 		// }
 						// 	}
 						// },
-						type: 'bar',
+						type: "bar",
 						data: expectedData,
 						// barWidth: 25,
 
 						animationDuration: 2800,
-						animationEasing: 'cubicInOut'
+						animationEasing: "cubicInOut"
 					},
 					{
-						name: 'CRI 2017',
+						name: "CRI 2017",
 						smooth: true,
-						type: 'line',
+						type: "line",
 						itemStyle: {
 							normal: {
 								//   color: "#3888fa",
@@ -209,21 +208,21 @@ export default {
 								//     width: 2
 								//   },
 								areaStyle: {
-									color: 'rgba(182, 162, 222, 0.4)'
+									color: "rgba(182, 162, 222, 0.4)"
 								}
 							}
 						},
 						data: actualData,
 
 						animationDuration: 2800,
-						animationEasing: 'quadraticOut'
+						animationEasing: "quadraticOut"
 					}
 				]
 			});
 		},
 
 		initChart() {
-			this.chart = echarts.init(this.$el, 'macarons');
+			this.chart = echarts.init(this.$el, "macarons");
 			this.setOptions(this.chartData);
 		}
 	}
