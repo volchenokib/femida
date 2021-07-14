@@ -1,7 +1,7 @@
 <template>
-	<div id="app">
+	<div>
 		<el-container style="height: 100%;">
-			<el-aside class="asside">
+			<el-aside id="sidebar" class="asside">
 				<el-header class="asside__header">
 					<h1 class="h1"><span style="color: #DC69AA">F</span> Dashboard</h1>
 					<!-- <div class="logo"></div> -->
@@ -53,13 +53,13 @@
 </template>
 
 <script>
-import formRegion from "./components/formRegion.vue";
-import formCompany from "./components/formCompany.vue";
-import formRelations from "./components/formRelations.vue";
-import appSelect from "@/components/appSelect";
+import formRegion from './components/formRegion.vue';
+import formCompany from './components/formCompany.vue';
+import formRelations from './components/formRelations.vue';
+import appSelect from '@/components/appSelect';
 
 export default {
-	name: "app",
+	name: 'app',
 	components: {
 		formRegion,
 		formCompany,
@@ -70,13 +70,13 @@ export default {
 		return {};
 	},
 	created() {
-		this.$router.replace("/");
+		this.$router.replace('/');
 	},
 
 	computed: {
 		regionsPageOptions() {
 			const filtered = this.$store.state.regions.filter((value) => {
-				return value.value !== " ";
+				return value.value !== ' ';
 			});
 			return filtered;
 		}
@@ -84,18 +84,18 @@ export default {
 
 	methods: {
 		handleClick(tab, event) {
-			if (tab.label == "Компания") {
-				this.$router.replace("/");
-				this.$store.state.headerTitle = "Анализ по компании";
+			if (tab.label == 'Компания') {
+				this.$router.replace('/');
+				this.$store.state.headerTitle = 'Анализ по компании';
 			}
-			if (tab.label == "Регион") {
-				this.$router.replace("region");
-				this.$store.state.headerTitle = "Анализ по территориальному признаку";
+			if (tab.label == 'Регион') {
+				this.$router.replace('region');
+				this.$store.state.headerTitle = 'Анализ по территориальному признаку';
 			}
-			if (tab.label == "Связи") {
-				this.$router.replace("relations");
+			if (tab.label == 'Связи') {
+				this.$router.replace('relations');
 				this.$store.state.headerTitle =
-					"Отслеживание связей между поставщиками";
+					'Отслеживание связей между поставщиками';
 			}
 		}
 	}
@@ -103,7 +103,7 @@ export default {
 </script>
 
 <style <style lang="scss">
-@import "./variables.scss";
+@import './variables.scss';
 html,
 body {
 	height: 100%;
