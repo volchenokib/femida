@@ -13,6 +13,7 @@
     "echarts": "^4.2.1",
     "element-ui": "^2.4.5",
     "json5": "^2.1.0",
+    "sinon": "^11.1.1",
     "vue": "^2.6.10",
     "vue-count-to": "^1.0.13",
     "vue-router": "^3.0.3",

@@ -6,7 +6,7 @@
 					<h1 class="h1"><span style="color: #DC69AA">F</span> Dashboard</h1>
 					<!-- <div class="logo"></div> -->
 				</el-header>
-				<el-tabs class="tabs" @tab-click="handleClick">
+				<el-tabs data-testid="tabs" class="tabs" @tab-click="handleClick">
 					<el-tab-pane label="Company">
 						<!-- <span class="tabs__title">Анализ по компании</span> -->
 						<formCompany />
