@@ -24,10 +24,10 @@ jobs:
             - ./node_modules
       - run:
           name: test
-          command: npm run test
+          command: npm run test:unit
       - run:
           name: build-project
-          command: npm run generate:gh-pages
+          command: npm run build
       - run:
           name: Install and configure dependencies
           command: |
