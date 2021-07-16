@@ -180,7 +180,7 @@ a {
 }
 
 .logo {
-	background: url(./assets/logo2.png) 50%/50% no-repeat;
+	// background: url(./assets/logo2.png) 50%/50% no-repeat;
 	background-size: cover;
 	height: 100%;
 	margin: 33px 0 0 0;
