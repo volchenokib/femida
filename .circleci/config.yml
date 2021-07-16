@@ -45,8 +45,3 @@ jobs:
           prefix: tests
       - store_test_results:
           path: test-results.xml
-
-workflows:
-  sample:
-    jobs:
-      - build-and-test
