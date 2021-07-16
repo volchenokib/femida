@@ -65,14 +65,14 @@
 </template>
 
 <script>
-import panelCompany from "@/components/panelCompany.vue";
-import lineChartCompany from "@/components/lineChartCompany";
-import topContractsTable from "@/components/topContractsTable";
-import indexDynamic from "@/components/indexDynamic";
-import companyPie from "@/components/companyPie";
+import panelCompany from '@/components/panelCompany.vue';
+import lineChartCompany from '@/components/lineChartCompany';
+import topContractsTable from '@/components/topContractsTable';
+import indexDynamic from '@/components/indexDynamic';
+import companyPie from '@/components/companyPie';
 
 export default {
-	name: "home",
+	name: 'home',
 	components: {
 		panelCompany,
 		lineChartCompany,
@@ -88,10 +88,10 @@ export default {
 	},
 	data() {
 		return {
-			winrateLabel: ["{d|{d}%}", "контрактов: {c|{c}}"].join("\n"),
-			formatterRegions: ["{d|{d}%}"].join("\n"),
-			indexTooltip: "{b}",
-			indexLabel: "{c|{c}%}"
+			winrateLabel: ['{d|{d}%}', 'contracts: {c|{c}}'].join('\n'),
+			formatterRegions: ['{d|{d}%}'].join('\n'),
+			indexTooltip: '{b}',
+			indexLabel: '{c|{c}%}'
 		};
 	},
 
@@ -113,7 +113,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../variables.scss";
+@import '../variables.scss';
 
 .company {
 	margin: 0 20px 0 10px;
