@@ -3,7 +3,7 @@
 		<el-container style="height: 100%;">
 			<el-aside id="sidebar" class="asside">
 				<el-header class="asside__header">
-					<h1 class="h1"><span style="color: #DC69AA">F</span> Dashboard</h1>
+					<h1 class="h1">Dashboard</h1>
 					<!-- <div class="logo"></div> -->
 				</el-header>
 				<el-tabs data-testid="tabs" class="tabs" @tab-click="handleClick">
