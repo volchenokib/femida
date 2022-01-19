@@ -1,10 +1,10 @@
 <template>
 	<el-form class="custom-form" ref="form" :model="form">
-		<el-form-item label="Выбор компании">
+		<el-form-item label="Select a company">
 			<el-select
 				class="custom-form__item"
 				v-model="form.company"
-				placeholder="Название компании"
+				placeholder="Company name"
 				:remote-method="remoteMethod"
 				:disabled="isDisable"
 				:loading="this.$store.state.searchLoading"

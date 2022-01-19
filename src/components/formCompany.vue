@@ -1,6 +1,6 @@
 <template>
 	<el-form class="custom-form" ref="form" :model="form">
-		<el-form-item label="Select company">
+		<el-form-item label="Select a company">
 			<el-select
 				class="custom-form__item"
 				v-model="form.company"
@@ -36,7 +36,7 @@
 			</el-radio-group>
 		</el-form-item>
 
-		<el-form-item label="Select region">
+		<el-form-item label="Select a region">
 			<el-select
 				class="custom-form__item"
 				v-model="form.region"
