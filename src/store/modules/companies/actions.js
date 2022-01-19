@@ -15,3 +15,7 @@ export function getCompanyData({ commit }) {
 			console.log('error', error);
 		});
 }
+
+export function getDashboardData({ commit }) {
+	commit('API_DATA_COMPANY_SUCCES', []);
+}

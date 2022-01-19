@@ -95,11 +95,11 @@ export default {
 
 	created() {
 		// set default value
-		this.form.company = this.$store.state.companies[0];
+		this.form.company = 'company'; //this.$store.state.companies[0]
 		// this.form.company = this.state2;
-		this.form.region = this.regions[0];
+		this.form.region =  'region' // this.regions[0];
 
-		this.$store.dispatch("getDashboardData", this.form);
+		// this.$store.dispatch("getDashboardData", this.form);
 
 		// this.list = this.companies.map(item => {
 		//   return { value: item, label: item };

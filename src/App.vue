@@ -23,7 +23,7 @@
               />-->
 						</div>
 					</el-tab-pane>
-					<el-tab-pane label="Сonnections" lazy>
+					<el-tab-pane label="Relations" lazy>
 						<!-- <span class="tabs__title">Отслеживание связей между поставщиками</span> -->
 						<formRelations />
 					</el-tab-pane>
@@ -86,6 +86,7 @@ export default {
 
 	methods: {
 		handleClick(tab, event) {
+			
 			if (tab.label == 'Компания') {
 				this.$router.replace('/');
 				this.$store.state.headerTitle = 'Анализ по компании';
@@ -94,7 +95,7 @@ export default {
 				this.$router.replace('region');
 				this.$store.state.headerTitle = 'Анализ по территориальному признаку';
 			}
-			if (tab.label == 'Связи') {
+			if (tab.label == 'Relations') {
 				this.$router.replace('relations');
 				this.$store.state.headerTitle =
 					'Отслеживание связей между поставщиками';
