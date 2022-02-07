@@ -1,10 +1,10 @@
 <template>
-	<div>
+	<div id='app'>
 		<el-container style="height: 100%;">
 			<el-aside id="sidebar" class="asside">
 				<el-header class="asside__header">
 					<h1 class="h1">
-						<span style="color: #DC69AA">Simple</span>&nbsp;Dashboard
+						<span style="color: #DC69AA">{{titleHandler('Super Simple')}}</span>Dashboard
 					</h1>
 					<!-- <div class="logo"></div> -->
 				</el-header>
@@ -28,8 +28,8 @@
 						<formRelations />
 					</el-tab-pane>
 				</el-tabs>
-				<footer class="footer">
-					<span>Copyright © F Dashboard 2021. All Rights Reserved</span>
+				<footer class="footer" data-testid="footer">
+					<span>Copyright © SSD Dashboard {{getCurrentYear}}. All Rights Reserved</span>
 				</footer>
 			</el-aside>
 
@@ -59,6 +59,7 @@ import formRegion from './components/formRegion.vue';
 import formCompany from './components/formCompany.vue';
 import formRelations from './components/formRelations.vue';
 import appSelect from '@/components/appSelect';
+import {padEnd} from 'lodash'
 
 export default {
 	name: 'app',
@@ -81,10 +82,19 @@ export default {
 				return value.value !== ' ';
 			});
 			return filtered;
-		}
+		},
+		 getCurrentYear() {
+			const currentDate = new Date();
+  			return currentDate.getFullYear();
+		 }
 	},
 
 	methods: {
+		titleHandler(str) {
+			const title = `${padEnd(str, 13)}`
+			return  title;
+		 },
+
 		handleClick(tab, event) {
 			
 			if (tab.label == 'Компания') {
